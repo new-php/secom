@@ -5,7 +5,6 @@ from views.log_in_window import LogInWind as LIWind
 if __name__ == '__main__':
     root = Root()
 
-    root.createFrame(LIWind)
-    root.showFrame(LIWind)
+    root.showFrame("LIWind")
     
     root.mainloop()

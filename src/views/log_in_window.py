@@ -1,43 +1,34 @@
 import tkinter as tk
 import tkinter.font as tkf
-from .log_in_window import LogInWind as LIWind
+from tkinter import ttk
 
 
 class LogInWind(tk.Frame):
     def __init__(self, parent, controller):
-        super().__init__(parent, controller)
+        super().__init__(parent)
         
         # Creation of labels.
-        self.titleLbl = tk.Label(self,
+        self.titleLbl = ttk.Label(self,
                                  text="Iniciar Secion",
-                                 font=tkf.Font(family="Helvetica", size=15, weight="bold"),
-                                 bg="#E0E0E0")
-        self.userLbl = tk.Label(self,
+                                 font=tkf.Font(family="Helvetica", size=15))
+        self.userLbl = ttk.Label(self,
                                 text="Usuario:",
-                                font=tkf.Font(family="Helvetica", size=10, weight="bold"),
-                                bg="#E0E0E0")
-        self.pswdLbl = tk.Label(self,
+                                font=tkf.Font(family="Helvetica", size=10))
+        self.pswdLbl = ttk.Label(self,
                                 text="Contraseña:",
-                                font=tkf.Font(family="Helvetica", size=10, weight="bold"),
-                                bg="#E0E0E0")
+                                font=tkf.Font(family="Helvetica", size=10))
         # Creation of entries.
-        self.userEty = tk.Entry(self)   
-        self.pswdEty = tk.Entry(self, show="*")
+        self.userEty = ttk.Entry(self)   
+        self.pswdEty = ttk.Entry(self, show="*")
         # Creation of buttons.
-        self.logInBtn = tk.Button(self,
+        self.logInBtn = ttk.Button(self,
                                   width=15,
-                                  text="Iniciar Sesion",
-                                  font=tkf.Font(family="Helvetica", size=10, weight="bold"),
-                                  bg="#0080FF",
-                                  ################################### ADD COMMAND
-                                  fg="#fff")
-        self.signUpBtn  = tk.Button(self,
+                                  text="Iniciar Sesion")
+        self.signUpBtn = ttk.Button(self,
                                     width=15,
                                     text="Crear cuenta",
-                                    font=tkf.Font(family="Helvetica", size=10, weight="bold"),
-                                    bg="#0080FF",
-                                    command=lambda: controller.showFrame(SUWind),
-                                    fg="#fff")
+                                    command=lambda: controller.showFrame(page_name="SUWind"))
+        controller.setWindParam()
 
         # Places labels.
         self.titleLbl.grid(row=0,
@@ -46,21 +37,21 @@ class LogInWind(tk.Frame):
                            pady=10,sticky=tk.SW)
         self.userLbl.grid(row=1,
                           column=0,
-                          padx=parent.width_window / 2 - 60,
+                          padx=controller.widthWindow / 2 - 60,
                           sticky=tk.SW)
         self.pswdLbl.grid(row=3,
                           column=0,
-                          padx=parent.width_window / 2 - 60,
+                          padx=controller.widthWindow / 2 - 60,
                           sticky=tk.W)
         # Places entries (string inputs).
         self.userEty.grid(row=2,
                           column=0,
-                          padx=parent.width_window / 2 - 60,
+                          padx=controller.widthWindow / 2 - 60,
                           pady=5)
         self.pswdEty.grid(row=4,
                           column=0,
-                          padx=parent.width_window / 2 - 60,
+                          padx=controller.widthWindow / 2 - 60,
                           pady=5)
         # # Places buttons
-        self.logInBtn.grid(row=5,column=0, sticky=tk.N)
-        self.signUpBtn.grid(row=6, column=0, sticky=tk.S, pady=10)
+        self.logInBtn.grid(row=5,column=0, pady=5, sticky=tk.N)
+        self.signUpBtn.grid(row=6, column=0, pady=5 ,sticky=tk.S)
