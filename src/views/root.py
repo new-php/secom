@@ -11,6 +11,7 @@ class Root(tk.Tk):
         self.container = tk.Frame(self,relief="groove")
         self.__width_window = 400
         self.__height_window = 225
+        self.conector = Messenger()
         self.frames = {}
         self.catalog = {
             "LIWind": LIWind,
@@ -90,6 +91,10 @@ class Root(tk.Tk):
 
     def get_width_window(self):
         return self.__width_window
+
+
+    def get_height_window(self):
+        return self.height_window
 
     def set_wind_size(self, width, height):
         """

@@ -34,7 +34,8 @@ class LogInWind(tk.Frame):
         self.title_lbl.grid(row=0,
                            column=0,
                            padx=400 / 2 - 60,
-                           pady=10,sticky=tk.SW)
+                           pady=10,
+                           sticky=tk.SW)
         self.user_lbl.grid(row=1,
                           column=0,
                           padx=controller.get_width_window() / 2 - 60,
