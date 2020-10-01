@@ -48,7 +48,7 @@ class SignUpWind(tk.Frame):
         self.hint_ety = ttk.Entry(self)                                
         # Creation of button.
         self.back_btn = ttk.Button(self,
-                                 text="Regresar",
+                                 text="Cancelar",
                                  command=lambda: controller.show_frame("LIWind"))
         self.create_btn = ttk.Button(self,
                                      width=8,
