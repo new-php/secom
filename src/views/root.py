@@ -9,8 +9,8 @@ class Root(tk.Tk):
         super().__init__(*args,**kwargs)
         
         self.container = tk.Frame(self,relief="groove")
-        self.widthWindow = 400
-        self.heightWindow = 225
+        self.__width_window = 400
+        self.__height_window = 225
         self.frames = {}
         self.catalog = {
             "LIWind": LIWind,
@@ -25,65 +25,81 @@ class Root(tk.Tk):
         # General app configurations.
         self.title("SECOM")
         self.iconbitmap("C:/Users/joshu/Documents/VSC/python/secom/src/assets/icons/icon.ico")
+        self.set_wind_param()
 
 
-    def _createFrame(self, page_name):
+    def _create_frame(self, view_name):
         """
         INPUT: view object. 
         OUTPUT: None
 
-        Description: creates frame for the view `page_name`.
+        Description: creates frame for the view `vire_name`.
         """
 
         # Setup `newFrame.`
-        newFrame = page_name(parent=self.container, controller=self)
-        newFrame.grid(row=0, column=0, sticky=tk.NSEW)
+        new_frame = view_name(parent=self.container, controller=self)
+        new_frame.grid(row=0, column=0, sticky=tk.NSEW)
 
         # Add `newFrame` to catalog of frames.
-        self.frames[page_name] = newFrame
+        self.frames[view_name] = new_frame
         
 
-    def showFrame(self, page_name):
+    def show_frame(self, view_name):
         """
         INPUT: string
         OUTPUT: None.
 
-        Calls the view `page_name` up front for display.
+        Calls the view `view_name` up front for display.
         """
 
         try:
             # Convert str to view object.
-            page_name = self.conv(page_name)
+            view_name = self.conv(view_name)
             # Bings requested view to the front.
-            self.frames[page_name].tkraise()
+            self.frames[view_name].tkraise()
         except KeyError:
             # Creates view and displays it.
-            self._createFrame(page_name)
-            self.frames[page_name].tkraise()
+            self._create_frame(view_name)
+            self.frames[view_name].tkraise()
 
 
-    def setWindParam(self):
-        """
-        INPUT: None
-        OUTPUT: None
-
-        Description: Sets window in the middle of the screen.
-        """
-        widthScreen = self.winfo_screenwidth()
-        hightScreen = self.winfo_screenheight()
-        x = (widthScreen / 2) - (self.widthWindow / 2)
-        y = (hightScreen / 2) - (self.heightWindow / 2)
-
-        self.geometry("%dx%d+%d+%d" % (self.widthWindow, self.heightWindow, x, y))
-
-
-    def conv(self, page_name):
+    def conv(self, view_name):
         """
         INPUT: string
         OUTPUT: view object
 
         Converts string to an existant view object
         """
-        for view in self.catalog:
-            if view == page_name:
-                return self.catalog[view]
+        return self.catalog[view_name]
+
+
+    def set_wind_param(self):
+        """
+        INPUT: None
+        OUTPUT: None
+
+        Description: Sets window in the middle of the screen.
+        """
+        width_screen = self.winfo_screenwidth()
+        hight_screen = self.winfo_screenheight()
+        x = (width_screen / 2) - (self.__width_window / 2)
+        y = (hight_screen / 2) - (self.__height_window / 2)
+
+        self.geometry("%dx%d+%d+%d" % (self.__width_window, self.__height_window, x, y))
+
+
+    def get_width_window(self):
+        return self.__width_window
+
+    def set_wind_size(self, width, height):
+        """
+        INPUT: int x2
+        OUTPUT: None
+
+        Description: Changes main window's height and width.
+        """
+        self.__width_window = width
+        self.__height_window = height
+
+        self.geometry("%dx%d" % (self.__width_window, self.__height_window))
+
