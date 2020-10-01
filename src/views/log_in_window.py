@@ -3,7 +3,7 @@ import tkinter.font as tkf
 from tkinter import ttk
 
 
-class LogInWind(tk.Frame):
+class LogInWind(ttk.Frame):
     def __init__(self, parent, controller):
         super().__init__(parent)
         
@@ -27,7 +27,7 @@ class LogInWind(tk.Frame):
         self.signUp_btn = ttk.Button(self,
                                     width=15,
                                     text="Crear cuenta",
-                                    command=lambda: controller.show_frame("SUWind"))
+                                    command=lambda: controller.show_view("SUWind"))
         
 
         # Places labels.

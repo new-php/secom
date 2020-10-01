@@ -3,11 +3,11 @@ import tkinter.font as tkf
 from tkinter import ttk
 
 
-class SignUpWind(tk.Frame):
+class SignUpWind(ttk.Frame):
     def __init__(self, parent, controller): 
         super().__init__(parent)
 
-        controller.set_wind_size(400, 300)
+        controller.set_wind_size(400, 350)
 
         # Create label.
         self.title_lbl = ttk.Label(self,
@@ -49,7 +49,7 @@ class SignUpWind(tk.Frame):
         # Creation of button.
         self.back_btn = ttk.Button(self,
                                  text="Cancelar",
-                                 command=lambda: controller.show_frame("LIWind"))
+                                 command=lambda: controller.show_view("LIWind"))
         self.create_btn = ttk.Button(self,
                                      width=8,
                                      text="Crear",
@@ -59,79 +59,80 @@ class SignUpWind(tk.Frame):
         # Places labels.
         self.title_lbl.grid(row=0,
                            column=1,
-                           padx=40,
+                           padx=120,
+                           pady=10,
                            sticky=tk.NSEW)
         self.first_name_lbl.grid(row=1,
                             column=1,
-                            #padx=90,
+                            padx=70,
                             sticky=tk.W)
         self.second_name_lbl.grid(row=3,
                             column=1,
-                            #padx=70,
+                            padx=70,
                             sticky=tk.W)
         self.f_last_name_lbl.grid(row=5,
                             column=1,
-                            #padx=70,
+                            padx=71,
                             sticky=tk.W)
         self.m_last_name_lbl.grid(row=7,
                             column=1,
-                            #padx=70,
+                            padx=71,
                             sticky=tk.W)
         self.user_lbl.grid(row=1,
                           column=1,
-                          padx=75,
+                          padx=145,
                           sticky=tk.E)
         self.pswd_lbl.grid(row=3,
                           column=1,
-                          padx=55,
+                          padx=120,
                           sticky=tk.E)
         self.pswd_confirm_lbl.grid(row=5,
                                  column=1,
-                                 padx=2,
+                                 padx=70,
                                  sticky=tk.E)
         self.safewrd_lbl.grid(row=7,
                              column=1,
-                             padx=13,
+                             padx=80,
                              sticky=tk.E)
         # Places entries (string inputs).
         self.first_name_ety.grid(row=2,
                           column=1,
-                          #padx=50,
+                          padx=70,
                           pady=5,
                           sticky=tk.W)
         self.second_name_ety.grid(row=4,
                           column=1,
-                          #padx=50,
+                          padx=70,
                           pady=5,
                           sticky=tk.W)
         self.f_last_name_ety.grid(row=6,
                           column=1,
-                          #padx=50,
+                          padx=70,
                           pady=5,
                           sticky=tk.W)
         self.m_last_name_ety.grid(row=8,
                           column=1,
-                          #padx=50,
+                          padx=70,
                           pady=5,
                           sticky=tk.W)
         self.user_ety.grid(row=2,
                           column=1,
-                          #padx=controller.get_width_window() / 2 - 60,
+                          padx=70,
                           pady=5,
                           sticky=tk.E)
         self.pswd_ety.grid(row=4,
                           column=1,
-                          #padx=controller.get_width_window() / 2 - 60,
+                          padx=70,
                           pady=5,
                           sticky=tk.E)
         self.pswd_confirm_ety.grid(row=6,
                                  column=1,
-                                 #padx=controller.get_width_window() / 2 - 60,
+                                 padx=70,
                                  pady=5,
                                  sticky=tk.E)
         self.hint_ety.grid(row=8,
                              column=1,
-                             #padx=controller.get_width_window() / 2 - 60,
+                             padx=70,
                              pady=5,
                              sticky=tk.E)
         # Places buttons

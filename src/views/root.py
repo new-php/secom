@@ -1,4 +1,5 @@
 import tkinter as tk
+from tkinter import ttk
 from .log_in_window import LogInWind as LIWind
 from .sign_up_window import  SignUpWind as SUWind
 from services.messenger import Messenger
@@ -8,11 +9,11 @@ class Root(tk.Tk):
     def __init__(self, *args,**kwargs):
         super().__init__(*args,**kwargs)
         
-        self.container = tk.Frame(self,relief="groove")
+        self.container = ttk.Frame(self,relief="groove")
         self.__width_window = 400
         self.__height_window = 225
         self.conector = Messenger()
-        self.frames = {}
+        self.views = {}
         self.catalog = {
             "LIWind": LIWind,
             "SUWind": SUWind
@@ -29,7 +30,7 @@ class Root(tk.Tk):
         self.set_wind_param()
 
 
-    def _create_frame(self, view_name):
+    def _create_view(self, view_name):
         """
         INPUT: view object. 
         OUTPUT: None
@@ -38,14 +39,14 @@ class Root(tk.Tk):
         """
 
         # Setup `newFrame.`
-        new_frame = view_name(parent=self.container, controller=self)
-        new_frame.grid(row=0, column=0, sticky=tk.NSEW)
+        new_view = view_name(parent=self.container, controller=self)
+        new_view.grid(row=0, column=0, sticky=tk.NSEW)
 
         # Add `newFrame` to catalog of frames.
-        self.frames[view_name] = new_frame
+        self.views[view_name] = new_view
         
 
-    def show_frame(self, view_name):
+    def show_view(self, view_name):
         """
         INPUT: string
         OUTPUT: None.
@@ -57,11 +58,11 @@ class Root(tk.Tk):
             # Convert str to view object.
             view_name = self.conv(view_name)
             # Bings requested view to the front.
-            self.frames[view_name].tkraise()
+            self.views[view_name].tkraise()
         except KeyError:
             # Creates view and displays it.
-            self._create_frame(view_name)
-            self.frames[view_name].tkraise()
+            self._create_view(view_name)
+            self.views[view_name].tkraise()
 
 
     def conv(self, view_name):
@@ -95,6 +96,7 @@ class Root(tk.Tk):
 
     def get_height_window(self):
         return self.height_window
+
 
     def set_wind_size(self, width, height):
         """
