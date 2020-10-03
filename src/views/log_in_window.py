@@ -6,6 +6,8 @@ from tkinter import ttk
 class LogInWind(ttk.Frame):
     def __init__(self, parent, controller):
         super().__init__(parent)
+
+        parent.config(relief="groove")
         
         # Creation of labels.
         self.title_lbl = ttk.Label(self,

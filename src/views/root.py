@@ -9,7 +9,7 @@ class Root(tk.Tk):
     def __init__(self, *args,**kwargs):
         super().__init__(*args,**kwargs)
         
-        self.container = ttk.Frame(self,relief="groove")
+        self.container = ttk.Frame(self)
         self.__width_window = 400
         self.__height_window = 225
         self.conector = Messenger()
@@ -20,7 +20,7 @@ class Root(tk.Tk):
         }
         
         # Container setup.
-        self.container.pack(side="top", fill="both", expand=True)
+        self.container.pack(side="top", expand=True)
         self.container.grid_rowconfigure(0, weight=1)
         self.container.grid_columnconfigure(0, weight=1)
 
