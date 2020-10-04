@@ -1,13 +1,17 @@
 import tkinter as tk
 import tkinter.font as tkf
+import string
 from tkinter import ttk
+from services.filter import parse_info
 
 
 class SignUpWind(ttk.Frame):
     def __init__(self, parent, controller): 
         super().__init__(parent)
 
-        controller.set_wind_size(400, 400)
+        self.title_frame = ttk.Frame(parent)
+
+        controller.set_wind_size(500, 500)
 
         # Create label.
         title_lbl = ttk.Label(self,
@@ -63,14 +67,14 @@ class SignUpWind(ttk.Frame):
         create_btn = ttk.Button(self,
                                 width=15,
                                 text="Crear",
-                                command=self.send_info)
+                                command=lambda: self.send_info())
 
 
         # Places labels.
         title_lbl.grid(row=0,
                        column=1,
                        padx=120,
-                       pady=10,
+                       pady=(20, 10),
                        sticky=tk.NSEW)
         first_name_lbl.grid(row=1,
                             column=1,
@@ -112,47 +116,47 @@ class SignUpWind(ttk.Frame):
         self.first_name_ety.grid(row=2,
                                  column=1,
                                  padx=70,
-                                 pady=5,
+                                 pady=(0, 20),
                                  sticky=tk.W)
         self.second_name_ety.grid(row=4,
                                   column=1,
                                   padx=70,
-                                  pady=5,
+                                  pady=(0, 20),
                                   sticky=tk.W)
         self.f_last_name_ety.grid(row=6,
                                   column=1,
                                   padx=70,
-                                  pady=5,
+                                  pady=(0, 20),
                                   sticky=tk.W)
         self.m_last_name_ety.grid(row=8,
                                   column=1,
                                   padx=70,
-                                  pady=5,
+                                  pady=(0, 20),
                                   sticky=tk.W)
         self.user_ety.grid(row=2,
                            column=1,
                            padx=70,
-                           pady=5,
+                           pady=(0, 20),
                            sticky=tk.E)
         self.pswd_ety.grid(row=4,
                            column=1,
                            padx=70,
-                           pady=5,
+                           pady=(0, 20),
                            sticky=tk.E)
         self.pswd_confirm_ety.grid(row=6,
                                    column=1,
                                    padx=70,
-                                   pady=5,
+                                   pady=(0, 20),
                                    sticky=tk.E)
         self.hint_ety.grid(row=8,
                            column=1,
                            padx=70,
-                           pady=5,
+                           pady=(0, 20),
                           sticky=tk.E)
         # Palcing combobox.
         acc_type_cbx.grid(row=10,
                           column=1,
-                          pady=5,
+                          pady=(0, 10),
                           sticky=tk.NS)
         acc_type_cbx.current(0)
         # Places buttons
@@ -169,4 +173,87 @@ class SignUpWind(ttk.Frame):
 
 
     def send_info(self):
+        """
+        INPUTS: None
+        OUTPUT: None
+
+        Description: Creates dict with keys as entry names which
+        each has anothe dict with keys 'value' and 'input type'.
+        Filters info and sends it to database thorugh
+        `Messenger`.
+
+        Entry names: 
+        - first name.          - User           - Father last name.
+        - Secod name.          - Hint           - Mother last name.
+        - Password                              - Confirm Password.
+
+        Value: 
+        Entry box inputs. All managed as strings.
+
+        Input type:
+        - L -----> Letters.
+        - N -----> Numbers.
+        - S -----> Special characters (!, @, #, $, %, ^, &, *, <, >, ?).
+        ***USE TOGETHER ADD SUCH CHARACTER TYPE TO ACCEPTABLE FOR 
+           THE INPUT***
+        Ex. LNS mean letter and Numbers and special characters.
+
+        """
+        
+        entries = {
+            'first name': {
+                'value': self.first_name_ety.get(),
+                'input type': 'L',
+                'label': 0
+            },
+            'second name': {
+                'value': self.second_name_ety.get(),
+                'input type': 'L'
+            },
+            'father last name': {
+                'value': self.f_last_name_ety.get(),
+                'input type': 'L'
+            },
+            'mother last name': {
+                'value': self.m_last_name_ety.get(),
+                'input type': 'L'
+            },
+            'user': {
+                'value':self.user_ety.get(),
+                'input type': "LNS"
+            },
+            'hint': {
+                'value': self.hint_ety.get(),
+                'input type': 'L'
+            },
+            'password': {
+                'value': self.pswd_ety.get(),
+                'input type': "LNS"
+            },
+            'confirm password': {
+                'value': self.pswd_confirm_ety.get(),
+                'input type': "LNS"
+            }
+        }
+
+        parse_info(entries)
+
+        self.wrong_inp_message(entries)
+
+
+
+
+    def wrong_inp_message(self, entries):
+        """
+        INPUT:
+        - dict (check send_info() description for more specifications)
+        Output:
+          None
+
+        Description: Displays invalid argument labels for invalid 
+        inputs.
+        """
         pass
+        # for info in entries:
+        #     for flag in entries[info]['erorr']:
+        #         if flag:
