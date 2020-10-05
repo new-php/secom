@@ -13,102 +13,102 @@ class SignUpWind(ttk.Frame):
         controller.set_wind_param()
         frame_pad = 150
 
-    # ----------------------------------------FRAMES--------------------------------------------------
+        # ----------------------------------------FRAMES--------------------------------------------------
         title_frm = ttk.Frame(self)
         title_frm.grid(row=0, column=0, pady=(0, 20))
-        person_info_frm = ttk.LabelFrame(self,
+        self.person_info_frm = ttk.LabelFrame(self,
                                          text="Informacion Personal",
                                          padding="2m",
-                                         relief=tk.GROOVE)
-        person_info_frm.grid(row=1, column=0, padx=(frame_pad / 3, 0), pady=(10, 20), sticky=tk.NW)
-        access_info_frm = ttk.LabelFrame(self,
+                                         relief=tk.RIDGE)
+        self.person_info_frm.grid(row=1, column=0, padx=(frame_pad / 3, 0), pady=(10, 20), sticky=tk.NW)
+        self.access_info_frm = ttk.LabelFrame(self,
                                          text="Informacion de accesso",
                                          padding="2m",
-                                         relief=tk.GROOVE)
-        access_info_frm.grid(row=1, column=0, padx=(0, frame_pad / 3), pady=(10,20), sticky=tk.NE)
+                                         relief=tk.RIDGE)
+        self.access_info_frm.grid(row=1, column=0, padx=(0, frame_pad / 3), pady=(10,20), sticky=tk.NE)
 
 
-    # -----------------------------------------LABELS--------------------------------------------------
+        # -----------------------------------------LABELS--------------------------------------------------
         title_lbl = ttk.Label(title_frm,
                               text="Crear cuenta nueva",
                               font=tkf.Font(family="Helvetica", size=15))
         title_lbl.grid(row=0, column=0, padx=frame_pad, sticky=tk.NS)
 
-        first_name_lbl = ttk.Label(person_info_frm,
+        first_name_lbl = ttk.Label(self.person_info_frm,
                                    text="Nombre:",
                                    font=tkf.Font(family="Helvetica", size=10))
         first_name_lbl.grid(row=0, column=0, sticky=tk.W)
 
-        second_name_lbl = ttk.Label(person_info_frm,
+        second_name_lbl = ttk.Label(self.person_info_frm,
                                     text="Segundo nombre:",
                                     font=tkf.Font(family="Helvetica", size=10))
         second_name_lbl.grid(row=3, column=0, pady=(15, 0), sticky=tk.W)
 
-        f_last_name_lbl = ttk.Label(person_info_frm,
+        f_last_name_lbl = ttk.Label(self.person_info_frm,
                                     text="Apellido paterno:",
                                     font=tkf.Font(family="Helvetica", size=10))
         f_last_name_lbl.grid(row=6, column=0, pady=(15, 0), sticky=tk.W)
 
-        m_last_name_lbl = ttk.Label(person_info_frm,
+        m_last_name_lbl = ttk.Label(self.person_info_frm,
                                     text="Apellido materno:",
                                     font=tkf.Font(family="Helvetica", size=10))
         m_last_name_lbl.grid(row=9, column=0, pady=(15, 0), sticky=tk.W)
 
-        user_lbl = ttk.Label(access_info_frm,
+        user_lbl = ttk.Label(self.access_info_frm,
                              text="Usuario:",
                              font=tkf.Font(family="Helvetica", size=10))
         user_lbl.grid(row=0, column=0, sticky=tk.W)
 
-        pswd_lbl = ttk.Label(access_info_frm,
+        pswd_lbl = ttk.Label(self.access_info_frm,
                              text="Contraseña:",
                              font=tkf.Font(family="Helvetica", size=10))
         pswd_lbl.grid(row=3, column=0, pady=(15, 0), sticky=tk.W)
 
-        pswd_confirm_lbl = ttk.Label(access_info_frm,
+        pswd_confirm_lbl = ttk.Label(self.access_info_frm,
                                      text="Confirme contraseña:",
                                      font=tkf.Font(family="Helvetica", size=10))
         pswd_confirm_lbl.grid(row=6, column=0, pady=(15, 0), sticky=tk.W)
 
-        hint_lbl = ttk.Label(access_info_frm,
+        hint_lbl = ttk.Label(self.access_info_frm,
                                 text="Palabra salvavidas:",
                                 font=tkf.Font(family="Helvetica", size=10))
         hint_lbl.grid(row=9, column=0, pady=(15, 0), sticky=tk.W)
 
-        acc_type_lbl = ttk.Label(access_info_frm,
+        acc_type_lbl = ttk.Label(self.access_info_frm,
                                  text="Tipo de cuenta:",
                                  font=tkf.Font(family="Helvetica", size=10))
         acc_type_lbl.grid(row=12, column=0, pady=(15, 0), sticky=tk.W)
 
 
-    # -----------------------------------------ENTRIES----------------------------------------------------
-        self.first_name_ety = ttk.Entry(person_info_frm)
+        # -----------------------------------------ENTRIES----------------------------------------------------
+        self.first_name_ety = ttk.Entry(self.person_info_frm)
         self.first_name_ety.grid(row=1,column=0, sticky=tk.W)
 
-        self.second_name_ety = ttk.Entry(person_info_frm)
+        self.second_name_ety = ttk.Entry(self.person_info_frm)
         self.second_name_ety.grid(row=4,column=0, sticky=tk.W)
 
-        self.f_last_name_ety = ttk.Entry(person_info_frm)
+        self.f_last_name_ety = ttk.Entry(self.person_info_frm)
         self.f_last_name_ety.grid(row=7,column=0, sticky=tk.W)
 
-        self.m_last_name_ety = ttk.Entry(person_info_frm)
+        self.m_last_name_ety = ttk.Entry(self.person_info_frm)
         self.m_last_name_ety.grid(row=10,column=0, sticky=tk.W)
 
-        self.user_ety = ttk.Entry(access_info_frm)
+        self.user_ety = ttk.Entry(self.access_info_frm)
         self.user_ety.grid(row=1,column=0, sticky=tk.E)
 
-        self.pswd_ety = ttk.Entry(access_info_frm, show="*")
+        self.pswd_ety = ttk.Entry(self.access_info_frm, show="*")
         self.pswd_ety.grid(row=4,column=0, sticky=tk.E)
 
-        self.pswd_confirm_ety = ttk.Entry(access_info_frm, show="*")
+        self.pswd_confirm_ety = ttk.Entry(self.access_info_frm, show="*")
         self.pswd_confirm_ety.grid(row=7,column=0, sticky=tk.E)
 
-        self.hint_ety = ttk.Entry(access_info_frm)
+        self.hint_ety = ttk.Entry(self.access_info_frm)
         self.hint_ety.grid(row=10,column=0, sticky=tk.E)
 
 
-    # -----------------------------------------COMBOBOX----------------------------------------------------
+        # -----------------------------------------COMBOBOX----------------------------------------------------
         self.acc_type_value = tk.StringVar()
-        acc_type_cbx = ttk.Combobox(access_info_frm,
+        acc_type_cbx = ttk.Combobox(self.access_info_frm,
                                     state="readonly",
                                     textvariable=self.acc_type_value)
         acc_type_cbx['values'] = ("Planeacion", "Almlacen")
@@ -116,7 +116,7 @@ class SignUpWind(ttk.Frame):
         acc_type_cbx.current(0)
 
 
-    # -----------------------------------------BUTTONS------------------------------------------------------        
+        # -----------------------------------------BUTTONS------------------------------------------------------        
         create_btn = ttk.Button(self,
                                     width=20,
                                     text="Crear",
@@ -196,12 +196,10 @@ class SignUpWind(ttk.Frame):
 
         parse_info(entries)
 
-        self.wrong_inp_message(entries)
+        self.create_error_labels(entries)
 
 
-
-
-    def wrong_inp_message(self, entries):
+    def create_error_labels(self, entries):
         """
         INPUT:
         - dict (check send_info() description for more specifications)
@@ -211,7 +209,17 @@ class SignUpWind(ttk.Frame):
         Description: Displays invalid argument labels for invalid 
         inputs.
         """
-        pass
-        # for info in entries:
-        #     for flag in entries[info]['erorr']:
-        #         if flag:
+        
+        for info in entries:
+            for flag in entries[info]['erorr']:
+                if entries[info]['input type'] == "L":
+                    if flag:
+                        # name_error_lbl = ttk.Label(self.person_info_frm, text="Caracteres aceptados: SOLO LETRAS")
+                        pass
+                    else:
+                        pass
+                elif entries[info]['input type'] == "LNS":
+                    if flag: 
+                        pass
+                    else:
+                        pass
