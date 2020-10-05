@@ -38,11 +38,11 @@ class Root(tk.Tk):
         Description: creates frame for the view `vire_name`.
         """
 
-        # Setup `newFrame.`
+        # Setup `new_view.`
         new_view = view_name(parent=self.container, controller=self)
         new_view.grid(row=0, column=0, sticky=tk.NSEW)
 
-        # Add `newFrame` to catalog of frames.
+        # Add `new_view` to catalog of frames.
         self.views[view_name] = new_view
         
 
