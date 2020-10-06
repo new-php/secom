@@ -13,7 +13,7 @@ class SignUpWind(ttk.Frame):
         controller.set_wind_param()
         frame_pad = 150
 
-        # ----------------------------------------FRAMES--------------------------------------------------
+        # -------------------------------FRAMES---------------------------------
         title_frm = ttk.Frame(self)
         title_frm.grid(row=0, column=1, pady=(0, 20))
 
@@ -23,16 +23,23 @@ class SignUpWind(ttk.Frame):
                                          text="Informacion Personal",
                                          padding="2m",
                                          relief=tk.RIDGE)
-        self.person_info_frm.grid(row=1, column=1, padx=(frame_pad / 3, 0), pady=(10, 20), sticky=tk.NW)
+        self.person_info_frm.grid(row=1,
+                                 column=1,
+                                 padx=(frame_pad / 3, 0),
+                                 pady=(10, 20), 
+                                 sticky=tk.NW)
 
         self.access_info_frm = ttk.LabelFrame(self,
                                          text="Informacion de accesso",
                                          padding="2m",
                                          relief=tk.RIDGE)
-        self.access_info_frm.grid(row=1, column=1, padx=(0, frame_pad / 3), pady=(10,20), sticky=tk.NE)
+        self.access_info_frm.grid(row=1,
+                                  column=1,
+                                  padx=(0, frame_pad / 3),
+                                  pady=(10,20), sticky=tk.NE)
 
 
-        # -----------------------------------------LABELS--------------------------------------------------
+        # -------------------------------LABELS---------------------------------
         title_lbl = ttk.Label(title_frm,
                               text="Crear cuenta nueva",
                               font=tkf.Font(family="Helvetica", size=15))
@@ -84,7 +91,7 @@ class SignUpWind(ttk.Frame):
         acc_type_lbl.grid(row=12, column=0, pady=(15, 0), sticky=tk.W)
 
 
-        # -----------------------------------------ENTRIES----------------------------------------------------
+        # -----------------------------ENTRIES----------------------------------
         self.first_name_ety = ttk.Entry(self.person_info_frm)
         self.first_name_ety.grid(row=1,column=0, sticky=tk.W)
 
@@ -110,7 +117,7 @@ class SignUpWind(ttk.Frame):
         self.hint_ety.grid(row=10,column=0, sticky=tk.W)
 
 
-        # -----------------------------------------COMBOBOX----------------------------------------------------
+        # ----------------------------COMBOBOX----------------------------------
         self.acc_type_value = tk.StringVar()
         acc_type_cbx = ttk.Combobox(self.access_info_frm,
                                     state="readonly",
@@ -120,7 +127,7 @@ class SignUpWind(ttk.Frame):
         acc_type_cbx.current(0)
 
 
-        # -----------------------------------------BUTTONS------------------------------------------------------        
+        # -----------------------------BUTTONS----------------------------------
         create_btn = ttk.Button(self,
                                     width=20,
                                     text="Crear",
@@ -159,7 +166,6 @@ class SignUpWind(ttk.Frame):
         ***USE TOGETHER ADD SUCH CHARACTER TYPE TO ACCEPTABLE FOR 
            THE INPUT***
         Ex. LNS mean letter and Numbers and special characters.
-
         """
         
         entries = {
