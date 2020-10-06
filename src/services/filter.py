@@ -26,7 +26,7 @@ def confirm_inp(inp):
                 
     # Adds all valid characters to `valid_chars` depending on
     # `innput type `
-    for typ in inp['ipnput type']:
+    for typ in inp['input type']:
         for letter in typ:
             if letter == 'L':
                 valid_chars |= set(string.ascii_letters)

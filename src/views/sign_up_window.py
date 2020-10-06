@@ -9,23 +9,27 @@ class SignUpWind(ttk.Frame):
     def __init__(self, parent, controller): 
         super().__init__(parent)
 
-        controller.set_wind_size(500, 500)
+        controller.set_wind_size(800, 500)
         controller.set_wind_param()
         frame_pad = 150
 
         # ----------------------------------------FRAMES--------------------------------------------------
         title_frm = ttk.Frame(self)
-        title_frm.grid(row=0, column=0, pady=(0, 20))
+        title_frm.grid(row=0, column=1, pady=(0, 20))
+
+        self.peron_error_frm = ttk.Frame(self)
+
         self.person_info_frm = ttk.LabelFrame(self,
                                          text="Informacion Personal",
                                          padding="2m",
                                          relief=tk.RIDGE)
-        self.person_info_frm.grid(row=1, column=0, padx=(frame_pad / 3, 0), pady=(10, 20), sticky=tk.NW)
+        self.person_info_frm.grid(row=1, column=1, padx=(frame_pad / 3, 0), pady=(10, 20), sticky=tk.NW)
+
         self.access_info_frm = ttk.LabelFrame(self,
                                          text="Informacion de accesso",
                                          padding="2m",
                                          relief=tk.RIDGE)
-        self.access_info_frm.grid(row=1, column=0, padx=(0, frame_pad / 3), pady=(10,20), sticky=tk.NE)
+        self.access_info_frm.grid(row=1, column=1, padx=(0, frame_pad / 3), pady=(10,20), sticky=tk.NE)
 
 
         # -----------------------------------------LABELS--------------------------------------------------
@@ -94,16 +98,16 @@ class SignUpWind(ttk.Frame):
         self.m_last_name_ety.grid(row=10,column=0, sticky=tk.W)
 
         self.user_ety = ttk.Entry(self.access_info_frm)
-        self.user_ety.grid(row=1,column=0, sticky=tk.E)
+        self.user_ety.grid(row=1,column=0, sticky=tk.W)
 
         self.pswd_ety = ttk.Entry(self.access_info_frm, show="*")
-        self.pswd_ety.grid(row=4,column=0, sticky=tk.E)
+        self.pswd_ety.grid(row=4,column=0, sticky=tk.W)
 
         self.pswd_confirm_ety = ttk.Entry(self.access_info_frm, show="*")
-        self.pswd_confirm_ety.grid(row=7,column=0, sticky=tk.E)
+        self.pswd_confirm_ety.grid(row=7,column=0, sticky=tk.W)
 
         self.hint_ety = ttk.Entry(self.access_info_frm)
-        self.hint_ety.grid(row=10,column=0, sticky=tk.E)
+        self.hint_ety.grid(row=10,column=0, sticky=tk.W)
 
 
         # -----------------------------------------COMBOBOX----------------------------------------------------
@@ -121,13 +125,13 @@ class SignUpWind(ttk.Frame):
                                     width=20,
                                     text="Crear",
                                     command=lambda: self.send_info())
-        create_btn.grid(row=2, column=0, pady=(0, 10), sticky=tk.NS)
+        create_btn.grid(row=2, column=1, pady=(0, 10), sticky=tk.NS)
 
         back_btn = ttk.Button(self,
                               width=20,
                               text="Cancelar",
                               command=lambda: controller.show_view("LIWind"))
-        back_btn.grid(row=3, column=0, sticky=tk.NS)
+        back_btn.grid(row=3, column=1, sticky=tk.NS)
 
 
     def send_info(self):
@@ -209,17 +213,22 @@ class SignUpWind(ttk.Frame):
         Description: Displays invalid argument labels for invalid 
         inputs.
         """
-        
+
         for info in entries:
-            for flag in entries[info]['erorr']:
-                if entries[info]['input type'] == "L":
-                    if flag:
-                        # name_error_lbl = ttk.Label(self.person_info_frm, text="Caracteres aceptados: SOLO LETRAS")
-                        pass
-                    else:
-                        pass
-                elif entries[info]['input type'] == "LNS":
-                    if flag: 
-                        pass
-                    else:
-                        pass
+            flag = entries[info]['error']
+
+            if entries[info]['input type'] == "L":
+                if flag:
+                    name_error_lbl = ttk.Label(self,
+                                                text="Caracteres aceptados: SOLO LETRAS",
+                                                foreground="#fc2803",
+                                                font=tkf.Font(family="Helvetica", size=10))
+                    name_error_lbl.grid(row=1,
+                                        column=0)
+                else:
+                    pass
+            elif entries[info]['input type'] == "LNS":
+                if flag: 
+                    pass
+                else:
+                    pass
