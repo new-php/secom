@@ -237,34 +237,3 @@ class SignUpWind(ttk.Frame):
     #     filter.parse_info(entries)
 
     #     self.create_error_labels(entries)
-
-
-    # def create_error_labels(self, entries):
-    #     """
-    #     INPUT:
-    #     - dict (check send_info() description for more specifications)
-    #     Output:
-    #       None
-
-    #     Description: Displays invalid argument labels for invalid 
-    #     inputs.
-    #     """
-
-    #     for info in entries:
-    #         flag = entries[info]['error']
-
-    #         if entries[info]['input type'] == "L":
-    #             if flag:
-    #                 name_error_lbl = ttk.Label(self,
-    #                                             text="Caracteres aceptados: SOLO LETRAS",
-    #                                             foreground="#fc2803",
-    #                                             font=tkf.Font(family="Helvetica", size=10))
-    #                 name_error_lbl.grid(row=1,
-    #                                     column=0)
-    #             else:
-    #                 pass
-    #         elif entries[info]['input type'] == "LNS":
-    #             if flag: 
-    #                 pass
-    #             else:
-    #                 pass
