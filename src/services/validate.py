@@ -9,6 +9,39 @@ def parse_info(entries):
     for info in entries:
         entries[info]['error'] = confirm_inp(entries[info])
 
+def letters(entry):
+    inpset = set([letter for letter in entry])
+    valid_chars = set(string.ascii_letters)
+    valid_chars |= {'ñ', 'á', 'é', 'í', 'ó', 'ú', 'Ñ'}
+
+    if valid_chars.issuperset(inpset):
+        return True
+    else:
+        return False
+
+def letters_numbers(entry):
+    inpset = set([letter for letter in entry])
+    valid_chars = set(string.ascii_letters)
+    valid_chars |= set(string.digits)
+    valid_chars |= {'ñ', 'á', 'é', 'í', 'ó', 'ú', 'Ñ'}
+
+    if valid_chars.issuperset(inpset):
+        return True
+    else:
+        return False
+
+def letters_numbers_specials(entry):
+    inpset = set([letter for letter in entry])
+    valid_chars = set(string.ascii_letters)
+    valid_chars |= set(string.digits)
+    valid_chars |= {'ñ', 'á', 'é', 'í', 'ó', 'ú', 'Ñ'}
+    valid_chars |= {'!', '@', '#', '$', '%', '^', '&', '*', '<', '>', '?'}
+
+    if valid_chars.issuperset(inpset):
+        return True
+    else:
+        return False
+
 
 def confirm_inp(inp):
     """

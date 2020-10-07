@@ -2,7 +2,7 @@ import tkinter as tk
 import tkinter.font as tkf
 import string
 from tkinter import ttk
-from services.filter import parse_info
+from services import validate
 
 
 class SignUpWind(ttk.Frame):
@@ -91,29 +91,54 @@ class SignUpWind(ttk.Frame):
         acc_type_lbl.grid(row=12, column=0, pady=(15, 0), sticky=tk.W)
 
 
+        # ---------------------------VALIDATORS---------------------------------
+        validate_letters = (self.register(validate.letters), '%P')
+        validate_user = (self.register(validate.letters_numbers), '%P')
+        validate_pswd = (self.register(validate.letters_numbers_specials), '%P')
+
+
         # -----------------------------ENTRIES----------------------------------
-        self.first_name_ety = ttk.Entry(self.person_info_frm)
+        self.first_name_ety = ttk.Entry(self.person_info_frm,
+                                        validate="key",
+                                        validatecommand=validate_letters)
         self.first_name_ety.grid(row=1,column=0, sticky=tk.W)
 
-        self.second_name_ety = ttk.Entry(self.person_info_frm)
+        self.second_name_ety = ttk.Entry(self.person_info_frm,
+                                         validate="key",
+                                         validatecommand=validate_letters)
         self.second_name_ety.grid(row=4,column=0, sticky=tk.W)
 
-        self.f_last_name_ety = ttk.Entry(self.person_info_frm)
+        self.f_last_name_ety = ttk.Entry(self.person_info_frm,
+                                         validate="key",
+                                         validatecommand=validate_letters)
         self.f_last_name_ety.grid(row=7,column=0, sticky=tk.W)
 
-        self.m_last_name_ety = ttk.Entry(self.person_info_frm)
+        self.m_last_name_ety = ttk.Entry(self.person_info_frm,
+                                         validate="key",
+                                         validatecommand=validate_letters)
         self.m_last_name_ety.grid(row=10,column=0, sticky=tk.W)
 
-        self.user_ety = ttk.Entry(self.access_info_frm)
+        self.user_ety = ttk.Entry(self.access_info_frm,
+                                  validate="key",
+                                  validatecommand=validate_user)
         self.user_ety.grid(row=1,column=0, sticky=tk.W)
 
-        self.pswd_ety = ttk.Entry(self.access_info_frm, show="*")
+
+        self.pswd_ety = ttk.Entry(self.access_info_frm,
+                                  validate="key",
+                                  validatecommand=validate_pswd,
+                                  show="*")
         self.pswd_ety.grid(row=4,column=0, sticky=tk.W)
 
-        self.pswd_confirm_ety = ttk.Entry(self.access_info_frm, show="*")
+        self.pswd_confirm_ety = ttk.Entry(self.access_info_frm,
+                                          show="*",
+                                          validate="key",
+                                          validatecommand=validate_user)
         self.pswd_confirm_ety.grid(row=7,column=0, sticky=tk.W)
 
-        self.hint_ety = ttk.Entry(self.access_info_frm)
+        self.hint_ety = ttk.Entry(self.access_info_frm,
+                                  validate="key",
+                                  validatecommand=validate_letters)
         self.hint_ety.grid(row=10,column=0, sticky=tk.W)
 
 
@@ -130,8 +155,8 @@ class SignUpWind(ttk.Frame):
         # -----------------------------BUTTONS----------------------------------
         create_btn = ttk.Button(self,
                                     width=20,
-                                    text="Crear",
-                                    command=lambda: self.send_info())
+                                    text="Crear")
+                                    # command=lambda: self.send_info()
         create_btn.grid(row=2, column=1, pady=(0, 10), sticky=tk.NS)
 
         back_btn = ttk.Button(self,
@@ -141,100 +166,105 @@ class SignUpWind(ttk.Frame):
         back_btn.grid(row=3, column=1, sticky=tk.NS)
 
 
-    def send_info(self):
-        """
-        INPUTS: None
-        OUTPUT: None
 
-        Description: Creates dict with keys as entry names which
-        each has anothe dict with keys 'value' and 'input type'.
-        Filters info and sends it to database thorugh
-        `Messenger`.
+    def handle_error(self, widget_entry):
+        widget_entry.config(highlightbackground = "red", highlightcolor= "red")
 
-        Entry names: 
-        - first name.          - User           - Father last name.
-        - Secod name.          - Hint           - Mother last name.
-        - Password                              - Confirm Password.
 
-        Value: 
-        Entry box inputs. All managed as strings.
+    # def send_info(self):
+    #     """
+    #     INPUTS: None
+    #     OUTPUT: None
 
-        Input type:
-        - L -----> Letters.
-        - N -----> Numbers.
-        - S -----> Special characters (!, @, #, $, %, ^, &, *, <, >, ?).
-        ***USE TOGETHER ADD SUCH CHARACTER TYPE TO ACCEPTABLE FOR 
-           THE INPUT***
-        Ex. LNS mean letter and Numbers and special characters.
-        """
+    #     Description: Creates dict with keys as entry names which
+    #     each has anothe dict with keys 'value' and 'input type'.
+    #     Filters info and sends it to database thorugh
+    #     `Messenger`.
+
+    #     Entry names: 
+    #     - first name.          - User           - Father last name.
+    #     - Secod name.          - Hint           - Mother last name.
+    #     - Password                              - Confirm Password.
+
+    #     Value: 
+    #     Entry box inputs. All managed as strings.
+
+    #     Input type:
+    #     - L -----> Letters.
+    #     - N -----> Numbers.
+    #     - S -----> Special characters (!, @, #, $, %, ^, &, *, <, >, ?).
+    #     ***USE TOGETHER ADD SUCH CHARACTER TYPE TO ACCEPTABLE FOR 
+    #        THE INPUT***
+    #     Ex. LNS mean letter and Numbers and special characters.
+    #     """
         
-        entries = {
-            'first name': {
-                'value': self.first_name_ety.get(),
-                'input type': 'L',
-                'label': 0
-            },
-            'second name': {
-                'value': self.second_name_ety.get(),
-                'input type': 'L'
-            },
-            'father last name': {
-                'value': self.f_last_name_ety.get(),
-                'input type': 'L'
-            },
-            'mother last name': {
-                'value': self.m_last_name_ety.get(),
-                'input type': 'L'
-            },
-            'user': {
-                'value':self.user_ety.get(),
-                'input type': "LNS"
-            },
-            'hint': {
-                'value': self.hint_ety.get(),
-                'input type': 'L'
-            },
-            'password': {
-                'value': self.pswd_ety.get(),
-                'input type': "LNS"
-            },
-            'confirm password': {
-                'value': self.pswd_confirm_ety.get(),
-                'input type': "LNS"
-            }
-        }
+    #     entries = {
+    #         'first name': {
+    #             'value': self.first_name_ety.get(),
+    #             'input type': 'L',
+    #             'label': 0
+    #         },
+    #         'second name': {
+    #             'value': self.second_name_ety.get(),
+    #             'input type': 'L'
+    #         },
+    #         'father last name': {
+    #             'value': self.f_last_name_ety.get(),
+    #             'input type': 'L'
+    #         },
+    #         'mother last name': {
+    #             'value': self.m_last_name_ety.get(),
+    #             'input type': 'L'
+    #         },
+    #         'user': {
+    #             'value':self.user_ety.get(),
+    #             'input type': "LNS"
+    #         },
+    #         'hint': {
+    #             'value': self.hint_ety.get(),
+    #             'input type': 'L'
+    #         },
+    #         'password': {
+    #             'value': self.pswd_ety.get(),
+    #             'input type': "LNS"
+    #         },
+    #         'confirm password': {
+    #             'value': self.pswd_confirm_ety.get(),
+    #             'input type': "LNS"
+    #         }
+    #     }
 
-        parse_info(entries)
+    #     filter.parse_info(entries)
 
-        self.create_error_labels(entries)
+    #     self.create_error_labels(entries)
 
 
-    def create_error_labels(self, entries):
-        """
-        INPUT:
-        - dict (check send_info() description for more specifications)
-        Output:
-          None
+    # def create_error_labels(self, entries):
+    #     """
+    #     INPUT:
+    #     - dict (check send_info() description for more specifications)
+    #     Output:
+    #       None
 
-        Description: Displays invalid argument labels for invalid 
-        inputs.
-        """
+    #     Description: Displays invalid argument labels for invalid 
+    #     inputs.
+    #     """
 
-        for info in entries:
-            flag = entries[info]['error']
+    #     for info in entries:
+    #         flag = entries[info]['error']
 
-            if entries[info]['input type'] == "L":
-                if flag:
-                    name_error_lbl = ttk.Label(self,
-                                                text="Caracteres aceptados: SOLO LETRAS",
-                                                foreground="#fc2803",
-                                                font=tkf.Font(family="Helvetica", size=10))
-                    name_error_lbl.grid(row=1,
-                                        column=0)
-                else:
-                    pass
-            elif entries[info]['input type'] == "LNS":
-                if flag: 
-                    pass
-                else:
-                    pass
+    #         if entries[info]['input type'] == "L":
+    #             if flag:
+    #                 name_error_lbl = ttk.Label(self,
+    #                                             text="Caracteres aceptados: SOLO LETRAS",
+    #                                             foreground="#fc2803",
+    #                                             font=tkf.Font(family="Helvetica", size=10))
+    #                 name_error_lbl.grid(row=1,
+    #                                     column=0)
+    #             else:
+    #                 pass
+    #         elif entries[info]['input type'] == "LNS":
+    #             if flag: 
+    #                 pass
+    #             else:
+    #                 pass
