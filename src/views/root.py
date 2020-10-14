@@ -26,7 +26,7 @@ class Root(tk.Tk):
 
         # General app configurations.
         self.title("SECOM")
-        self.iconbitmap("C:/Users/joshu/Documents/VSC/python/secom/src/assets/icons/icon.ico")
+        self.iconbitmap("C:/Users/joshu/OneDrive/tec/VSC/python/secom/src/assets/icons/icon.ico")
         self.set_wind_param()
 
 
