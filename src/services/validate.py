@@ -1,15 +1,6 @@
 import string
 from constants import char_sets
 
-def parse_info(entries):
-    """
-    Adds 'error' key to entries with a bool value depending
-    on complience with input type.
-    """
-
-    for info in entries:
-        entries[info]['error'] = confirm_inp(entries[info])
-
 def letters(entry):
     """
     INPUT:
@@ -22,7 +13,7 @@ def letters(entry):
     """
 
     inpset = set([letter for letter in entry])
-    valid_chars = char_sets.ltrs
+    valid_chars = char_sets.custome_set(('ltrs'))
 
     if valid_chars.issuperset(inpset):
         return True
@@ -40,7 +31,7 @@ def letters_numbers(entry):
     Description: Validades inputs which only allow LETTER and DIGITS.
     """
     inpset = set([letter for letter in entry])
-    valid_chars = char_sets.ltrs_nmbrs
+    valid_chars = char_sets.custome_set(('ltrs', 'nmbrs'))
 
     if valid_chars.issuperset(inpset):
         return True
@@ -60,53 +51,19 @@ def letters_numbers_specials(entry):
     """
 
     inpset = set([letter for letter in entry])
-    valid_chars = char_sets.ltrs_nmbrs_spchars
+    valid_chars = char_sets.custome_set(('ltrs', 'nmbrs', 'spchars'))
 
     if valid_chars.issuperset(inpset):
         return True
     else:
         return False
 
-def confirm_inp(inp):
-    """
-    INPUTS:
-    - imp ---> dict (keys: 'value', 'input type')
-    OUTPUT:
-    - True when input complies with valid characters.
-    - False otherwise.
-
-    Description: uses sets to ckeck for invalid chars 
-    depending on the input type
-    """
-    inpset = set(lambda char: char for char in inp['value'])
-    valid_chars = set()
-                
-    # Adds all valid characters to `valid_chars` depending on
-    # `innput type `
-    for typ in inp['input type']:
-        for letter in typ:
-            if letter == 'L':
-                valid_chars |= set(string.ascii_letters)
-                valid_chars |= {'ñ', 'á', 'é', 'í', 'ó', 'ú'}
-            elif letter == 'N':
-                valid_chars |= set(string.digits)
-            else:
-                valid_chars |= {'!', '@', '#', '$', '^', '&', '*', '<', '>', '?'}
-    
-    # Removes all valid characters.
-    inpset -= valid_chars
-
-    if inpset:
-        return False
-    else:
-        return True
-
 def password(pswd, confirm_pswd):
     """
     IMPUT:
         - string x2.
     OUTPUT:
-        - List of boolean values (size 5).
+        - List of boolean values (size 6).
 
     Description: Validates password such that matchs with 'confirm_pswd' and
     that it contains the following:
@@ -118,13 +75,18 @@ def password(pswd, confirm_pswd):
     """
 
     error = []
+    requirements = ['ltrs upper case', 'ltrs lower case', 'spchar', 'dgts']
     
-    error.append(eight_chars):
+    error.append(eight_chars)
 
+    for item in requirements:
+        error.append(contains_char(pswd, (item)))
+
+    error.append(match_password(pswd, confirm_pswd))
 
 def match_password(pswd, confirm_pswd):
     if pswd == confirm_pswd:
-        return False
+        return True
     else:
         return False
 
@@ -134,4 +96,23 @@ def eight_chars(pswd):
     else:
         return False
 
-def right_chars(pswd):
+def contains_char(pswd, constraints):
+    """
+    INPUT:
+        - entry --------> string.
+        - contraints ---> touple conatingin valid key(s) values for dict
+                          `cataloge` in char_sets file.
+    OUTPUT:
+        - True when entry compplies with constraints.
+        - False when entry does not complies with entry.
+
+    DESCRIPTION: Validates if `entry` only contains the CONSTSTAINTS characters.
+    """
+
+    inpset = set([letter for letter in pswd])
+    valid_chars = char_sets.custome_set(constraints)
+
+    if valid_chars.issuperset(inpset):
+        return True
+    else:
+        return False

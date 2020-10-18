@@ -8,7 +8,7 @@ catalogue = {
     'ltrs upper case': set(string.ascii_uppercase),
     'ltrs lower case': set(string.ascii_lowercase),
     'ltr': set(string.ascii_letters),
-    'nmbrs': set(string.digits),
+    'dgts': set(string.digits),
     'spchars': {'!',
                 '@',
                 '#',
@@ -37,6 +37,6 @@ def custome_set(requirements):
     custome = set()
 
     for item in requirements:
-        custome |= cataloge[item]
+        custome |= catalogue[item]
 
     return custome
