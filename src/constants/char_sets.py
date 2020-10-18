@@ -7,7 +7,7 @@ File contains a dict `cataloge` with sets from which custome sets can be created
 catalogue = {
     'ltrs upper case': set(string.ascii_uppercase),
     'ltrs lower case': set(string.ascii_lowercase),
-    'ltr': set(string.ascii_letters),
+    'ltrs': set(string.ascii_letters),
     'dgts': set(string.digits),
     'spchars': {'!',
                 '@',

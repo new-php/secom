@@ -168,7 +168,9 @@ class SignUpWind(ttk.Frame):
 
     def send_info(self, controller):
 
-
+        errors = validate.password(self.pswd_ety.get(),
+                                   self.pswd_confirm_ety.get()
+        )
 
         info = [
             self.user_ety.get(),

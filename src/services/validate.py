@@ -13,7 +13,7 @@ def letters(entry):
     """
 
     inpset = set([letter for letter in entry])
-    valid_chars = char_sets.custome_set(('ltrs'))
+    valid_chars = char_sets.custome_set(tuple('ltrs'))
 
     if valid_chars.issuperset(inpset):
         return True
@@ -31,7 +31,7 @@ def letters_numbers(entry):
     Description: Validades inputs which only allow LETTER and DIGITS.
     """
     inpset = set([letter for letter in entry])
-    valid_chars = char_sets.custome_set(('ltrs', 'nmbrs'))
+    valid_chars = char_sets.custome_set(('ltrs', 'dgts'))
 
     if valid_chars.issuperset(inpset):
         return True
@@ -51,7 +51,7 @@ def letters_numbers_specials(entry):
     """
 
     inpset = set([letter for letter in entry])
-    valid_chars = char_sets.custome_set(('ltrs', 'nmbrs', 'spchars'))
+    valid_chars = char_sets.custome_set(('ltrs', 'dgts', 'spchars'))
 
     if valid_chars.issuperset(inpset):
         return True
@@ -83,6 +83,8 @@ def password(pswd, confirm_pswd):
         error.append(contains_char(pswd, (item)))
 
     error.append(match_password(pswd, confirm_pswd))
+
+    return error
 
 def match_password(pswd, confirm_pswd):
     if pswd == confirm_pswd:
