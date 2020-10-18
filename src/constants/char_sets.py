@@ -6,24 +6,24 @@ File contains a dict `cataloge` with sets from which custome sets can be created
 
 cataloge = {
     'ltrs': set(string.ascii_letters),
-    'ltrs_nmbrs': set(string.digits),
-    'ltrs_nmbrs_spchars': {'!',
-                           '@',
-                           '#',
-                           '$',
-                           '%',
-                           '^',
-                           '&',
-                           '*',
-                           '<',
-                           '>',
-                           '?',
-                           '-',
-                           '_'
+    'nmbrs': set(string.digits),
+    'spchars': {'!',
+                '@',
+                '#',
+                '$',
+                '%',
+                '^',
+                '&',
+                '*',
+                '<',
+                '>',
+                '?',
+                '-',
+                '_'
     }
 }
 
-def custom_set(requirements):
+def custome_set(requirements):
     """
     IMPUT:
         - touple.
