@@ -1,6 +1,6 @@
+import string
 import tkinter as tk
 import tkinter.font as tkf
-import string
 from tkinter import ttk
 from services import validate
 
@@ -147,7 +147,7 @@ class SignUpWind(ttk.Frame):
         acc_type_cbx = ttk.Combobox(self.access_info_frm,
                                     state="readonly",
                                     textvariable=self.acc_type_value)
-        acc_type_cbx['values'] = ("Planeacion", "Almlacen")
+        acc_type_cbx['values'] = ("Planeacion", "Almacen")
         acc_type_cbx.grid(row=13, column=0, sticky=tk.E)
         acc_type_cbx.current(0)
 
@@ -155,8 +155,8 @@ class SignUpWind(ttk.Frame):
         # -----------------------------BUTTONS----------------------------------
         create_btn = ttk.Button(self,
                                     width=20,
-                                    text="Crear")
-                                    # command=lambda: self.send_info()
+                                    text="Crear",
+                                    command=lambda: self.send_info(controller))
         create_btn.grid(row=2, column=1, pady=(0, 10), sticky=tk.NS)
 
         back_btn = ttk.Button(self,
@@ -166,74 +166,19 @@ class SignUpWind(ttk.Frame):
         back_btn.grid(row=3, column=1, sticky=tk.NS)
 
 
-
-    def handle_error(self, widget_entry):
-        widget_entry.config(highlightbackground = "red", highlightcolor= "red")
+    def send_info(self, controller):
 
 
-    # def send_info(self):
-    #     """
-    #     INPUTS: None
-    #     OUTPUT: None
 
-    #     Description: Creates dict with keys as entry names which
-    #     each has anothe dict with keys 'value' and 'input type'.
-    #     Filters info and sends it to database thorugh
-    #     `Messenger`.
+        info = [
+            self.user_ety.get(),
+            self.pswd_ety.get(),
+            self.hint_ety.get(),
+            controller.account_types[self.acc_type_value.get()],
+            self.first_name_ety.get(),
+            self.second_name_ety.get(),
+            self.f_last_name_ety.get(),
+            self.m_last_name_ety.get(),
+        ]
 
-    #     Entry names: 
-    #     - first name.          - User           - Father last name.
-    #     - Secod name.          - Hint           - Mother last name.
-    #     - Password                              - Confirm Password.
-
-    #     Value: 
-    #     Entry box inputs. All managed as strings.
-
-    #     Input type:
-    #     - L -----> Letters.
-    #     - N -----> Numbers.
-    #     - S -----> Special characters (!, @, #, $, %, ^, &, *, <, >, ?).
-    #     ***USE TOGETHER ADD SUCH CHARACTER TYPE TO ACCEPTABLE FOR 
-    #        THE INPUT***
-    #     Ex. LNS mean letter and Numbers and special characters.
-    #     """
-        
-    #     entries = {
-    #         'first name': {
-    #             'value': self.first_name_ety.get(),
-    #             'input type': 'L',
-    #             'label': 0
-    #         },
-    #         'second name': {
-    #             'value': self.second_name_ety.get(),
-    #             'input type': 'L'
-    #         },
-    #         'father last name': {
-    #             'value': self.f_last_name_ety.get(),
-    #             'input type': 'L'
-    #         },
-    #         'mother last name': {
-    #             'value': self.m_last_name_ety.get(),
-    #             'input type': 'L'
-    #         },
-    #         'user': {
-    #             'value':self.user_ety.get(),
-    #             'input type': "LNS"
-    #         },
-    #         'hint': {
-    #             'value': self.hint_ety.get(),
-    #             'input type': 'L'
-    #         },
-    #         'password': {
-    #             'value': self.pswd_ety.get(),
-    #             'input type': "LNS"
-    #         },
-    #         'confirm password': {
-    #             'value': self.pswd_confirm_ety.get(),
-    #             'input type': "LNS"
-    #         }
-    #     }
-
-    #     filter.parse_info(entries)
-
-    #     self.create_error_labels(entries)
+        controller.connector.create_user(info)

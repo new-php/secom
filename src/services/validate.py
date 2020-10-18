@@ -77,4 +77,22 @@ def confirm_inp(inp):
     else:
         return True
 
+    # def pswd_right(pswd, confirm_pswd):
+    #     if eight_chars(pswd)
+
+    # def match_password(pswd, confirm_pswd):
+    #     if pswd == confirm_pswd:
+    #         return False
+    #     else:
+    #         return False
+
+    # def eight_chars(pswd):
+    #     if len(pswd) < 8:
+    #         return True
+    #     else:
+    #         return False
+
+    # def right_chars():
+
+
     

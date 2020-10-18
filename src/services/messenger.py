@@ -1,22 +1,30 @@
 import mysql.connector as mysql
 
 class Messenger:
-    def __inti__(self, user_name, pswd):
+    def __init__(self, USER_DB, PSWD_DB):
         self.DB = mysql.connect(
             host = "localhost",
-            user = user_name,
-            passwd = pswd,
+            user = USER_DB,
+            passwd = PSWD_DB,
             database="secom"
         )
         self.cursor = self.DB.cursor()
+        print("connected")
 
-    # def log_in(self, userName, pswd):
-    #     a = 1
-
-    def create_user(self, nick_name, first_name, f_last_name, m_last_name, pswd, typ, safe_word):
+    def create_user(self, info):
         self.cursor.execute(
-            "INSERT INTO users(nickname, first_name, f_last_name, m_last_name, pswrd, type, safeword) VALUES (%s, %s, %s, %s, %s, %s, %s)",
-            (nick_name, first_name, f_last_name, m_last_name, pswd, typ, safe_word)
+            "INSERT INTO users ("\
+                "user_name, "\
+                "pswd, "\
+                "hint, "\
+                "user_type, "\
+                "first_name, "\
+                "second_name, "\
+                "f_last_name, "\
+                "m_last_name) "\
+            "VALUES (%s, %s, %s, %s, %s, %s, %s, %s)",
+            (info[0], info[1] ,info[2], info[3],
+             info[4], info[5], info[6], info[7])
         )
 
         self.DB.commit()

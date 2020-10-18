@@ -3,6 +3,7 @@ from tkinter import ttk
 from .log_in_window import LogInWind as LIWind
 from .sign_up_window import  SignUpWind as SUWind
 from services.messenger import Messenger
+from constants import users
 
 
 class Root(tk.Tk):
@@ -12,8 +13,9 @@ class Root(tk.Tk):
         self.container = ttk.Frame(self)
         self.__width_window = 400
         self.__height_window = 225
-        self.conector = Messenger()
+        self.connector = Messenger("root", "trustme")
         self.views = {}
+        self.account_types = users.acc_type
         self.catalog = {
             "LIWind": LIWind,
             "SUWind": SUWind
