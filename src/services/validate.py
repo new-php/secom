@@ -1,8 +1,9 @@
 import string
+from constants import char_sets
 
 def parse_info(entries):
     """
-    Adds 'error' key to entries with a bool value deoending
+    Adds 'error' key to entries with a bool value depending
     on complience with input type.
     """
 
@@ -10,9 +11,18 @@ def parse_info(entries):
         entries[info]['error'] = confirm_inp(entries[info])
 
 def letters(entry):
+    """
+    INPUT:
+        - string.
+    OUTPUT:
+        - True when input is a valid char.
+        - False when input is not a valid char.
+
+    Description: Validades inputs which only allow LETTERS.
+    """
+
     inpset = set([letter for letter in entry])
-    valid_chars = set(string.ascii_letters)
-    valid_chars |= {'ñ', 'á', 'é', 'í', 'ó', 'ú', 'Ñ'}
+    valid_chars = char_sets.ltrs
 
     if valid_chars.issuperset(inpset):
         return True
@@ -20,10 +30,17 @@ def letters(entry):
         return False
 
 def letters_numbers(entry):
+    """
+    INPUT:
+        - string.
+    OUTPUT:
+        - True when input is a valid char.
+        - False when input is not a valid char.
+
+    Description: Validades inputs which only allow LETTER and DIGITS.
+    """
     inpset = set([letter for letter in entry])
-    valid_chars = set(string.ascii_letters)
-    valid_chars |= set(string.digits)
-    valid_chars |= {'ñ', 'á', 'é', 'í', 'ó', 'ú', 'Ñ'}
+    valid_chars = char_sets.ltrs_nmbrs
 
     if valid_chars.issuperset(inpset):
         return True
@@ -31,17 +48,24 @@ def letters_numbers(entry):
         return False
 
 def letters_numbers_specials(entry):
+    """
+    INPUT:
+        - string.
+    OUTPUT:
+        - True when input is a valid char.
+        - False when input is not a valid char.
+
+    Description: Validades inputs which only allow LETTERS, NUMBERS and SPECIAL 
+                 characters.
+    """
+
     inpset = set([letter for letter in entry])
-    valid_chars = set(string.ascii_letters)
-    valid_chars |= set(string.digits)
-    valid_chars |= {'ñ', 'á', 'é', 'í', 'ó', 'ú', 'Ñ'}
-    valid_chars |= {'!', '@', '#', '$', '%', '^', '&', '*', '<', '>', '?'}
+    valid_chars = char_sets.ltrs_nmbrs_spchars
 
     if valid_chars.issuperset(inpset):
         return True
     else:
         return False
-
 
 def confirm_inp(inp):
     """
@@ -77,22 +101,37 @@ def confirm_inp(inp):
     else:
         return True
 
-    # def pswd_right(pswd, confirm_pswd):
-    #     if eight_chars(pswd)
+def password(pswd, confirm_pswd):
+    """
+    IMPUT:
+        - string x2.
+    OUTPUT:
+        - List of boolean values (size 5).
 
-    # def match_password(pswd, confirm_pswd):
-    #     if pswd == confirm_pswd:
-    #         return False
-    #     else:
-    #         return False
+    Description: Validates password such that matchs with 'confirm_pswd' and
+    that it contains the following:
+        - 8+ characters.
+        - Min 1 upper case letter.
+        - Min 1 lower case letter.
+        - Min 1 special character.
+        - Min 1 digit.
+    """
 
-    # def eight_chars(pswd):
-    #     if len(pswd) < 8:
-    #         return True
-    #     else:
-    #         return False
-
-    # def right_chars():
-
-
+    error = []
     
+    error.append(eight_chars):
+
+
+def match_password(pswd, confirm_pswd):
+    if pswd == confirm_pswd:
+        return False
+    else:
+        return False
+
+def eight_chars(pswd):
+    if len(pswd) < 8:
+        return True
+    else:
+        return False
+
+def right_chars(pswd):
