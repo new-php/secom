@@ -28,7 +28,7 @@ catalogue = {
 def custome_set(requirements):
     """
     IMPUT:
-        - touple.
+        - list.
     OUTPUT:
         - set
     DESCRIPTION: Creates a set with the requirements needed from base sets.

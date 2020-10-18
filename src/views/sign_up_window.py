@@ -20,9 +20,9 @@ class SignUpWind(ttk.Frame):
         self.peron_error_frm = ttk.Frame(self)
 
         self.person_info_frm = ttk.LabelFrame(self,
-                                         text="Informacion Personal",
-                                         padding="2m",
-                                         relief=tk.RIDGE)
+                                              text="Informacion Personal",
+                                              padding="2m",
+                                              relief=tk.RIDGE)
         self.person_info_frm.grid(row=1,
                                  column=1,
                                  padx=(frame_pad / 3, 0),
@@ -30,13 +30,19 @@ class SignUpWind(ttk.Frame):
                                  sticky=tk.NW)
 
         self.access_info_frm = ttk.LabelFrame(self,
-                                         text="Informacion de accesso",
-                                         padding="2m",
-                                         relief=tk.RIDGE)
+                                              text="Informacion de accesso",
+                                              padding="2m",
+                                              relief=tk.RIDGE)
         self.access_info_frm.grid(row=1,
                                   column=1,
                                   padx=(0, frame_pad / 3),
-                                  pady=(10,20), sticky=tk.NE)
+                                  pady=(10,20),
+                                  sticky=tk.NE)
+
+        self.warnings_frm = ttk.Frame(self)
+        self.warnings_frm.grid(row=1,
+                              column=2,
+                              sticky=tk.NS)
 
 
         # -------------------------------LABELS---------------------------------
@@ -70,15 +76,15 @@ class SignUpWind(ttk.Frame):
                              font=tkf.Font(family="Helvetica", size=10))
         user_lbl.grid(row=0, column=0, sticky=tk.W)
 
-        pswd_lbl = ttk.Label(self.access_info_frm,
+        self.pswd_lbl = ttk.Label(self.access_info_frm,
                              text="Contraseña:",
                              font=tkf.Font(family="Helvetica", size=10))
-        pswd_lbl.grid(row=3, column=0, pady=(15, 0), sticky=tk.W)
+        self.pswd_lbl.grid(row=3, column=0, pady=(15, 0), sticky=tk.W)
 
-        pswd_confirm_lbl = ttk.Label(self.access_info_frm,
+        self.pswd_confirm_lbl = ttk.Label(self.access_info_frm,
                                      text="Confirme contraseña:",
                                      font=tkf.Font(family="Helvetica", size=10))
-        pswd_confirm_lbl.grid(row=6, column=0, pady=(15, 0), sticky=tk.W)
+        self.pswd_confirm_lbl.grid(row=6, column=0, pady=(15, 0), sticky=tk.W)
 
         hint_lbl = ttk.Label(self.access_info_frm,
                                 text="Palabra salvavidas:",
@@ -89,6 +95,17 @@ class SignUpWind(ttk.Frame):
                                  text="Tipo de cuenta:",
                                  font=tkf.Font(family="Helvetica", size=10))
         acc_type_lbl.grid(row=12, column=0, pady=(15, 0), sticky=tk.W)
+
+        self.warning_lbl = tk.Label(self.warnings_frm,
+                                text="La contraseña debera satisfacer lo siguiente:\n"\
+                                     "- Minimo 8 caracteres.                           \n"\
+                                     "- Minimo 1 mayuscula.                          \n"\
+                                     "- Minimo 1 minuscula.                           \n"\
+                                     "- Minimo 1 caracter especial.                 \n"\
+                                     "- Minimo 1 digito.                                  \n"\
+                                     "- Coinsidir con la contraseña confirmada.",
+                                font=tkf.Font(family="Helvetica", size=10))
+        self.warning_lbl.grid(row=0, column=0, pady=90, sticky=tk.W)
 
 
         # ---------------------------VALIDATORS---------------------------------
@@ -133,7 +150,7 @@ class SignUpWind(ttk.Frame):
         self.pswd_confirm_ety = ttk.Entry(self.access_info_frm,
                                           show="*",
                                           validate="key",
-                                          validatecommand=validate_user)
+                                          validatecommand=validate_pswd)
         self.pswd_confirm_ety.grid(row=7,column=0, sticky=tk.W)
 
         self.hint_ety = ttk.Entry(self.access_info_frm,
@@ -164,23 +181,33 @@ class SignUpWind(ttk.Frame):
                               text="Cancelar",
                               command=lambda: controller.show_view("LIWind"))
         back_btn.grid(row=3, column=1, sticky=tk.NS)
-
+    
 
     def send_info(self, controller):
+        try:
 
-        errors = validate.password(self.pswd_ety.get(),
-                                   self.pswd_confirm_ety.get()
-        )
+            info = [
+                self.user_ety.get(),
+                self.pswd_ety.get(),
+                self.hint_ety.get(),
+                controller.account_types[self.acc_type_value.get()],
+                self.first_name_ety.get(),
+                self.second_name_ety.get(),
+                self.f_last_name_ety.get(),
+                self.m_last_name_ety.get(),
+            ]
 
-        info = [
-            self.user_ety.get(),
-            self.pswd_ety.get(),
-            self.hint_ety.get(),
-            controller.account_types[self.acc_type_value.get()],
-            self.first_name_ety.get(),
-            self.second_name_ety.get(),
-            self.f_last_name_ety.get(),
-            self.m_last_name_ety.get(),
-        ]
+            self.pswd_lbl.config(text="Contraseña:",
+                                 foreground="#000000")
+            self.pswd_confirm_lbl.config(text=" Confirme contraseña:",
+                                 foreground="#000000")
+ 
+            validate.filled(info)
+            validate.password(self.pswd_ety.get(), self.pswd_confirm_ety.get())
 
-        controller.connector.create_user(info)
+            controller.connector.create_user(info)
+        except ValueError:
+            self.pswd_lbl.config(text="Contraseña:                *",
+                                 foreground="#A11313")
+            self.pswd_confirm_lbl.config(text="Confirme contraseña:   *",
+                                 foreground="#A11313")

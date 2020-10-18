@@ -13,7 +13,7 @@ def letters(entry):
     """
 
     inpset = set([letter for letter in entry])
-    valid_chars = char_sets.custome_set(tuple('ltrs'))
+    valid_chars = char_sets.custome_set(["ltrs"])
 
     if valid_chars.issuperset(inpset):
         return True
@@ -31,7 +31,7 @@ def letters_numbers(entry):
     Description: Validades inputs which only allow LETTER and DIGITS.
     """
     inpset = set([letter for letter in entry])
-    valid_chars = char_sets.custome_set(('ltrs', 'dgts'))
+    valid_chars = char_sets.custome_set(['ltrs', 'dgts'])
 
     if valid_chars.issuperset(inpset):
         return True
@@ -51,7 +51,7 @@ def letters_numbers_specials(entry):
     """
 
     inpset = set([letter for letter in entry])
-    valid_chars = char_sets.custome_set(('ltrs', 'dgts', 'spchars'))
+    valid_chars = char_sets.custome_set(['ltrs', 'dgts', 'spchars'])
 
     if valid_chars.issuperset(inpset):
         return True
@@ -63,7 +63,7 @@ def password(pswd, confirm_pswd):
     IMPUT:
         - string x2.
     OUTPUT:
-        - List of boolean values (size 6).
+        - tuple of booleans (size 6).
 
     Description: Validates password such that matchs with 'confirm_pswd' and
     that it contains the following:
@@ -74,29 +74,26 @@ def password(pswd, confirm_pswd):
         - Min 1 digit.
     """
 
-    error = []
-    requirements = ['ltrs upper case', 'ltrs lower case', 'spchar', 'dgts']
-    
-    error.append(eight_chars)
+    requirements = ['ltrs upper case', 'ltrs lower case', 'spchars', 'dgts']
+
+    eight_chars(pswd)
 
     for item in requirements:
-        error.append(contains_char(pswd, (item)))
+        contains_char(pswd, [item])
 
-    error.append(match_password(pswd, confirm_pswd))
-
-    return error
+    match_password(pswd, confirm_pswd)
 
 def match_password(pswd, confirm_pswd):
     if pswd == confirm_pswd:
         return True
     else:
-        return False
+        raise ValueError("password does not match with its confirmation.")
 
 def eight_chars(pswd):
-    if len(pswd) < 8:
+    if len(pswd) >= 8:
         return True
     else:
-        return False
+        raise ValueError("password length is less than 8 characters")
 
 def contains_char(pswd, constraints):
     """
@@ -114,7 +111,10 @@ def contains_char(pswd, constraints):
     inpset = set([letter for letter in pswd])
     valid_chars = char_sets.custome_set(constraints)
 
-    if valid_chars.issuperset(inpset):
+    if not valid_chars.isdisjoint(inpset):
         return True
     else:
-        return False
+        raise ValueError("password is not made out of all char types needed.")
+
+def filled(info):
+    pass
