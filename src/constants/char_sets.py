@@ -1,5 +1,9 @@
 import string
 
+"""
+File contains customized sets of characters for input validation.
+"""
+
 # set of letters including 'ñ' and 'Ñ'.
 ltrs = set(string.ascii_letters)
 ltrs |= {'ñ', 'Ñ'}
