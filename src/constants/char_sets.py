@@ -4,6 +4,30 @@ import string
 File contains customized sets of characters for input validation.
 """
 
+cataloge = {
+    'ltrs': set(string.ascii_letters),
+    'ltrs_nmbrs' :set(string.digits),
+    'ltrs_nmbrs_spchars': {'!', '@', '#', '$', '%', '^', '&', '*', '<', '>', '?'}
+}
+
+def custom_set(requirements):
+    """
+    IMPUT:
+        - touple.
+    OUTPUT:
+        - set
+    DESCRIPTION: Creates a set with the requirements needed from base sets.
+    """
+    
+    custome = set()
+
+    for item in requirements:
+        custome |= cataloge[item]
+
+    return custome
+
+
+
 # set of letters including 'ñ' and 'Ñ'.
 ltrs = set(string.ascii_letters)
 ltrs |= {'ñ', 'Ñ'}
