@@ -3,6 +3,7 @@ import tkinter as tk
 import tkinter.font as tkf
 from tkinter import ttk
 from services import validate
+from tools.su_entry import SUEntry 
 
 
 class SignUpWind(ttk.Frame):
@@ -51,30 +52,30 @@ class SignUpWind(ttk.Frame):
                               font=tkf.Font(family="Helvetica", size=15))
         title_lbl.grid(row=0, column=0, padx=frame_pad, sticky=tk.NS)
 
-        first_name_lbl = ttk.Label(self.person_info_frm,
+        self.first_name_lbl = ttk.Label(self.person_info_frm,
                                    text="Nombre:",
                                    font=tkf.Font(family="Helvetica", size=10))
-        first_name_lbl.grid(row=0, column=0, sticky=tk.W)
+        self.first_name_lbl.grid(row=0, column=0, sticky=tk.W)
 
-        second_name_lbl = ttk.Label(self.person_info_frm,
+        self.second_name_lbl = ttk.Label(self.person_info_frm,
                                     text="Segundo nombre:",
                                     font=tkf.Font(family="Helvetica", size=10))
-        second_name_lbl.grid(row=3, column=0, pady=(15, 0), sticky=tk.W)
+        self.second_name_lbl.grid(row=3, column=0, pady=(15, 0), sticky=tk.W)
 
-        f_last_name_lbl = ttk.Label(self.person_info_frm,
+        self.f_last_name_lbl = ttk.Label(self.person_info_frm,
                                     text="Apellido paterno:",
                                     font=tkf.Font(family="Helvetica", size=10))
-        f_last_name_lbl.grid(row=6, column=0, pady=(15, 0), sticky=tk.W)
+        self.f_last_name_lbl.grid(row=6, column=0, pady=(15, 0), sticky=tk.W)
 
-        m_last_name_lbl = ttk.Label(self.person_info_frm,
+        self.m_last_name_lbl = ttk.Label(self.person_info_frm,
                                     text="Apellido materno:",
                                     font=tkf.Font(family="Helvetica", size=10))
-        m_last_name_lbl.grid(row=9, column=0, pady=(15, 0), sticky=tk.W)
+        self.m_last_name_lbl.grid(row=9, column=0, pady=(15, 0), sticky=tk.W)
 
-        user_lbl = ttk.Label(self.access_info_frm,
+        self.user_lbl = ttk.Label(self.access_info_frm,
                              text="Usuario:",
                              font=tkf.Font(family="Helvetica", size=10))
-        user_lbl.grid(row=0, column=0, sticky=tk.W)
+        self.user_lbl.grid(row=0, column=0, sticky=tk.W)
 
         self.pswd_lbl = ttk.Label(self.access_info_frm,
                              text="Contraseña:",
@@ -86,10 +87,10 @@ class SignUpWind(ttk.Frame):
                                      font=tkf.Font(family="Helvetica", size=10))
         self.pswd_confirm_lbl.grid(row=6, column=0, pady=(15, 0), sticky=tk.W)
 
-        hint_lbl = ttk.Label(self.access_info_frm,
+        self.hint_lbl = ttk.Label(self.access_info_frm,
                                 text="Palabra salvavidas:",
                                 font=tkf.Font(family="Helvetica", size=10))
-        hint_lbl.grid(row=9, column=0, pady=(15, 0), sticky=tk.W)
+        self.hint_lbl.grid(row=9, column=0, pady=(15, 0), sticky=tk.W)
 
         acc_type_lbl = ttk.Label(self.access_info_frm,
                                  text="Tipo de cuenta:",
@@ -108,54 +109,55 @@ class SignUpWind(ttk.Frame):
         self.warning_lbl.grid(row=0, column=0, pady=90, sticky=tk.W)
 
 
-        # ---------------------------VALIDATORS---------------------------------
-        validate_letters = (self.register(validate.letters), '%P')
-        validate_user = (self.register(validate.letters_numbers), '%P')
-        validate_pswd = (self.register(validate.letters_numbers_specials), '%P')
-
-
         # -----------------------------ENTRIES----------------------------------
-        self.first_name_ety = ttk.Entry(self.person_info_frm,
-                                        validate="key",
-                                        validatecommand=validate_letters)
+        self.first_name_ety = SUEntry(
+            parent=self.person_info_frm,
+            constraints=('ltrs')
+        )
         self.first_name_ety.grid(row=1,column=0, sticky=tk.W)
 
-        self.second_name_ety = ttk.Entry(self.person_info_frm,
-                                         validate="key",
-                                         validatecommand=validate_letters)
+        self.second_name_ety = SUEntry(
+            self.person_info_frm,
+            constraints=('ltrs')
+        )
         self.second_name_ety.grid(row=4,column=0, sticky=tk.W)
 
-        self.f_last_name_ety = ttk.Entry(self.person_info_frm,
-                                         validate="key",
-                                         validatecommand=validate_letters)
+        self.f_last_name_ety = SUEntry(
+            self.person_info_frm,
+            constraints=('ltrs')
+        )
         self.f_last_name_ety.grid(row=7,column=0, sticky=tk.W)
 
-        self.m_last_name_ety = ttk.Entry(self.person_info_frm,
-                                         validate="key",
-                                         validatecommand=validate_letters)
+        self.m_last_name_ety = SUEntry(
+            self.person_info_frm,
+            constraints=('ltrs')
+        )
         self.m_last_name_ety.grid(row=10,column=0, sticky=tk.W)
 
-        self.user_ety = ttk.Entry(self.access_info_frm,
-                                  validate="key",
-                                  validatecommand=validate_user)
+        self.user_ety = SUEntry(
+            parent=self.access_info_frm,
+            constraints=('ltrs', 'dgts', 'spchars')
+        )
         self.user_ety.grid(row=1,column=0, sticky=tk.W)
 
-
-        self.pswd_ety = ttk.Entry(self.access_info_frm,
-                                  validate="key",
-                                  validatecommand=validate_pswd,
-                                  show="*")
+        self.pswd_ety = SUEntry(
+            parent=self.access_info_frm,
+            constraints=('ltrs', 'dgts', 'spchars'),
+            char="•"
+        )
         self.pswd_ety.grid(row=4,column=0, sticky=tk.W)
 
-        self.pswd_confirm_ety = ttk.Entry(self.access_info_frm,
-                                          show="*",
-                                          validate="key",
-                                          validatecommand=validate_pswd)
+        self.pswd_confirm_ety = SUEntry(
+            parent=self.access_info_frm,
+            constraints=('ltrs', 'dgts', 'spchars'),
+            char="•"
+        )
         self.pswd_confirm_ety.grid(row=7,column=0, sticky=tk.W)
 
-        self.hint_ety = ttk.Entry(self.access_info_frm,
-                                  validate="key",
-                                  validatecommand=validate_letters)
+        self.hint_ety = SUEntry(
+            parent=self.access_info_frm,
+            constraints=('ltrs', 'space')
+        )
         self.hint_ety.grid(row=10,column=0, sticky=tk.W)
 
 
@@ -184,30 +186,39 @@ class SignUpWind(ttk.Frame):
     
 
     def send_info(self, controller):
-        try:
+        info = [
+            self.user_ety.get(),
+            self.pswd_ety.get(),
+            self.hint_ety.get(),
+            controller.account_types[self.acc_type_value.get()],
+            self.first_name_ety.get(),
+            self.second_name_ety.get(),
+            self.f_last_name_ety.get(),
+            self.m_last_name_ety.get(),
+        ]
 
-            info = [
-                self.user_ety.get(),
-                self.pswd_ety.get(),
-                self.hint_ety.get(),
-                controller.account_types[self.acc_type_value.get()],
-                self.first_name_ety.get(),
-                self.second_name_ety.get(),
-                self.f_last_name_ety.get(),
-                self.m_last_name_ety.get(),
-            ]
+        self.pswd_lbl.config(
+                foreground="#000000",
+                font=tkf.Font(family="Helvetica", size=10)
+            )
+        self.pswd_confirm_lbl.config(
+            foreground="#000000",
+            font=tkf.Font(family="Helvetica", size=10)
+        )
+        
 
-            self.pswd_lbl.config(text="Contraseña:",
-                                 foreground="#000000")
-            self.pswd_confirm_lbl.config(text=" Confirme contraseña:",
-                                 foreground="#000000")
- 
-            validate.filled(info)
-            validate.password(self.pswd_ety.get(), self.pswd_confirm_ety.get())
-
+        if validate.password(self.pswd_ety.get(), self.pswd_confirm_ety.get()) and validate.all_filled(info):
             controller.connector.create_user(info)
-        except ValueError:
-            self.pswd_lbl.config(text="Contraseña:                *",
-                                 foreground="#A11313")
-            self.pswd_confirm_lbl.config(text="Confirme contraseña:   *",
-                                 foreground="#A11313")
+            controller._delete_view(self)
+            controller._show_view('LIWind')
+
+        else:
+            self.pswd_lbl.config(
+                foreground="#DB1B0D",
+                font=tkf.Font(family="Helvetica", size=10, weight='bold')
+            )
+            self.pswd_confirm_lbl.config(
+                foreground="#DB1B0D",
+                font=tkf.Font(family="Helvetica", size=10, weight='bold')
+            )
+            

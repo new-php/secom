@@ -1,7 +1,7 @@
 import tkinter as tk
 from tkinter import ttk
-from .log_in_window import LogInWind as LIWind
-from .sign_up_window import  SignUpWind as SUWind
+from views.log_in_window import LogInWind as LIWind
+from views.sign_up_window import  SignUpWind as SUWind
 from services.messenger import Messenger
 from constants import users
 
@@ -48,7 +48,11 @@ class Root(tk.Tk):
         self.views[view_name] = new_view
         
 
-    def show_view(self, view_name):
+    def _delete_view(self, view):
+        del self.views[self.catalog["SUWind"]]
+
+
+    def _show_view(self, view_name):
         """
         INPUT: string
         OUTPUT: None.

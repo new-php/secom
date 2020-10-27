@@ -22,7 +22,8 @@ catalogue = {
                 '?',
                 '-',
                 '_'
-    }
+        },
+    'space': {' '}
 }
 
 def custome_set(requirements):
@@ -35,6 +36,7 @@ def custome_set(requirements):
     """
     
     custome = set()
+    requirements = [x for x in requirements.split(' ')]
 
     for item in requirements:
         custome |= catalogue[item]

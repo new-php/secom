@@ -29,7 +29,7 @@ class LogInWind(ttk.Frame):
         self.signUp_btn = ttk.Button(self,
                                     width=15,
                                     text="Crear cuenta",
-                                    command=lambda: controller.show_view("SUWind"))
+                                    command=lambda: controller._show_view("SUWind"))
         
 
         # Places labels.
