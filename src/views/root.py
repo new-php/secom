@@ -47,10 +47,6 @@ class Root(tk.Tk):
         self.views[view_name] = new_view
         
 
-    def _delete_view(self, view):
-        del self.views[self.catalog["SUWind"]]
-
-
     def _show_view(self, view_name):
         """
         INPUT: string
@@ -80,6 +76,10 @@ class Root(tk.Tk):
         return self.catalog[view_name]
 
 
+    def _delete_view(self, view):
+        del self.views[self.catalog["SUWind"]]
+
+
     def set_wind_param(self):
         """
         INPUT: None
@@ -94,15 +94,6 @@ class Root(tk.Tk):
 
         self.geometry("%dx%d+%d+%d" % (self._width_window, self._height_window, x, y))
 
-
-    def get_width_window(self):
-        return self._width_window
-
-
-    def get_height_window(self):
-        return self._height_window
-
-
     def set_wind_size(self, width, height):
         """
         INPUT: int x2
@@ -115,3 +106,10 @@ class Root(tk.Tk):
 
         self.geometry("%dx%d" % (self._width_window, self._height_window))
 
+
+    def get_width_window(self):
+        return self._width_window
+
+
+    def get_height_window(self):
+        return self._height_window
