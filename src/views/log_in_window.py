@@ -6,7 +6,7 @@ from constants import static_values
 
 class LogInWind(ttk.Frame):
     def __init__(self, parent, controller):
-        super().__init__()
+        super().__init__(parent)
 
         parent.config(relief="groove")
         controller.set_wind_size(
