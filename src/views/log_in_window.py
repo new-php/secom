@@ -1,13 +1,19 @@
 import tkinter as tk
 import tkinter.font as tkf
 from tkinter import ttk
+from constants import static_values
 
 
 class LogInWind(ttk.Frame):
     def __init__(self, parent, controller):
-        super().__init__(parent)
+        super().__init__()
 
         parent.config(relief="groove")
+        controller.set_wind_size(
+            width=static_values.LIWIND_WIDTH,
+            height=static_values.LIWIND_HEIGHT
+        )
+        controller.set_wind_param()
         
         # Creation of labels.
         self.title_lbl = ttk.Label(self,
