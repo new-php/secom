@@ -11,8 +11,8 @@ class Root(tk.Tk):
         super().__init__(*args,**kwargs)
         
         self.container = ttk.Frame(self)
-        self._width_window
-        self._height_window
+        self._width_window = 0
+        self._height_window = 0
         self.connector = Messenger("root", "trustme")
         self.views = {}
         self.account_types = static_values.acc_types
@@ -29,7 +29,6 @@ class Root(tk.Tk):
         # General app configurations.
         self.title("SECOM")
         self.iconphoto(True, tk.PhotoImage(file=static_values.app_mini_logo))
-        self.set_wind_param()
 
 
     def _create_view(self, view_name):
@@ -93,7 +92,7 @@ class Root(tk.Tk):
         x = (width_screen / 2) - (self.__width_window / 2)
         y = (hight_screen / 2) - (self.__height_window / 2)
 
-        self.geometry("%dx%d+%d+%d" % (self.__width_window, self.__height_window, x, y))
+        self.geometry("%dx%d+%d+%d" % (self._width_window, self._height_window, x, y))
 
 
     def get_width_window(self):
