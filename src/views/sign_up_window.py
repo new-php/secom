@@ -13,7 +13,7 @@ class SignUpWind(ttk.Frame):
 
         controller.set_wind_size(
             width=static_values.SUWIND_WIDTH,
-            heigh=static_values.SUWIND_HEIGHT,
+            height=static_values.SUWIND_HEIGHT,
         )
         controller.set_wind_param()
         frame_pad = 150
