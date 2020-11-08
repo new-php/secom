@@ -185,7 +185,7 @@ class SignUpWind(ttk.Frame):
         back_btn = ttk.Button(self,
                               width=20,
                               text="Cancelar",
-                              command=lambda: controller.show_view("LIWind"))
+                              command=lambda: controller._show_view("LIWind"))
         back_btn.grid(row=3, column=1, sticky=tk.NS)
     
 
