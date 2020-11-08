@@ -89,18 +89,18 @@ class Root(tk.Tk):
         """
         width_screen = self.winfo_screenwidth()
         hight_screen = self.winfo_screenheight()
-        x = (width_screen / 2) - (self.__width_window / 2)
-        y = (hight_screen / 2) - (self.__height_window / 2)
+        x = (width_screen / 2) - (self._width_window / 2)
+        y = (hight_screen / 2) - (self._height_window / 2)
 
         self.geometry("%dx%d+%d+%d" % (self._width_window, self._height_window, x, y))
 
 
     def get_width_window(self):
-        return self.__width_window
+        return self._width_window
 
 
     def get_height_window(self):
-        return self.height_window
+        return self._height_window
 
 
     def set_wind_size(self, width, height):
@@ -110,8 +110,8 @@ class Root(tk.Tk):
 
         Description: Changes main window's height and width.
         """
-        self.__width_window = width
-        self.__height_window = height
+        self._width_window = width
+        self._height_window = height
 
-        self.geometry("%dx%d" % (self.__width_window, self.__height_window))
+        self.geometry("%dx%d" % (self._width_window, self._height_window))
 
