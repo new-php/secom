@@ -9,7 +9,6 @@ class Messenger:
             database="secom"
         )
         self.cursor = self.DB.cursor()
-        print("connected")
 
     def create_user(self, info):
         self.cursor.execute(
