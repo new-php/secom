@@ -1,9 +1,9 @@
 import tkinter as tk
 from tkinter import ttk
+from constants import static_values
 from views.log_in_window import LogInWind as LIWind
 from views.sign_up_window import  SignUpWind as SUWind
 from services.messenger import Messenger
-from constants import users
 
 
 class Root(tk.Tk):
@@ -11,11 +11,11 @@ class Root(tk.Tk):
         super().__init__(*args,**kwargs)
         
         self.container = ttk.Frame(self)
-        self.__width_window = 400
-        self.__height_window = 225
+        self._width_window
+        self._height_window
         self.connector = Messenger("root", "trustme")
         self.views = {}
-        self.account_types = users.acc_type
+        self.account_types = static_values.acc_types
         self.catalog = {
             "LIWind": LIWind,
             "SUWind": SUWind
@@ -28,7 +28,7 @@ class Root(tk.Tk):
 
         # General app configurations.
         self.title("SECOM")
-        self.iconbitmap("C:/Users/joshu/OneDrive/tec/VSC/python/secom/src/assets/icons/icon.ico")
+        self.iconphoto(True, tk.PhotoImage(file=static_values.app_mini_logo))
         self.set_wind_param()
 
 

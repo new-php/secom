@@ -2,6 +2,7 @@ import string
 import tkinter as tk
 import tkinter.font as tkf
 from tkinter import ttk
+from constants import static_values
 from services import validate
 from tools.su_entry import SUEntry 
 
@@ -10,7 +11,10 @@ class SignUpWind(ttk.Frame):
     def __init__(self, parent, controller): 
         super().__init__(parent)
 
-        controller.set_wind_size(800, 500)
+        controller.set_wind_size(
+            width=static_values.SUWIND_WIDTH,
+            heigh=static_values.SUWIND_HEIGHT,
+        )
         controller.set_wind_param()
         frame_pad = 150
 
