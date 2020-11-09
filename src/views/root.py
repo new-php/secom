@@ -13,7 +13,7 @@ class Root(tk.Tk):
         self.container = ttk.Frame(self)
         self._width_window = 0
         self._height_window = 0
-        self.connector = Messenger("root", "trustme")
+        self.connector = Messenger(sv.DB_USER, sv.DB_PSWD)
         self.views = {}
         self.account_types = sv.acc_types
         self.catalog = {
@@ -89,8 +89,8 @@ class Root(tk.Tk):
         return self.catalog[view_name]
 
 
-    def _delete_view(self, view):
-        del self.views[self.catalog["SUWind"]]
+    def _delete_view(self, view_name):
+        del self.views[self.catalog[view_name]]
 
 
     def set_wind_param(self):
@@ -118,11 +118,3 @@ class Root(tk.Tk):
         self._height_window = height
 
         self.geometry("%dx%d" % (self._width_window, self._height_window))
-
-
-    def get_width_window(self):
-        return self._width_window
-
-
-    def get_height_window(self):
-        return self._height_window
