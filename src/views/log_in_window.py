@@ -55,7 +55,7 @@ class LogInWind(ttk.Frame):
             pady=5
         )
 
-        self.pswd_ety = ttk.Entry(self, show="*")
+        self.pswd_ety = ttk.Entry(self, show="•")
         self.pswd_ety.grid(
             row=4,
             column=0,
