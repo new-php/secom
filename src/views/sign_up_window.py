@@ -2,7 +2,7 @@ import string
 import tkinter as tk
 import tkinter.font as tkf
 from tkinter import ttk
-from constants import static_values
+from constants import static_values as sv
 from services import validate
 from tools.su_entry import SUEntry 
 
@@ -12,8 +12,8 @@ class SignUpWind(ttk.Frame):
         super().__init__(parent)
 
         controller.set_wind_size(
-            width=static_values.SUWIND_WIDTH,
-            height=static_values.SUWIND_HEIGHT,
+            width=sv.SUWIND_WIDTH,
+            height=sv.SUWIND_HEIGHT,
         )
         controller.set_wind_param()
         frame_pad = 150
@@ -185,7 +185,12 @@ class SignUpWind(ttk.Frame):
         back_btn = ttk.Button(self,
                               width=20,
                               text="Cancelar",
-                              command=lambda: controller._show_view("LIWind"))
+                              command=lambda: controller.refresh_window(
+                                 view_name="LIWind",
+                                 width=sv.SUWIND_WIDTH,
+                                 height=sv.LIWIND_HEIGHT
+                              )
+        )
         back_btn.grid(row=3, column=1, sticky=tk.NS)
     
 

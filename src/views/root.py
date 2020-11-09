@@ -1,6 +1,6 @@
 import tkinter as tk
 from tkinter import ttk
-from constants import static_values
+from constants import static_values as sv
 from views.log_in_window import LogInWind as LIWind
 from views.sign_up_window import  SignUpWind as SUWind
 from services.messenger import Messenger
@@ -15,7 +15,7 @@ class Root(tk.Tk):
         self._height_window = 0
         self.connector = Messenger("root", "trustme")
         self.views = {}
-        self.account_types = static_values.acc_types
+        self.account_types = sv.acc_types
         self.catalog = {
             "LIWind": LIWind,
             "SUWind": SUWind
@@ -28,7 +28,13 @@ class Root(tk.Tk):
 
         # General app configurations.
         self.title("SECOM")
-        self.iconphoto(True, tk.PhotoImage(file=static_values.app_mini_logo))
+        self.iconphoto(True, tk.PhotoImage(file=sv.app_mini_logo))
+
+        self.refresh_window(
+            view_name="LIWind",
+            width=sv.LIWIND_WIDTH,
+            height=sv.LIWIND_HEIGHT
+        )
 
 
     def _create_view(self, view_name):
@@ -45,6 +51,12 @@ class Root(tk.Tk):
 
         # Add `new_view` to catalog of frames.
         self.views[view_name] = new_view
+
+
+    def refresh_window(self, view_name, width, height):
+        self.set_wind_size(width, height)
+        self._show_view(view_name)
+
         
 
     def _show_view(self, view_name):
@@ -63,8 +75,9 @@ class Root(tk.Tk):
         except KeyError:
             # Creates view and displays it.
             self._create_view(view_name)
+            # Bings requested view to the front.
             self.views[view_name].tkraise()
-
+       
 
     def conv(self, view_name):
         """
