@@ -16,3 +16,7 @@ acc_types = {
     'Almacen': 1,
     'Planeacion': 2
 }
+
+# Database.
+DB_USER = "root"
+DB_PSWD = "trustme"

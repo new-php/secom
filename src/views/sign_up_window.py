@@ -187,7 +187,7 @@ class SignUpWind(ttk.Frame):
                               text="Cancelar",
                               command=lambda: controller.refresh_window(
                                  view_name="LIWind",
-                                 width=sv.SUWIND_WIDTH,
+                                 width=sv.LIWIND_WIDTH,
                                  height=sv.LIWIND_HEIGHT
                               )
         )
