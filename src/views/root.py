@@ -13,7 +13,7 @@ class Root(tk.Tk):
         self.container = ttk.Frame(self)
         self._width_window = 0
         self._height_window = 0
-        self.connector = Messenger(sv.DB_USER, sv.DB_PSWD)
+        self.connector = Messenger()
         self.views = {}
         self.account_types = sv.acc_types
         self.catalog = {

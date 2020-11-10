@@ -1,12 +1,13 @@
+import os
 import mysql.connector as mysql
 
 class Messenger:
-    def __init__(self, USER_DB, PSWD_DB):
+    def __init__(self):
         self.DB = mysql.connect(
-            host = "localhost",
-            user = USER_DB,
-            passwd = PSWD_DB,
-            database="secom"
+            host = os.environ.get('DB_HOST'),
+            user = os.environ.get('DB_USER'),
+            passwd = os.environ.get('DB_PSWD'),
+            database = os.environ.get('DB')
         )
         self.cursor = self.DB.cursor()
 
