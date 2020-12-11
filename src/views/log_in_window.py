@@ -23,7 +23,6 @@ class LogInWind(ttk.Frame):
             column=0,
             sticky=tk.SW
         )
-        self.title_lbl.update_idletasks()
 
         self.user_lbl = ttk.Label(
             self,
