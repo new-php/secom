@@ -1,11 +1,12 @@
 import string
 import tkinter as tk
+from tkinter import messagebox
 import tkinter.font as tkf
 from tkinter import ttk
 from constants import static_values as sv
 from services import validate
 from tools.su_entry import SUEntry 
-
+from tkinter.messagebox import showerror
 
 class SignUpWind(ttk.Frame):
     def __init__(self, parent, controller): 
@@ -218,16 +219,8 @@ class SignUpWind(ttk.Frame):
 
         if validate.password(self.pswd_ety.get(), self.pswd_confirm_ety.get()) and validate.all_filled(info):
             controller.connector.create_user(info)
-            controller._delete_view(self)
+            controller._delete_view("SUWind")
             controller._show_view('LIWind')
 
         else:
-            self.pswd_lbl.config(
-                foreground="#DB1B0D",
-                font=tkf.Font(family="Helvetica", size=10, weight='bold')
-            )
-            self.pswd_confirm_lbl.config(
-                foreground="#DB1B0D",
-                font=tkf.Font(family="Helvetica", size=10, weight='bold')
-            )
-            
+            messagebox.showerror("Error","Campo(s) Invalido(s)")
