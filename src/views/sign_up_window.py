@@ -45,9 +45,11 @@ class SignUpWind(ttk.Frame):
                                   sticky=tk.NE)
 
         self.warnings_frm = ttk.Frame(self)
-        self.warnings_frm.grid(row=1,
-                              column=2,
-                              sticky=tk.NS)
+        self.warnings_frm.grid(
+            row=1,
+            column=2,
+            sticky=tk.NS
+        )
 
 
         # -------------------------------LABELS---------------------------------
