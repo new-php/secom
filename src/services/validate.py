@@ -45,6 +45,7 @@ def contains_char(ety_txt, constraints):
         return False
 
 def all_filled(info):
+
     for item in info:
         if not item:
             return False
