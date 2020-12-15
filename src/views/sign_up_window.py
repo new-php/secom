@@ -197,6 +197,12 @@ class SignUpWind(ttk.Frame):
     
 
     def send_info(self, controller):
+        """
+        INPUT: root object.
+        OUTPUT: None.
+
+        Description: obtains user iputs and validatres entries.
+        """
         info = [
             self.user_ety.get(),
             self.pswd_ety.get(),
@@ -211,10 +217,10 @@ class SignUpWind(ttk.Frame):
         self.pswd_lbl.config(
                 foreground="#000000",
                 font=tkf.Font(family="Helvetica", size=10)
-            )
+        )
         self.pswd_confirm_lbl.config(
             foreground="#000000",
-            font=tkf.Font(family="Helvetica", size=10)
+            font=tkf.Font(family="Helvetica", size=10)            
         )
         
 
