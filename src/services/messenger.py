@@ -27,7 +27,7 @@ class Messenger:
                 "m_last_name) "\
             "VALUES (%s, %s, %s, %s, %s, %s, %s, %s)",
             (info[0],   # user_name. 
-            bcrypt.hashpw(info[1], bcrypt.gensalt()),   #Hashing the password.
+            bcrypt.hashpw(info[1].encode('utf-8'), bcrypt.gensalt()),   #Hashing the password.
             info[2],    # hint.
             info[3],    # user_type.
             info[4],    # first_name.
@@ -53,4 +53,5 @@ class Messenger:
             (value, user_name)
         )
 
+        self.cursor.close
         return self.cursor.fetchone()[0]
