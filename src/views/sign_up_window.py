@@ -226,8 +226,8 @@ class SignUpWind(ttk.Frame):
 
         if validate.password(self.pswd_ety.get(), self.pswd_confirm_ety.get()) and validate.all_filled(info):
             controller.connector.create_user(info)
-            controller._delete_view(self)
-            controller._show_view('LIWind')
+            controller.delete_view('SUWind')
+            controller.show_view('LIWind')
 
         else:
             self.pswd_lbl.config(

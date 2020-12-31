@@ -55,11 +55,11 @@ class Root(tk.Tk):
 
     def refresh_window(self, view_name, width, height):
         self.set_wind_size(width, height)
-        self._show_view(view_name)
+        self.show_view(view_name)
 
         
 
-    def _show_view(self, view_name):
+    def show_view(self, view_name):
         """
         INPUT: string
         OUTPUT: None.
@@ -69,7 +69,7 @@ class Root(tk.Tk):
 
         try:
             # Convert str to view object.
-            view_name = self.conv(view_name)
+            view_name = self._conv(view_name)
             # Bings requested view to the front.
             self.views[view_name].tkraise()
         except KeyError:
@@ -79,7 +79,7 @@ class Root(tk.Tk):
             self.views[view_name].tkraise()
        
 
-    def conv(self, view_name):
+    def _conv(self, view_name):
         """
         INPUT: string
         OUTPUT: view object
@@ -89,7 +89,7 @@ class Root(tk.Tk):
         return self.catalog[view_name]
 
 
-    def _delete_view(self, view_name):
+    def delete_view(self, view_name):
         del self.views[self.catalog[view_name]]
 
 
