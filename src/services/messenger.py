@@ -11,9 +11,10 @@ class Messenger:
             passwd = os.environ.get('DB_PSWD'),
             database = os.environ.get('DB')
         )
-        self.cursor = self.DB.cursor()
 
     def create_user(self, info):
+        self.cursor = self.DB.cursor(buffered=True)
+        
         self.cursor.execute(
             "INSERT INTO users ( "\
                 "user_name, "\
@@ -36,6 +37,7 @@ class Messenger:
         )
 
         self.DB.commit()
+        self.cursor.close()
 
     def check_credentials(self, username,pswd):
         password = self.get_hashed_pswd(username)
