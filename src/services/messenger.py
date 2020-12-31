@@ -39,16 +39,18 @@ class Messenger:
         self.DB.commit()
         self.cursor.close()
 
-    def check_credentials(self, username,pswd):
-        password = self.get_hashed_pswd(username)
+
+    def check_credentials(self, user_name,pswd):
+        password = self.get_hashed_pswd(user_name)
         print(bcrypt.checkpw(pswd,password))
 
-    def get_hashed_pswd(self, username):
+
+    def get(self, value, user_name):
+        self.cursor = self.DB.cursor(buffered=True)
+
         self.cursor.execute(
-            "SELECT pswd FROM users WHERE user_name = 'test'"
+            "SELECT %s FROM users WHERE user_name = %s",
+            (value, user_name)
         )
 
         return self.cursor.fetchone()[0]
-        
-        #test
-        #Test001!
