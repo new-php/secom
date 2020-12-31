@@ -25,14 +25,14 @@ class Messenger:
                 "f_last_name, "\
                 "m_last_name) "\
             "VALUES (%s, %s, %s, %s, %s, %s, %s, %s)",
-            (info[0], 
-            bcrypt.hashpw(info[1], bcrypt.gensalt()),   #Hashing the password
-            info[2],
-            info[3], 
-            info[4],
-            info[5],
-            info[6],
-            info[7])
+            (info[0],   # user_name. 
+            bcrypt.hashpw(info[1], bcrypt.gensalt()),   #Hashing the password.
+            info[2],    # hint.
+            info[3],    # user_type.
+            info[4],    # first_name.
+            info[5],    # second_name.
+            info[6],    # f_last_name.
+            info[7])    # m_last_name.
         )
 
         self.DB.commit()
