@@ -1,8 +1,9 @@
 ###################Python######################
 mysql-connector-python
 python3-tk (tkinter)
+bcrypt
 
-###################Mysql#######################
+###################Mysql/Mariadb#######################
 mysql-server
 
 **************change mysql root plugin*********
@@ -14,4 +15,11 @@ exit;
 
 sudo service mysql stop
 sudo service mysql start
+***********************************************
+
+
+**************allow remote acces***************
+- Search for my.cnf in /etc or /etc/mysql
+- comment bind-address or edit for desire ip. (found in [mysqld] secction)
+- comment "skip-networking" if present.
 ***********************************************
