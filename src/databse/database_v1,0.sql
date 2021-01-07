@@ -34,14 +34,14 @@ CREATE TABLE transaction_type(
 
 CREATE TABLE kardex(
     trans_id INT(10) PRIMARY KEY NOT NULL AUTO_INCREMENT,
-    ware_id INT(5),
-    FOREIGN KEY (ware_id) REFERENCES warehouse(wh_id),
-    item_id INT(5),
-    FOREIGN KEY (item_id) REFERENCES item(item_id),
+    ware_id_kardex INT(5),
+    FOREIGN KEY (ware_id_kardex) REFERENCES warehouse(wh_id),
+    item_id_kardex INT(5),
+    FOREIGN KEY (item_id_kardex) REFERENCES item(item_id),
     quantity INT(5),
     trans_time DATE,
-    user_id INT(10),
-    FOREIGN KEY (user_id) REFERENCES user(user_id)
+    user_id_kardex INT(10),
+    FOREIGN KEY (user_id_kardex) REFERENCES user(user_id)
 
 );
 CREATE TABLE bom(
