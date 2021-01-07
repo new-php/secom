@@ -60,7 +60,10 @@ CREATE TABLE project(
 CREATE TABLE stock(
     item_id INT(5) NOT NULL,
     wh_id INT(5) NOT NULL,
-    FOREIGN KEY(item_id) REFERENCES item(item_id),
-    FOREIGN KEY(wh_id) REFERENCES warehouse(wh_id),
-    PRIMARY KEY(item_id,wh_id)
+    quantity_physical INT NOT NULL,
+    quantity_backorder INT NOT NULL,
+    quantity_reserved INT NOT NULL,
+    FOREIGN KEY(item_id) REFERENCES item(item_id) ON DELETE RESTRICT ON UPDATE CASCADE,
+    FOREIGN KEY(wh_id) REFERENCES warehouse(wh_id) ON DELETE RESTRICT ON UPDATE CASCADE,
+    PRIMARY KEY(item_id,wh_id,quantity_physical,quantity_backorder,quantity_reserved)
 );
