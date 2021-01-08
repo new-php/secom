@@ -15,7 +15,7 @@ class Root(tk.Tk):
         self._height_window = 0
         self.connector = Messenger()
         self.views = {}
-        self.account_types = sv.acc_types
+        self.account_types = sv.ACC_TYPE
         self.catalog = {
             "LIWind": LIWind,
             "SUWind": SUWind
@@ -28,7 +28,7 @@ class Root(tk.Tk):
 
         # General app configurations.
         self.title("SECOM")
-        self.iconphoto(True, tk.PhotoImage(file=sv.app_mini_logo))
+        self.iconphoto(True, tk.PhotoImage(file=sv.APP_MINI_LOGO))
 
         self.refresh_window(
             view_name="LIWind",
