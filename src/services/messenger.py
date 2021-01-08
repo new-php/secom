@@ -48,12 +48,18 @@ class Messenger:
 
 
     def get(self, value, user_name):
-        self.cursor = self.DB.cursor(buffered=True)
+        cursor = self.DB.cursor(buffered=True)
 
-        self.cursor.execute(
-            "SELECT %s FROM users WHERE user_name = %s",
-            (value, user_name)
+        cursor.execute(
+            ("SELECT " + value + " FROM users WHERE user_name=%s"),
+            (user_name, )
         )
 
-        self.cursor.close
-        return self.cursor.fetchone()[0]
+
+
+        if cursor.rowcount == 1:
+            pswd = cursor.fetchone()[0]
+            cursor.close()
+            return pswd
+        else:
+            raise ValueError("User not found.")
