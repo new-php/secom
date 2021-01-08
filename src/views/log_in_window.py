@@ -74,37 +74,33 @@ class LogInWind(ttk.Frame):
             self,
             width=15,
             text="Crear cuenta",
-            command=lambda: controller.refresh_window(
-                view_name="SUWind",
-                width=sv.LIWIND_WIDTH,
-                height=sv.LIWIND_HEIGHT
-            )
+            command=lambda: controller.refresh_window("SUWind")
         )
         self.signUp_btn.grid(row=6, column=0, pady=5 ,sticky=tk.S)
 
         # Upadte Idle tasks to get widget's width for good placement
         controller.update_idletasks()
         self.title_lbl.grid(
-            padx=(sv.LIWIND_WIDTH - self.title_lbl.winfo_width()) / 2 ,
+            padx=(sv.WIND_SIZE["LIWind"][0] - self.title_lbl.winfo_width()) / 2,
             pady=(10,20)
         )
         self.user_lbl.grid(
-            padx=(sv.LIWIND_WIDTH - self.user_ety.winfo_width()) / 2
+            padx=(sv.WIND_SIZE["LIWind"][0] - self.user_ety.winfo_width()) / 2
         )
         self.pswd_lbl.grid(
-            padx=(sv.LIWIND_WIDTH - self.pswd_ety.winfo_width()) / 2
+            padx=(sv.WIND_SIZE["LIWind"][0] - self.pswd_ety.winfo_width()) / 2
         )
         self.user_ety.grid(
-            padx=(sv.LIWIND_WIDTH - self.user_ety.winfo_width()) / 2
+            padx=(sv.WIND_SIZE["LIWind"][0] - self.user_ety.winfo_width()) / 2
         )
         self.pswd_ety.grid(
-            padx=(sv.LIWIND_WIDTH - self.pswd_ety.winfo_width()) / 2
+            padx=(sv.WIND_SIZE["LIWind"][0] - self.pswd_ety.winfo_width()) / 2
         )
         self.logIn_btn.grid(
-            padx=(sv.LIWIND_WIDTH - self.logIn_btn.winfo_width()) / 2
+            padx=(sv.WIND_SIZE["LIWind"][0] - self.logIn_btn.winfo_width()) / 2
         )
         self.signUp_btn.grid(
-            padx=(sv.LIWIND_WIDTH - self.signUp_btn.winfo_width()) / 2 
+            padx=(sv.WIND_SIZE["LIWind"][0] - self.signUp_btn.winfo_width()) / 2 
         )
 
     def login(self, connector):
