@@ -40,9 +40,11 @@ class Messenger:
         cursor.close()
 
 
-    def check_credentials(self, user_name,pswd):
-        password = self.get_hashed_pswd(user_name)
-        print(bcrypt.checkpw(pswd,password))
+
+    def check_credentials(self, user_name, ety_pswd):
+        password = self.get("pswd", user_name)
+        return bcrypt.checkpw(ety_pswd.encode('utf8'),password.encode('utf8'))
+    
 
 
     def get(self, value, user_name):
