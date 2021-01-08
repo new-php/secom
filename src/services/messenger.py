@@ -13,9 +13,9 @@ class Messenger:
         )
 
     def create_user(self, info):
-        self.cursor = self.DB.cursor(buffered=True)
+        cursor = self.DB.cursor(buffered=True)
         
-        self.cursor.execute(
+        cursor.execute(
             "INSERT INTO users ( "\
                 "user_name, "\
                 "pswd, "\
@@ -37,7 +37,7 @@ class Messenger:
         )
 
         self.DB.commit()
-        self.cursor.close()
+        cursor.close()
 
 
     def check_credentials(self, user_name,pswd):
