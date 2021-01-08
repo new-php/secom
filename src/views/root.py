@@ -30,11 +30,7 @@ class Root(tk.Tk):
         self.title("SECOM")
         self.iconphoto(True, tk.PhotoImage(file=sv.APP_MINI_LOGO))
 
-        self.refresh_window(
-            view_name="LIWind",
-            width=sv.LIWIND_WIDTH,
-            height=sv.LIWIND_HEIGHT
-        )
+        self.refresh_window("LIWind")
 
 
     def _create_view(self, view_name):
@@ -94,7 +90,7 @@ class Root(tk.Tk):
         return self.catalog[view_name]
 
 
-    def delete_view(self, view_name):
+    def _delete_view(self, view_name):
         del self.views[self.catalog[view_name]]
 
 
