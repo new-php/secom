@@ -1,6 +1,6 @@
 import tkinter as tk
 import tkinter.font as tkf
-from tkinter import ttk
+from tkinter import ttk, messagebox
 from constants import static_values as sv
 
 
@@ -65,7 +65,8 @@ class LogInWind(ttk.Frame):
         self.logIn_btn = ttk.Button(
             self,
             width=15,
-            text="Iniciar Sesion"
+            text="Iniciar Sesion",
+            command=lambda: self.login(controller.connector)
         )
         self.logIn_btn.grid(row=5,column=0, pady=5, sticky=tk.N)
         
