@@ -106,3 +106,24 @@ class LogInWind(ttk.Frame):
         self.signUp_btn.grid(
             padx=(sv.LIWIND_WIDTH - self.signUp_btn.winfo_width()) / 2 
         )
+
+    def login(self, connector):
+        try:
+            if connector.check_credentials(self.user_ety.get(), self.pswd_ety.get()):
+                pass
+            else:
+                messagebox.showerror(
+                    "Credenciales invalidas",
+                    "Usuario o contraseña incorrecta"
+                )
+                
+                self.user_ety.delete(0, "end")
+                self.pswd_ety.delete(0, "end")
+        except ValueError:
+            self.user_ety.delete(0, "end")
+            self.pswd_ety.delete(0, "end")
+
+            messagebox.showerror(
+                    "Credenciales invalidas",
+                    "El usuario no existe"
+                )
