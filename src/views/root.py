@@ -53,10 +53,15 @@ class Root(tk.Tk):
         self.views[view_name] = new_view
 
 
-    def refresh_window(self, view_name, width, height):
-        self.set_wind_size(width, height)
+    def refresh_window(self, view_name, delete=None):
+        self.set_wind_size(
+            sv.WIND_SIZE[view_name][0],
+            sv.WIND_SIZE[view_name][1]
+        )
         self.show_view(view_name)
 
+        if delete is not None:
+            self._delete_view(delete)
         
 
     def show_view(self, view_name):
