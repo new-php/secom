@@ -12,14 +12,10 @@ class SignUpWind(ttk.Frame):
     def __init__(self, parent, controller): 
         super().__init__(parent)
 
-        controller.set_wind_size(
-            width=sv.SUWIND_WIDTH,
-            height=sv.SUWIND_HEIGHT,
-        )
-        controller.set_wind_param()
-        frame_pad = 150
 
         # -------------------------------FRAMES---------------------------------
+        frame_pad = 150
+
         title_frm = ttk.Frame(self)
         title_frm.grid(row=0, column=1, pady=(0, 20))
 
@@ -188,11 +184,7 @@ class SignUpWind(ttk.Frame):
         back_btn = ttk.Button(self,
                               width=20,
                               text="Cancelar",
-                              command=lambda: controller.refresh_window(
-                                 view_name="LIWind",
-                                 width=sv.LIWIND_WIDTH,
-                                 height=sv.LIWIND_HEIGHT
-                              )
+                              command=lambda: controller.refresh_window("LIWind")
         )
         back_btn.grid(row=3, column=1, sticky=tk.NS)
     
@@ -228,7 +220,7 @@ class SignUpWind(ttk.Frame):
         if validate.password(self.pswd_ety.get(), self.pswd_confirm_ety.get()) and validate.all_filled(info):
             controller.connector.create_user(info)
 
-            controller.delete_view('SUWind')
-            controller.show_view('LIWind')
+            controller.refresh_window('LIWind', delete='SUWind')
+
         else:
             messagebox.showerror("Error","Campo(s) Invalido(s)")

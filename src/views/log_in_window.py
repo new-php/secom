@@ -1,6 +1,6 @@
 import tkinter as tk
 import tkinter.font as tkf
-from tkinter import ttk
+from tkinter import ttk, messagebox
 from constants import static_values as sv
 
 
@@ -65,7 +65,8 @@ class LogInWind(ttk.Frame):
         self.logIn_btn = ttk.Button(
             self,
             width=15,
-            text="Iniciar Sesion"
+            text="Iniciar Sesion",
+            command=lambda: self.login(controller.connector)
         )
         self.logIn_btn.grid(row=5,column=0, pady=5, sticky=tk.N)
         
@@ -73,35 +74,52 @@ class LogInWind(ttk.Frame):
             self,
             width=15,
             text="Crear cuenta",
-            command=lambda: controller.refresh_window(
-                view_name="SUWind",
-                width=sv.LIWIND_WIDTH,
-                height=sv.LIWIND_HEIGHT
-            )
+            command=lambda: controller.refresh_window("SUWind")
         )
         self.signUp_btn.grid(row=6, column=0, pady=5 ,sticky=tk.S)
 
         # Upadte Idle tasks to get widget's width for good placement
         controller.update_idletasks()
         self.title_lbl.grid(
-            padx=(sv.LIWIND_WIDTH - self.title_lbl.winfo_width()) / 2 ,
+            padx=(sv.WIND_SIZE["LIWind"][0] - self.title_lbl.winfo_width()) / 2,
             pady=(10,20)
         )
         self.user_lbl.grid(
-            padx=(sv.LIWIND_WIDTH - self.user_ety.winfo_width()) / 2
+            padx=(sv.WIND_SIZE["LIWind"][0] - self.user_ety.winfo_width()) / 2
         )
         self.pswd_lbl.grid(
-            padx=(sv.LIWIND_WIDTH - self.pswd_ety.winfo_width()) / 2
+            padx=(sv.WIND_SIZE["LIWind"][0] - self.pswd_ety.winfo_width()) / 2
         )
         self.user_ety.grid(
-            padx=(sv.LIWIND_WIDTH - self.user_ety.winfo_width()) / 2
+            padx=(sv.WIND_SIZE["LIWind"][0] - self.user_ety.winfo_width()) / 2
         )
         self.pswd_ety.grid(
-            padx=(sv.LIWIND_WIDTH - self.pswd_ety.winfo_width()) / 2
+            padx=(sv.WIND_SIZE["LIWind"][0] - self.pswd_ety.winfo_width()) / 2
         )
         self.logIn_btn.grid(
-            padx=(sv.LIWIND_WIDTH - self.logIn_btn.winfo_width()) / 2
+            padx=(sv.WIND_SIZE["LIWind"][0] - self.logIn_btn.winfo_width()) / 2
         )
         self.signUp_btn.grid(
-            padx=(sv.LIWIND_WIDTH - self.signUp_btn.winfo_width()) / 2 
+            padx=(sv.WIND_SIZE["LIWind"][0] - self.signUp_btn.winfo_width()) / 2 
         )
+
+    def login(self, connector):
+        try:
+            if connector.check_credentials(self.user_ety.get(), self.pswd_ety.get()):
+                pass
+            else:
+                messagebox.showerror(
+                    "Credenciales invalidas",
+                    "Usuario o contraseña incorrecta"
+                )
+                
+                self.user_ety.delete(0, "end")
+                self.pswd_ety.delete(0, "end")
+        except ValueError:
+            self.user_ety.delete(0, "end")
+            self.pswd_ety.delete(0, "end")
+
+            messagebox.showerror(
+                    "Credenciales invalidas",
+                    "El usuario no existe"
+                )

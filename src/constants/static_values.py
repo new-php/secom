@@ -1,19 +1,16 @@
 import os
 
-############################## Window Size #####################################
-# LOG IN.
-LIWIND_WIDTH = 400
-LIWIND_HEIGHT = 225
-# SIGN UP
-SUWIND_WIDTH = 800
-SUWIND_HEIGHT = 500
-################################################################################
+#  view_name: (width, height)
+WIND_SIZE = {
+    'LIWind': (400, 225),
+    'SUWind': (800, 500)
+}
 
-# Img's adress.
-app_mini_logo = os.path.abspath("src/assets/imgs/icon.png")
+# App's mini logo img.
+APP_MINI_LOGO = os.path.abspath("src/assets/imgs/icon.png")
 
 # User account types.
-acc_types = {
+ACC_TYPE = {
     'Almacen': 1,
     'Planeacion': 2
 }

@@ -15,7 +15,7 @@ class Root(tk.Tk):
         self._height_window = 0
         self.connector = Messenger()
         self.views = {}
-        self.account_types = sv.acc_types
+        self.account_types = sv.ACC_TYPE
         self.catalog = {
             "LIWind": LIWind,
             "SUWind": SUWind
@@ -28,13 +28,9 @@ class Root(tk.Tk):
 
         # General app configurations.
         self.title("SECOM")
-        self.iconphoto(True, tk.PhotoImage(file=sv.app_mini_logo))
+        self.iconphoto(True, tk.PhotoImage(file=sv.APP_MINI_LOGO))
 
-        self.refresh_window(
-            view_name="LIWind",
-            width=sv.LIWIND_WIDTH,
-            height=sv.LIWIND_HEIGHT
-        )
+        self.refresh_window("LIWind")
 
 
     def _create_view(self, view_name):
@@ -53,10 +49,15 @@ class Root(tk.Tk):
         self.views[view_name] = new_view
 
 
-    def refresh_window(self, view_name, width, height):
-        self.set_wind_size(width, height)
+    def refresh_window(self, view_name, delete=None):
+        self.set_wind_size(
+            sv.WIND_SIZE[view_name][0],
+            sv.WIND_SIZE[view_name][1]
+        )
         self.show_view(view_name)
 
+        if delete is not None:
+            self._delete_view(delete)
         
 
     def show_view(self, view_name):
@@ -89,7 +90,7 @@ class Root(tk.Tk):
         return self.catalog[view_name]
 
 
-    def delete_view(self, view_name):
+    def _delete_view(self, view_name):
         del self.views[self.catalog[view_name]]
 
 

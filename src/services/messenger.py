@@ -13,9 +13,9 @@ class Messenger:
         )
 
     def create_user(self, info):
-        self.cursor = self.DB.cursor(buffered=True)
+        cursor = self.DB.cursor(buffered=True)
         
-        self.cursor.execute(
+        cursor.execute(
             "INSERT INTO users ( "\
                 "user_name, "\
                 "pswd, "\
@@ -37,21 +37,29 @@ class Messenger:
         )
 
         self.DB.commit()
-        self.cursor.close()
+        cursor.close()
 
 
-    def check_credentials(self, user_name,pswd):
-        password = self.get_hashed_pswd(user_name)
-        print(bcrypt.checkpw(pswd,password))
+
+    def check_credentials(self, user_name, ety_pswd):
+        password = self.get("pswd", user_name)
+        return bcrypt.checkpw(ety_pswd.encode('utf8'),password.encode('utf8'))
+    
 
 
     def get(self, value, user_name):
-        self.cursor = self.DB.cursor(buffered=True)
+        cursor = self.DB.cursor(buffered=True)
 
-        self.cursor.execute(
-            "SELECT %s FROM users WHERE user_name = %s",
-            (value, user_name)
+        cursor.execute(
+            ("SELECT " + value + " FROM users WHERE user_name=%s"),
+            (user_name, )
         )
 
-        self.cursor.close
-        return self.cursor.fetchone()[0]
+
+
+        if cursor.rowcount == 1:
+            pswd = cursor.fetchone()[0]
+            cursor.close()
+            return pswd
+        else:
+            raise ValueError("User not found.")
