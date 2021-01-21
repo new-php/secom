@@ -14,7 +14,6 @@ class Root(tk.Tk):
             # General app configurations.
             self.title("SECOM")
             self.iconphoto(True, tk.PhotoImage(file=sv.APP_MINI_LOGO))
-            self.set_wind_param()
 
             # Container setup.
             self.container = ttk.Frame(self)
