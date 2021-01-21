@@ -9,28 +9,6 @@ from services.messenger import Messenger
 class Root(tk.Tk):
     def __init__(self, *args,**kwargs):
         super().__init__(*args,**kwargs)
-        
-        self.container = ttk.Frame(self)
-        self._width_window = 0
-        self._height_window = 0
-        self.connector = Messenger()
-        self.views = {}
-        self.account_types = sv.ACC_TYPE
-        self.catalog = {
-            "LIWind": LIWind,
-            "SUWind": SUWind
-        }
-        
-        # Container setup.
-        self.container.pack(side="top", expand=True)
-        self.container.grid_rowconfigure(0, weight=1)
-        self.container.grid_columnconfigure(0, weight=1)
-
-        # General app configurations.
-        self.title("SECOM")
-        self.iconphoto(True, tk.PhotoImage(file=sv.APP_MINI_LOGO))
-
-        self.refresh_window("LIWind")
 
 
     def _create_view(self, view_name):
