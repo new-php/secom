@@ -38,7 +38,7 @@ class Root(tk.Tk):
                 "Error de conexion.", 
                 format("No se pudo establecer la conexion con el servidor.")
             )
-            self.quit()
+            self.destroy()
 
 
     def _create_view(self, view_name):
