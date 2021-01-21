@@ -1,5 +1,6 @@
 import tkinter as tk
 from tkinter import ttk
+from tkinter import messagebox
 from constants import static_values as sv
 from views.log_in_window import LogInWind as LIWind
 from views.sign_up_window import  SignUpWind as SUWind
@@ -9,6 +10,35 @@ from services.messenger import Messenger
 class Root(tk.Tk):
     def __init__(self, *args,**kwargs):
         super().__init__(*args,**kwargs)
+        try: 
+            # General app configurations.
+            self.title("SECOM")
+            self.iconphoto(True, tk.PhotoImage(file=sv.APP_MINI_LOGO))
+            self.set_wind_param()
+
+            # Container setup.
+            self.container = ttk.Frame(self)
+            self.container.pack(side="top", expand=True)
+            self.container.grid_rowconfigure(0, weight=1)
+            self.container.grid_columnconfigure(0, weight=1)
+
+            self._width_window = 0
+            self._height_window = 0
+            self.connector = Messenger()
+            self.views = {}
+            self.account_types = sv.ACC_TYPE
+            self.catalog = {
+                "LIWind": LIWind,
+                "SUWind": SUWind
+            }
+
+            self.refresh_window("LIWind")
+        except:
+            messagebox.showerror(
+                "Error de conexion.", 
+                format("No se pudo establecer la conexion con el servidor.")
+            )
+            self.quit()
 
 
     def _create_view(self, view_name):
