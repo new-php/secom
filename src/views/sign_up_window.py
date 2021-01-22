@@ -165,10 +165,13 @@ class SignUpWind(ttk.Frame):
 
         # ----------------------------COMBOBOX----------------------------------
         self.acc_type_value = tk.StringVar()
-        acc_type_cbx = ttk.Combobox(self.access_info_frm,
-                                    state="readonly",
-                                    textvariable=self.acc_type_value)
-        acc_type_cbx['values'] = ("Planeacion", "Almacen")
+        acc_type_cbx = ttk.Combobox(
+            self.access_info_frm,
+            foreground=sv.WHITE,
+            state="readonly",
+            textvariable=self.acc_type_value
+        )
+        acc_type_cbx['values'] = [option for option in sv.ACC_TYPE]
         acc_type_cbx.grid(row=13, column=0, sticky=tk.E)
         acc_type_cbx.current(0)
 
