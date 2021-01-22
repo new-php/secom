@@ -25,7 +25,6 @@ class Root(tk.Tk):
             self._height_window = 0
             self.connector = Messenger()
             self.views = {}
-            self.account_types = sv.ACC_TYPE
             self.catalog = {
                 "LIWind": LIWind,
                 "SUWind": SUWind
