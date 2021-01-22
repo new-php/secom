@@ -51,53 +51,53 @@ class SignUpWind(ttk.Frame):
         # -------------------------------LABELS---------------------------------
         title_lbl = ttk.Label(title_frm,
                               text="Crear cuenta nueva",
-                              font=tkf.Font(family="Helvetica", size=15))
+                              font=Font(family="Helvetica", size=15))
         title_lbl.grid(row=0, column=0, padx=frame_pad, sticky=tk.NS)
 
         self.first_name_lbl = ttk.Label(self.person_info_frm,
                                    text="Nombre:",
-                                   font=tkf.Font(family="Helvetica", size=10))
+                                   font=Font(family="Helvetica", size=10))
         self.first_name_lbl.grid(row=0, column=0, sticky=tk.W)
 
         self.second_name_lbl = ttk.Label(self.person_info_frm,
                                     text="Segundo nombre:",
-                                    font=tkf.Font(family="Helvetica", size=10))
+                                    font=Font(family="Helvetica", size=10))
         self.second_name_lbl.grid(row=3, column=0, pady=(15, 0), sticky=tk.W)
 
         self.f_last_name_lbl = ttk.Label(self.person_info_frm,
                                     text="Apellido paterno:",
-                                    font=tkf.Font(family="Helvetica", size=10))
+                                    font=Font(family="Helvetica", size=10))
         self.f_last_name_lbl.grid(row=6, column=0, pady=(15, 0), sticky=tk.W)
 
         self.m_last_name_lbl = ttk.Label(self.person_info_frm,
                                     text="Apellido materno:",
-                                    font=tkf.Font(family="Helvetica", size=10))
+                                    font=Font(family="Helvetica", size=10))
         self.m_last_name_lbl.grid(row=9, column=0, pady=(15, 0), sticky=tk.W)
 
         self.user_lbl = ttk.Label(self.access_info_frm,
                              text="Usuario:",
-                             font=tkf.Font(family="Helvetica", size=10))
+                             font=Font(family="Helvetica", size=10))
         self.user_lbl.grid(row=0, column=0, sticky=tk.W)
 
         self.pswd_lbl = ttk.Label(self.access_info_frm,
                              text="Contraseña:",
-                             font=tkf.Font(family="Helvetica", size=10))
+                             font=Font(family="Helvetica", size=10))
         self.pswd_lbl.grid(row=3, column=0, pady=(15, 0), sticky=tk.W)
 
         self.pswd_confirm_lbl = ttk.Label(self.access_info_frm,
                                      text="Confirme contraseña:",
-                                     font=tkf.Font(family="Helvetica", size=10))
+                                     font=Font(family="Helvetica", size=10))
         self.pswd_confirm_lbl.grid(row=6, column=0, pady=(15, 0), sticky=tk.W)
 
         self.hint_lbl = ttk.Label(self.access_info_frm,
                                 text="Palabra salvavidas:",
-                                font=tkf.Font(family="Helvetica", size=10))
+                                font=Font(family="Helvetica", size=10))
         self.hint_lbl.grid(row=9, column=0, pady=(15, 0), sticky=tk.W)
 
-        acc_type_lbl = ttk.Label(self.access_info_frm,
+        self.acc_type_lbl = ttk.Label(self.access_info_frm,
                                  text="Tipo de cuenta:",
-                                 font=tkf.Font(family="Helvetica", size=10))
-        acc_type_lbl.grid(row=12, column=0, pady=(15, 0), sticky=tk.W)
+                                 font=Font(family="Helvetica", size=10))
+        self.acc_type_lbl.grid(row=12, column=0, pady=(15, 0), sticky=tk.W)
 
         self.warning_lbl = tk.Label(self.warnings_frm,
                                 text="La contraseña debera satisfacer lo siguiente:\n"\
@@ -107,7 +107,7 @@ class SignUpWind(ttk.Frame):
                                      "- Minimo 1 caracter especial.                 \n"\
                                      "- Minimo 1 digito.                                  \n"\
                                      "- Coinsidir con la contraseña confirmada.",
-                                font=tkf.Font(family="Helvetica", size=10))
+                                font=Font(family="Helvetica", size=10))
         self.warning_lbl.grid(row=0, column=0, pady=90, sticky=tk.W)
 
 
