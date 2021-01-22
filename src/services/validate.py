@@ -1,18 +1,8 @@
-import string
 from constants import char_sets
 
 
-def password(pswd, pswd_confirm):
-    """
-    """
-
-    if eight_chars(pswd) and match_password(pswd, pswd_confirm):
-        return True
-    else:
-        return False
-
 def match_password(pswd, confirm_pswd):
-    if pswd == confirm_pswd:
+    if pswd == confirm_pswd and pswd != "":
         return True
     else:
         return False
@@ -46,8 +36,9 @@ def contains_char(ety_txt, constraints):
 
 def all_filled(info):
 
-    for item in info:
-        if not item:
-            return False
+    invalid = []
 
-    return True
+    for item in info:
+        if not item[0]: invalid.append(item[1])
+
+    return invalid
