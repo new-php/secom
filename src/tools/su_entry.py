@@ -1,5 +1,3 @@
-import tkinter as tk
-import tkinter.font as tkf
 from tkinter import ttk
 from services import validate
 
