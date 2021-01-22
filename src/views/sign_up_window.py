@@ -1,6 +1,6 @@
 import tkinter as tk
 from tkinter import messagebox
-import tkinter.font as tkf
+from tkinter.font import Font
 from tkinter import ttk
 from constants import static_values as sv
 from services import validate
