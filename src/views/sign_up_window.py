@@ -202,11 +202,11 @@ class SignUpWind(ttk.Frame):
           (self.user_ety.get(), self.user_lbl),
           (self.pswd_ety.get(), self.pswd_lbl), 
           (self.hint_ety.get(), self.hint_lbl),
-          (sv.ACC_TYPE[self.acc_type_value.get()], self.acc_type_lbl)
+          (sv.ACC_TYPE[self.acc_type_value.get()], self.acc_type_lbl),
           (self.first_name_ety.get(), self.first_name_lbl),
           (self.second_name_ety.get(),self.second_name_lbl), 
           (self.f_last_name_ety.get(),self.f_last_name_lbl),
-          (self.m_last_name_ety.get(), self.m_last_name_lbl),
+          (self.m_last_name_ety.get(), self.m_last_name_lbl)
         )
 
         # Resets all labels' foreground to white.

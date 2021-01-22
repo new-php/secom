@@ -11,7 +11,7 @@ class Root(tk.Tk):
     def __init__(self, *args,**kwargs):
         super().__init__(*args,**kwargs)
         try: 
-            # General app configurations.
+        # General app configurations.
             self.title("SECOM")
             self.iconphoto(True, tk.PhotoImage(file=sv.APP_MINI_LOGO))
 
@@ -21,8 +21,6 @@ class Root(tk.Tk):
             self.container.grid_rowconfigure(0, weight=1)
             self.container.grid_columnconfigure(0, weight=1)
 
-            self._width_window = 0
-            self._height_window = 0
             self.connector = Messenger()
             self.views = {}
             self.catalog = {
@@ -56,7 +54,10 @@ class Root(tk.Tk):
 
 
     def refresh_window(self, view_name, delete=None):
-        self.set_wind_size(
+        """
+        
+        """
+        self.set_wind_param(
             sv.WIND_SIZE[view_name][0],
             sv.WIND_SIZE[view_name][1]
         )
@@ -97,31 +98,27 @@ class Root(tk.Tk):
 
 
     def _delete_view(self, view_name):
+        # self.views[self.catalog[view_name]].destroy()
         del self.views[self.catalog[view_name]]
 
 
-    def set_wind_param(self):
+    def set_wind_param(self, new_width, new_height):
         """
-        INPUT: None
+        INPUT: intx2
         OUTPUT: None
 
-        Description: Sets window in the middle of the screen.
+        Description: Centers the apps' window with respect to the last position 
+                     of the last view.
         """
-        width_screen = self.winfo_screenwidth()
-        hight_screen = self.winfo_screenheight()
-        x = (width_screen / 2) - (self._width_window / 2)
-        y = (hight_screen / 2) - (self._height_window / 2)
 
-        self.geometry("%dx%d+%d+%d" % (self._width_window, self._height_window, x, y))
+        x = y = 0
+        self.update()
 
-    def set_wind_size(self, width, height):
-        """
-        INPUT: int x2
-        OUTPUT: None
+        if self.winfo_width() == self.winfo_height() == 1:
+            x = self.winfo_screenwidth()/2 - new_width/2
+            y = self.winfo_screenheight()/2 - new_height/2
+        else:
+            x = self.winfo_rootx() + (self.winfo_width()/2 - new_width/2)
+            y = self.winfo_rooty() + (self.winfo_height()/2 - new_height/2)
 
-        Description: Changes main window's height and width.
-        """
-        self._width_window = width
-        self._height_window = height
-
-        self.geometry("%dx%d" % (self._width_window, self._height_window))
+        self.geometry("%dx%d+%d+%d" % (new_width, new_height, x, y))

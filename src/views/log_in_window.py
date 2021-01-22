@@ -10,7 +10,6 @@ class LogInWind(ttk.Frame):
 
         #Genral view settings.
         parent.config(relief="groove")
-        controller.set_wind_param()
         
         #--------------------------------LABELS---------------------------------
         self.title_lbl = ttk.Label(
