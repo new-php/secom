@@ -198,31 +198,43 @@ class SignUpWind(ttk.Frame):
 
         Description: obtains user iputs and validatres entries.
         """
-        info = [
-            self.user_ety.get(),
-            self.pswd_ety.get(),
-            self.hint_ety.get(),
-            controller.account_types[self.acc_type_value.get()],
-            self.first_name_ety.get(),
-            self.second_name_ety.get(),
-            self.f_last_name_ety.get(),
-            self.m_last_name_ety.get(),
-        ]
+        info = (
+          (self.user_ety.get(), self.user_lbl),
+          (self.pswd_ety.get(), self.pswd_lbl), 
+          (self.hint_ety.get(), self.hint_lbl),
+          (self.first_name_ety.get(), self.first_name_lbl),
+          (self.second_name_ety.get(),self.second_name_lbl), 
+          (self.f_last_name_ety.get(),self.f_last_name_lbl),
+          (self.m_last_name_ety.get(), self.m_last_name_lbl),
+          (sv.ACC_TYPE[self.acc_type_value.get()], self.acc_type_lbl)
+        )
 
-        self.pswd_lbl.config(
-                foreground="#000000",
-                font=tkf.Font(family="Helvetica", size=10)
-        )
-        self.pswd_confirm_lbl.config(
-            foreground="#000000",
-            font=tkf.Font(family="Helvetica", size=10)            
-        )
+        # Resets all labels' foreground to white.
+        for widget in info:
+            widget[1].config(foreground=sv.WHITE)
+        self.pswd_confirm_lbl.config(foreground=sv.WHITE)
+
+        invalid_inp = validate.all_filled(info)
         
+        if not validate.eight_chars(self.pswd_ety.get()):
+            invalid_inp.append(self.pswd_lbl)
+        if not validate.match_password(self.pswd_ety.get(), self.pswd_confirm_ety.get()):
+            invalid_inp.append(self.pswd_confirm_lbl)
 
-        if validate.password(self.pswd_ety.get(), self.pswd_confirm_ety.get()) and validate.all_filled(info):
-            controller.connector.create_user(info)
-
+        if not invalid_inp:
+            controller.connector.create_user(
+                (info[0][0],
+                info[1][0],
+                info[2][0],
+                info[3][0],
+                info[4][0],
+                info[5][0],
+                info[6][0],
+                info[7][0])
+            )
             controller.refresh_window('LIWind', delete='SUWind')
-
         else:
-            messagebox.showerror("Error","Campo(s) Invalido(s)")
+            for widget in invalid_inp:
+                widget.config(foreground=sv.RED)
+
+            messagebox.showerror("Error", "Campos Invalidos")
