@@ -4,6 +4,7 @@ from tkinter import messagebox
 from constants import static_values as sv
 from views.log_in_window import LogInWind as LIWind
 from views.sign_up_window import  SignUpWind as SUWind
+from views.planner_home_window import PlannerHomeWind as PHWind
 from services.messenger import Messenger
 
 
@@ -25,10 +26,12 @@ class Root(tk.Tk):
             self.views = {}
             self.catalog = {
                 "LIWind": LIWind,
-                "SUWind": SUWind
+                "SUWind": SUWind,
+                "PHWind": PHWind
             }
 
             self.refresh_window("LIWind")
+            
         except:
             messagebox.showerror(
                 "Error de conexion.", 

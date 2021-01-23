@@ -8,7 +8,7 @@ class LogInWind(ttk.Frame):
     def __init__(self, parent, controller):
         super().__init__(parent)
 
-        #Genral view settings.
+        #General view settings.
         parent.config(relief="groove")
         
         #--------------------------------LABELS---------------------------------
@@ -65,7 +65,7 @@ class LogInWind(ttk.Frame):
             self,
             width=15,
             text="Iniciar Sesion",
-            command=lambda: self.login(controller.connector)
+            command=lambda: self.login(controller)
         )
         self.logIn_btn.grid(row=5,column=0, pady=5, sticky=tk.N)
         
@@ -102,10 +102,11 @@ class LogInWind(ttk.Frame):
             padx=(sv.WIND_SIZE["LIWind"][0] - self.signUp_btn.winfo_width()) / 2 
         )
 
-    def login(self, connector):
+    def login(self, controller):
         try:
-            if connector.check_credentials(self.user_ety.get(), self.pswd_ety.get()):
-                pass
+            if controller.connector.check_credentials(self.user_ety.get(), self.pswd_ety.get()):
+                controller.refresh_window("PHWind", delete="LIWind")
+
             else:
                 messagebox.showerror(
                     "Credenciales invalidas",

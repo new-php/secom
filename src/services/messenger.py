@@ -16,7 +16,7 @@ class Messenger:
         cursor = self.DB.cursor(buffered=True)
         
         cursor.execute(
-            "INSERT INTO users ( "\
+            "INSERT INTO user ( "\
                 "user_name, "\
                 "pswd, "\
                 "hint, "\
@@ -51,7 +51,7 @@ class Messenger:
         cursor = self.DB.cursor(buffered=True)
 
         cursor.execute(
-            ("SELECT " + value + " FROM users WHERE user_name=%s"),
+            ("SELECT " + value + " FROM user WHERE user_name=%s"),
             (user_name, )
         )
 

@@ -3,7 +3,8 @@ import os
 #  view_name: (width, height)
 WIND_SIZE = {
     'LIWind': (400, 225),
-    'SUWind': (800, 500)
+    'SUWind': (800, 500),
+    'PHWind': (800, 500)
 }
 
 # App's mini logo img.
