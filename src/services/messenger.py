@@ -51,7 +51,7 @@ class Messenger:
         cursor = self.DB.cursor(buffered=True)
 
         cursor.execute(
-            ("SELECT " + value + " FROM user WHERE user_name=%s"),
+            ("SELECT " + value + " FROM user WHERE user_name='%s'"),
             (user_name, )
         )
 

@@ -11,33 +11,37 @@ from services.messenger import Messenger
 class Root(tk.Tk):
     def __init__(self, *args,**kwargs):
         super().__init__(*args,**kwargs)
-        try: 
+        #try: 
         # General app configurations.
-            self.title("SECOM")
-            self.iconphoto(True, tk.PhotoImage(file=sv.APP_MINI_LOGO))
+        self.title("SECOM")
+        self.iconphoto(True, tk.PhotoImage(file=sv.APP_MINI_LOGO))
 
-            # Container setup.
-            self.container = ttk.Frame(self)
-            self.container.pack(side="top", expand=True)
-            self.container.grid_rowconfigure(0, weight=1)
-            self.container.grid_columnconfigure(0, weight=1)
+        # Container setup.
+        self.container = ttk.Frame(self)
+        self.container.pack(side="top", expand=True)
+        self.container.grid_rowconfigure(0, weight=1)
+        self.container.grid_columnconfigure(0, weight=1)
+        
+        self.connector = Messenger()
 
-            self.connector = Messenger()
-            self.views = {}
-            self.catalog = {
-                "LIWind": LIWind,
-                "SUWind": SUWind,
-                "PHWind": PHWind
-            }
+        self.logged_user = ""
 
-            self.refresh_window("PHWind")
+        self.views = {}
+        self.catalog = {
+            "LIWind": LIWind,
+            "SUWind": SUWind,
+            "PHWind": PHWind
+        }
+        
+
+        self.refresh_window("PHWind")
             
-        except:
-            messagebox.showerror(
-                "Error de conexion.", 
-                format("No se pudo establecer la conexion con el servidor.")
-            )
-            self.destroy()
+        # except:
+        #     messagebox.showerror(
+        #         "Error de conexion.", 
+        #         format("No se pudo establecer la conexion con el servidor.")
+        #     )
+        #     self.destroy()
 
 
     def _create_view(self, view_name):
@@ -125,3 +129,4 @@ class Root(tk.Tk):
             y = self.winfo_rooty() + (self.winfo_height()/2 - new_height/2)
 
         self.geometry("%dx%d+%d+%d" % (new_width, new_height, x, y))
+

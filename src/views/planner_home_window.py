@@ -8,7 +8,6 @@ class PlannerHomeWind(ttk.Frame):
         super().__init__(parent)
 
     #--------------------------------LABELS---------------------------------    
-
         self.title_lbl = ttk.Label(
             self,
             text="Gestor de proyectos",
@@ -21,6 +20,22 @@ class PlannerHomeWind(ttk.Frame):
             pady=(5,25)
         )
 
+        user_name = controller.connector.get("first_name",controller.logged_user)
+        # user_name += " " + controller.connector.get("second_name",controller.logged_user)
+        # user_name += " " + controller.connector.get("f_last_name",controller.logged_user)
+        # user_name += " " + controller.connector.get("m_last_name",controller.logged_user)
+
+        self.user_info_lbl = ttk.Label(
+            self,
+            text=user_name,
+            font=tkf.Font(family="Helvetica", size=15)
+        )
+        self.user_info_lbl.grid(
+            row=0,
+            column=1,
+            sticky=tk.N,
+            pady=(5,25)
+        )
     #--------------------------------BUTTONS--------------------------------
 
         self.new_project_btn = ttk.Button(
