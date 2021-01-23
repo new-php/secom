@@ -20,14 +20,14 @@ class PlannerHomeWind(ttk.Frame):
             pady=(5,25)
         )
 
-        user_name = controller.connector.get("first_name",controller.logged_user)
-        # user_name += " " + controller.connector.get("second_name",controller.logged_user)
-        # user_name += " " + controller.connector.get("f_last_name",controller.logged_user)
-        # user_name += " " + controller.connector.get("m_last_name",controller.logged_user)
-
+        user_name = controller.connector.get(
+            ("first_name","second_name","f_last_name","m_last_name"),
+            controller.logged_user
+        )
+            
         self.user_info_lbl = ttk.Label(
             self,
-            text=user_name,
+            text=' '.join(user_name),
             font=tkf.Font(family="Helvetica", size=15)
         )
         self.user_info_lbl.grid(
