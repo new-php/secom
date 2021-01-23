@@ -13,6 +13,13 @@ class Messenger:
         )
 
     def create_user(self, info):
+        """
+        INPUT: tuple.
+        OUTPUT: nome.
+
+        DESCRIPTION: Inserts user info to user table in DB. It hashes pswd 
+                     before sending.
+        """
         cursor = self.DB.cursor(buffered=True)
         
         cursor.execute(
@@ -43,11 +50,27 @@ class Messenger:
 
     def check_credentials(self, user_name, ety_pswd):
         password = self.get("pswd", user_name)
+        """
+        INPUT: stringx2
+        OUTPUT: bool
+
+        DESCRIPTION: returns True if `ety-pswd` matches with retireved pswd from
+                     DB, else returns False. 
+        """
+        password = self.get(("pswd",), user_name)[0]
         return bcrypt.checkpw(ety_pswd.encode('utf8'),password.encode('utf8'))
     
 
 
     def get(self, value, user_name):
+    def get(self, values, user_name):
+        """
+        INPUT: tuple
+        OUTPUT: tuple or EXEPTION VALUE ERROR
+
+        DESCRIPTION: queries all requiered values in tuple input from given
+                     `user_name'.
+        """
         cursor = self.DB.cursor(buffered=True)
 
         cursor.execute(
