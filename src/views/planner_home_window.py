@@ -17,13 +17,11 @@ class PlannerHomeWind(ttk.Frame):
         self.title_lbl.grid(
             row=0,
             column=0,
-            sticky=tk.S
+            sticky=tk.N,
+            pady=(5,25)
         )
 
-
     #--------------------------------BUTTONS--------------------------------
-
-
 
         self.new_project_btn = ttk.Button(
                 self,

@@ -30,7 +30,7 @@ class Root(tk.Tk):
                 "PHWind": PHWind
             }
 
-            self.refresh_window("LIWind")
+            self.refresh_window("PHWind")
             
         except:
             messagebox.showerror(
