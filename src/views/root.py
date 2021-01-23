@@ -23,9 +23,7 @@ class Root(tk.Tk):
         self.container.grid_columnconfigure(0, weight=1)
         
         self.connector = Messenger()
-
-        self.logged_user = ""
-
+        self.logged_user = None
         self.views = {}
         self.catalog = {
             "LIWind": LIWind,
@@ -34,7 +32,7 @@ class Root(tk.Tk):
         }
         
 
-        self.refresh_window("PHWind")
+        self.refresh_window("LIWind")
             
         # except:
         #     messagebox.showerror(
@@ -49,7 +47,8 @@ class Root(tk.Tk):
         INPUT: view object. 
         OUTPUT: None
 
-        Description: creates frame for the view `vire_name`.
+        Description: creates frame for the view `vire_name` and is added to
+                     dict `self.views`.
         """
 
         # Setup `new_view.`
@@ -62,7 +61,14 @@ class Root(tk.Tk):
 
     def refresh_window(self, view_name, delete=None):
         """
-        
+        INPUT: one or two strings.
+        OUTPUT: None.
+
+        Description: Changes window's size acording to `view_name` specification
+                     in static values (sv) as well as recentering window with 
+                     respec to the center of the last window postion on the
+                     screen, updates view and may delte view if given a second
+                     input.
         """
         self.set_wind_param(
             sv.WIND_SIZE[view_name][0],
@@ -105,8 +111,14 @@ class Root(tk.Tk):
 
 
     def _delete_view(self, view_name):
-        # self.views[self.catalog[view_name]].destroy()
-        del self.views[self.catalog[view_name]]
+        """
+        INPUT: string.
+        OUTPUT: none.
+
+        DESCRIPTION: deletes given view from memory and from dict. `views`.
+        """
+        self.views[self._conv(view_name)].destroy()
+        del self.views[self._conv(view_name)]
 
 
     def set_wind_param(self, new_width, new_height):

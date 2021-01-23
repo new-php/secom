@@ -103,6 +103,15 @@ class LogInWind(ttk.Frame):
         )
 
     def login(self, controller):
+        """
+        INPUT: root object.
+        OUTPUT: none.
+
+        DESCRIPTION: Verifies credentials and displays next screen.
+
+        EXEPTIONS HANDLED FROM: messenger.py `get()`
+        """
+
         try:
             if controller.connector.check_credentials(self.user_ety.get(), self.pswd_ety.get()):
                 controller.logged_user = self.user_ety.get()
