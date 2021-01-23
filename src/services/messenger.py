@@ -49,7 +49,6 @@ class Messenger:
 
 
     def check_credentials(self, user_name, ety_pswd):
-        password = self.get("pswd", user_name)
         """
         INPUT: stringx2
         OUTPUT: bool
@@ -62,7 +61,6 @@ class Messenger:
     
 
 
-    def get(self, value, user_name):
     def get(self, values, user_name):
         """
         INPUT: tuple
@@ -73,16 +71,17 @@ class Messenger:
         """
         cursor = self.DB.cursor(buffered=True)
 
+        query = "SELECT " + ", ".join(values) + " FROM user WHERE user_name=%s"
+
         cursor.execute(
-            ("SELECT " + value + " FROM user WHERE user_name='%s'"),
+            query,
             (user_name, )
         )
 
+        row = cursor.fetchone()
+        cursor.close()
 
-
-        if cursor.rowcount == 1:
-            pswd = cursor.fetchone()[0]
-            cursor.close()
-            return pswd
+        if row is not None:
+            return row
         else:
             raise ValueError("User not found.")
