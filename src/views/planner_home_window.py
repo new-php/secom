@@ -7,9 +7,16 @@ class PlannerHomeWind(ttk.Frame):
     def __init__(self,parent,controller):
         super().__init__(parent)
 
-    #--------------------------------LABELS---------------------------------    
+    #---------------------------------FRAMES------------------------------------
+    
+        title_frame = ttk.Frame(self, relief=tk.RIDGE)
+        title_frame.pack(side=tk.TOP, expand=True)
+
+        menu_frame = ttk.Frame(self, relief=tk.RIDGE)
+        menu_frame.pack(side=tk.BOTTOM, expand=True)
+    #--------------------------------LABELS-------------------------------------
         self.title_lbl = ttk.Label(
-            self,
+            title_frame,
             text="Gestor de proyectos",
             font=tkf.Font(family="Helvetica", size=15)
         )
@@ -17,30 +24,34 @@ class PlannerHomeWind(ttk.Frame):
             row=0,
             column=0,
             sticky=tk.N,
-            pady=(5,25)
+            pady=(0,25),
+            padx=0
         )
 
         user_name = controller.connector.get(
             ("first_name","second_name","f_last_name","m_last_name"),
             controller.logged_user
         )
+        
             
         self.user_info_lbl = ttk.Label(
-            self,
-            text=' '.join(user_name),
-            font=tkf.Font(family="Helvetica", size=15)
+            title_frame,
+            text="Usuario:" + ' '.join(user_name),
+            font=tkf.Font(family="Helvetica", size=10)
         )
         self.user_info_lbl.grid(
             row=0,
             column=1,
-            sticky=tk.N,
-            pady=(5,25)
+            sticky=tk.NE,
+            pady=(0,25),
+            padx=(300,0)
         )
     #--------------------------------BUTTONS--------------------------------
 
-        self.new_project_btn = ttk.Button(
-                self,
-                width=15,
+        self.new_project_btn = tk.Button(
+                menu_frame,
+                heigh=4,
+                width=12,
                 text="Crear Proyecto",
                 #command=
         )
