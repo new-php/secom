@@ -3,11 +3,10 @@ import tkinter.font as tkf
 from tkinter import ttk
 from constants import static_values as sv
 
-class PlannerHomeWind(ttk.Frame):
+class WareHomeWind(ttk.Frame):
     def __init__(self,parent,controller):
         super().__init__(parent)
-
-    #---------------------------------FRAMES------------------------------------
+         #---------------------------------FRAMES------------------------------------
     
         title_frame = ttk.Frame(self, relief=tk.RIDGE)
         title_frame.pack(side=tk.TOP, expand=True)
@@ -18,7 +17,7 @@ class PlannerHomeWind(ttk.Frame):
     #--------------------------------LABELS-------------------------------------
         self.title_lbl = ttk.Label(
             title_frame,
-            text="Gestor de proyectos",
+            text="Control de materiales",
             font=tkf.Font(family="Helvetica", size=15)
         )
         self.title_lbl.grid(
@@ -64,14 +63,14 @@ class PlannerHomeWind(ttk.Frame):
         
     #--------------------------------BUTTONS--------------------------------
 
-        self.new_project_btn = tk.Button(
+        self.add_material_btn = tk.Button(
                 menu_frame,
                 heigh=3,
                 width=12,
-                text="Crear Proyecto",
+                text="Ingreso de material",
                 #command=
         )
-        self.new_project_btn.grid(
+        self.add_material_btn.grid(
             row=0,
             column=0, 
             sticky=tk.S,
@@ -79,33 +78,17 @@ class PlannerHomeWind(ttk.Frame):
             padx=(0,0)
         )
 
-        self.delete_project_btn = tk.Button(
+        self.delete_material_btn = tk.Button(
                 menu_frame,
                 heigh=3,
                 width=20,
-                text="Eliminar(Exportar) Proyecto"
+                text="Egreso de material"
                 #command=
         )
-        self.delete_project_btn.grid(
+        self.delete_material_btn.grid(
             row=0,
             column=2,
             sticky=tk.S,
             pady=(5,5),
             padx=(300,0)
-        )
-
-        #I created a button to run the query to display the different projects(could be useless if we just run the query)
-        self.load_project_btn = tk.Button(
-                menu_frame,
-                heigh=2,
-                width=12,
-                text="Cargar proyecto"
-                #command=
-        )
-        self.load_project_btn.grid(
-            row=2,
-            column=0,
-            sticky=tk.S,
-            pady=(0,5),
-            padx=(0,0)
         )

@@ -115,6 +115,11 @@ class LogInWind(ttk.Frame):
         try:
             if controller.connector.check_credentials(self.user_ety.get(), self.pswd_ety.get()):
                 controller.logged_user = self.user_ety.get()
+
+                controller.logged_user_type = controller.connector.get(("user_type"),
+                                              controller.logged_user
+                                                )
+                                                
                 controller.refresh_window("PHWind", delete="LIWind")
 
             else:

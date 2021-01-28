@@ -106,7 +106,7 @@ class SignUpWind(ttk.Frame):
                                      "- Minimo 1 minuscula.                           \n"\
                                      "- Minimo 1 caracter especial.                 \n"\
                                      "- Minimo 1 digito.                                  \n"\
-                                     "- Coinsidir con la contraseña confirmada.",
+                                     "- Coincidir con la contraseña confirmada.",
                                 font=Font(family="Helvetica", size=10))
         self.warning_lbl.grid(row=0, column=0, pady=90, sticky=tk.W)
 
