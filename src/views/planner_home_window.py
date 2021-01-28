@@ -14,6 +14,7 @@ class PlannerHomeWind(ttk.Frame):
 
         menu_frame = ttk.Frame(self, relief=tk.RIDGE)
         menu_frame.pack(side=tk.BOTTOM, expand=True)
+
     #--------------------------------LABELS-------------------------------------
         self.title_lbl = ttk.Label(
             title_frame,
@@ -46,13 +47,52 @@ class PlannerHomeWind(ttk.Frame):
             pady=(0,25),
             padx=(300,0)
         )
+
+        self.menu_lbl = ttk.Label(
+            menu_frame,
+            text="Proyectos Activos",
+            font=tkf.Font(family="Helvetica", size=15)
+        )
+
+        self.menu_lbl.grid(
+            row=1,
+            column=0,
+            sticky=tk.N,
+            pady=(25,25),
+            padx=(0,0)
+        )
+        
     #--------------------------------BUTTONS--------------------------------
 
         self.new_project_btn = tk.Button(
                 menu_frame,
-                heigh=4,
+                heigh=3,
                 width=12,
                 text="Crear Proyecto",
                 #command=
         )
-        self.new_project_btn.grid(row=1,column=0, sticky=tk.S)
+        self.new_project_btn.grid(
+            row=0,
+            column=0, 
+            sticky=tk.S,
+            pady=(5,5),
+            padx=(0,0)
+        )
+
+        self.delete_project_btn = tk.Button(
+                menu_frame,
+                heigh=3,
+                width=20,
+                text="Eliminar(Exportar) Proyecto"
+                #command=
+        )
+        self.delete_project_btn.grid(
+            row=0,
+            column=2,
+            sticky=tk.S,
+            pady=(5,5),
+            padx=(300,0)
+        )
+
+        #I created a button to run the query to display the different projects(could be useless if we just run the query)
+        

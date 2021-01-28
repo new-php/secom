@@ -23,7 +23,7 @@ class Root(tk.Tk):
         self.container.grid_columnconfigure(0, weight=1)
         
         self.connector = Messenger()
-        self.logged_user = None
+        self.logged_user = "Rafita01"
         self.views = {}
         self.catalog = {
             "LIWind": LIWind,
@@ -32,7 +32,7 @@ class Root(tk.Tk):
         }
         
 
-        self.refresh_window("LIWind")
+        self.refresh_window("PHWind")
             
         # except:
         #     messagebox.showerror(
