@@ -49,7 +49,7 @@ class WareHomeWind(ttk.Frame):
 
         self.menu_lbl = ttk.Label(
             menu_frame,
-            text="Proyectos Activos",
+            text="Material:",
             font=tkf.Font(family="Helvetica", size=15)
         )
 
@@ -65,8 +65,8 @@ class WareHomeWind(ttk.Frame):
 
         self.add_material_btn = tk.Button(
                 menu_frame,
-                heigh=3,
-                width=12,
+                heigh=4,
+                width=20,
                 text="Ingreso de material",
                 #command=
         )
@@ -80,7 +80,7 @@ class WareHomeWind(ttk.Frame):
 
         self.delete_material_btn = tk.Button(
                 menu_frame,
-                heigh=3,
+                heigh=4,
                 width=20,
                 text="Egreso de material"
                 #command=

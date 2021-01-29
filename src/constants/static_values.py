@@ -4,7 +4,8 @@ import os
 WIND_SIZE = {
     'LIWind': (400, 225),
     'SUWind': (800, 500),
-    'PHWind': (800, 500)
+    'PHWind': (800, 500),
+    'WHWind': (800,500)
 }
 
 # App's mini logo img.
