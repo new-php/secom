@@ -116,11 +116,20 @@ class LogInWind(ttk.Frame):
             if controller.connector.check_credentials(self.user_ety.get(), self.pswd_ety.get()):
                 controller.logged_user = self.user_ety.get()
 
-                controller.logged_user_type = controller.connector.get(("user_type"),
-                                              controller.logged_user
-                                                )
-                                                
-                controller.refresh_window("PHWind", delete="LIWind")
+                controller.logged_user_type = controller.connector.get(
+                    ("user_type","first_name"),
+                    controller.logged_user
+                    )[0]
+
+                def switch_window(window):
+                    switcher = {
+                    1: "PHWind",
+                    2: "WHWind"
+                    }
+
+                    return switcher.get(window, "Error shis(must throw exception)")
+
+                controller.refresh_window(switch_window(controller.logged_user_type), delete="LIWind")
 
             else:
                 messagebox.showerror(
