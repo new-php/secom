@@ -124,12 +124,15 @@ class LogInWind(ttk.Frame):
 
                 Warehouse: 1,
                 Planner: 2 
-                
+                Owner: 3
+
                 """
+                print(controller.logged_user_type)
                 def switch_window(window):
                     switcher = {
                     1: "WHWind",
-                    2: "PHWind"
+                    2: "PHWind",
+                    3: "OHWind"
                     }
 
                     return switcher.get(window, "Error shis(must throw exception)")

@@ -6,6 +6,7 @@ from views.log_in_window import LogInWind as LIWind
 from views.sign_up_window import  SignUpWind as SUWind
 from views.planner_home_window import PlannerHomeWind as PHWind
 from views.warehouse_home_window import WareHomeWind as WHWind
+from views.owner_home_window import OwnerHomeWind as OHWind
 from services.messenger import Messenger
 
 
@@ -31,7 +32,8 @@ class Root(tk.Tk):
             "LIWind": LIWind,
             "SUWind": SUWind,
             "PHWind": PHWind,
-            "WHWind": WHWind
+            "WHWind": WHWind,
+            "OHWind": OHWind
         }
         
 

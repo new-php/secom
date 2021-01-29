@@ -5,7 +5,8 @@ WIND_SIZE = {
     'LIWind': (400, 225),
     'SUWind': (800, 500),
     'PHWind': (800, 500),
-    'WHWind': (800,500)
+    'WHWind': (800, 500),
+    'OHWind': (800, 500)
 }
 
 # App's mini logo img.
@@ -19,5 +20,6 @@ RED = "#D10606"
 ACC_TYPE = {
     'Seleccione una opcion': 0,
     'Almacen': 1,
-    'Planeacion': 2
+    'Planeacion': 2,
+    'Propietario': 3
 }
