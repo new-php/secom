@@ -23,3 +23,9 @@ ACC_TYPE = {
     'Planeacion': 2,
     'Propietario': 3
 }
+
+MATERIALS = {
+    'Cable' : 0,
+    'Fierro' : 1,
+    'Pan' : 2
+}

@@ -85,3 +85,5 @@ class Messenger:
             return row
         else:
             raise ValueError("User not found.")
+
+    #def kardex_transaction(self, type,)
