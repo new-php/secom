@@ -29,3 +29,8 @@ MATERIALS = {
     'Fierro' : 1,
     'Pan' : 2
 }
+
+TRANSACTION = {
+    'Egreso'  : 0,
+    'Ingreso' : 1
+}

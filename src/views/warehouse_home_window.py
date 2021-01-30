@@ -72,6 +72,19 @@ class WareHomeWind(ttk.Frame):
             pady=(0,10),
             padx=0
         )
+
+        self.transaction_lbl = ttk.Label(
+            menu_frame,
+            text="Tipo de transacción",
+            font=tkf.Font(family="Helvetica", size=15)
+        )
+        self.transaction_lbl.grid(
+            row=3,
+            column=0,
+            sticky=tk.N,
+            pady=(0,10),
+            padx=0
+        )
         
         #Get time in order to register when the transaction takes place
 
@@ -92,36 +105,42 @@ class WareHomeWind(ttk.Frame):
         material_value_cbx.grid(row=1, column=1, sticky=tk.N)
         material_value_cbx.current(0)
 
+
+        self.transaction_type = tk.StringVar()
+        transaction_type_cbx = ttk.Combobox(
+            menu_frame,
+            foreground=sv.WHITE,
+            state="readonly",
+            textvariable=self.material_value
+        )
+        
+        transaction_type_cbx['values'] = [option for option in sv.TRANSACTION]
+        transaction_type_cbx.grid(row=3, column=1, sticky=tk.N)
+        transaction_type_cbx.current(0)
+
+        #--------------------------------ENTRIES--------------------------------
+
+        self.quantity_ety = tk.Entry(
+            menu_frame,
+            cursor = 'xterm',
+        )
+        self.quantity_ety.grid(row=2,column=1, sticky=tk.N)
+
         #--------------------------------BUTTONS--------------------------------
 
-        self.add_material_btn = tk.Button(
+        self.confirm_transaction_btn = tk.Button(
                 menu_frame,
                 heigh=4,
                 width=20,
-                text="Ingreso de material",
+                text="Confirmar transacción",
                 #command=
         )
-        self.add_material_btn.grid(
-            row=3,
+        self.confirm_transaction_btn.grid(
+            row=4,
             column=0, 
             sticky=tk.S,
             pady=(5,5),
             padx=(0,0)
-        )
-
-        self.delete_material_btn = tk.Button(
-                menu_frame,
-                heigh=4,
-                width=20,
-                text="Egreso de material"
-                #command=
-        )
-        self.delete_material_btn.grid(
-            row=3,
-            column=2,
-            sticky=tk.S,
-            pady=(5,5),
-            padx=(250,0)
         )
 
     #def materal_transaction(self,controller):
