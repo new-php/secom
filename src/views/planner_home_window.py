@@ -7,15 +7,15 @@ class PlannerHomeWind(ttk.Frame):
     def __init__(self,parent,controller):
         super().__init__(parent)
 
-    #---------------------------------FRAMES------------------------------------
+        #---------------------------------FRAMES------------------------------------
     
         title_frame = ttk.Frame(self, relief=tk.RIDGE)
         title_frame.pack(side=tk.TOP, expand=True)
 
-        menu_frame = ttk.Frame(self, relief=tk.RIDGE)
-        menu_frame.pack(side=tk.BOTTOM, expand=True)
+        self.menu_frame = ttk.Frame(self, relief=tk.RIDGE)
+        self.menu_frame.pack(side=tk.BOTTOM, expand=True)
 
-    #--------------------------------LABELS-------------------------------------
+        #--------------------------------LABELS-------------------------------------
         self.title_lbl = ttk.Label(
             title_frame,
             text="Gestor de proyectos",
@@ -49,7 +49,7 @@ class PlannerHomeWind(ttk.Frame):
         )
 
         self.menu_lbl = ttk.Label(
-            menu_frame,
+            self.menu_frame,
             text="Proyectos Activos",
             font=tkf.Font(family="Helvetica", size=15)
         )
@@ -62,10 +62,10 @@ class PlannerHomeWind(ttk.Frame):
             padx=(0,0)
         )
         
-    #--------------------------------BUTTONS--------------------------------
+        #--------------------------------BUTTONS--------------------------------
 
         self.new_project_btn = tk.Button(
-                menu_frame,
+                self.menu_frame,
                 heigh=3,
                 width=12,
                 text="Crear Proyecto",
@@ -80,7 +80,7 @@ class PlannerHomeWind(ttk.Frame):
         )
 
         self.delete_project_btn = tk.Button(
-                menu_frame,
+                self.menu_frame,
                 heigh=3,
                 width=20,
                 text="Eliminar(Exportar) Proyecto"
@@ -94,18 +94,26 @@ class PlannerHomeWind(ttk.Frame):
             padx=(300,0)
         )
 
-        #I created a button to run the query to display the different projects(could be useless if we just run the query)
-        self.load_project_btn = tk.Button(
-                menu_frame,
-                heigh=2,
-                width=12,
-                text="Cargar proyecto"
-                #command=
+        #-----------------------------Treeview----------------------------------
+        self.projects_tree = ttk.Treeview(
+            self.menu_frame,
+            height=20,
+            anchor=tk.CENTER,
+            columns=[column[0] for column in sv.PROYECT_COLUMNS]
         )
-        self.load_project_btn.grid(
-            row=2,
-            column=0,
-            sticky=tk.S,
-            pady=(0,5),
-            padx=(0,0)
-        )
+
+        self.projects_tree.column("#0", width=10)
+        for column in sv.PROYECT_COLUMNS:
+            column_id, column_name = column[0], column[1]
+
+            self.projects_tree.heading(column_id, text=column_name)
+            self.projects_tree.column(
+                column_id,
+                minwidth=5 * len(column_name)
+            )
+        self._update_project_tree()
+        self.projects_tree.grid(row=2,column=0)
+
+
+    def _update_project_tree(self):
+        pass
