@@ -24,6 +24,7 @@ ACC_TYPE = {
     'Propietario': 3
 }
 
+
 MATERIALS = {
     'Cable' : 0,
     'Fierro' : 1,
@@ -34,3 +35,13 @@ TRANSACTION = {
     'Egreso'  : 0,
     'Ingreso' : 1
 }
+
+#   (Column_id, Column_text) 
+PROYECT_COLUMNS = (
+    ("prj_name", "Nombre"),
+    ("recipient", "Cliente"),
+    ("begin_date", "Fecha inicio"),
+    ("finish_date", "Fecha fin"),
+    ("curr_state", "Estado")
+)
+
