@@ -98,7 +98,6 @@ class PlannerHomeWind(ttk.Frame):
         self.projects_tree = ttk.Treeview(
             self.menu_frame,
             height=20,
-            anchor=tk.CENTER,
             columns=[column[0] for column in sv.PROYECT_COLUMNS]
         )
 
