@@ -92,6 +92,8 @@ class WareHomeWind(ttk.Frame):
         formatted_date = now.strftime('%Y-%m-%d %H:%M:%S')
         print(formatted_date)
 
+
+
         #--------------------------------COMBOBOX   --------------------------------
         self.material_value = tk.StringVar()
         material_value_cbx = ttk.Combobox(
@@ -111,7 +113,7 @@ class WareHomeWind(ttk.Frame):
             menu_frame,
             foreground=sv.WHITE,
             state="readonly",
-            textvariable=self.material_value
+            textvariable=self.transaction_type
         )
         
         transaction_type_cbx['values'] = [option for option in sv.TRANSACTION]
@@ -133,7 +135,7 @@ class WareHomeWind(ttk.Frame):
                 heigh=4,
                 width=20,
                 text="Confirmar transacción",
-                #command=
+                command= self.material_transaction(controller)
         )
         self.confirm_transaction_btn.grid(
             row=4,
@@ -143,5 +145,8 @@ class WareHomeWind(ttk.Frame):
             padx=(0,0)
         )
 
-    #def materal_transaction(self,controller):
+    def material_transaction(self,controller):
+
+        controller.connector.kardex_transaction(12,"Egreso de prueba")
+    
 
