@@ -2,7 +2,7 @@ import os
 import bcrypt
 import mysql.connector as mysql
 
-
+from datetime import datetime
 class Messenger:
     def __init__(self):
         self.DB = mysql.connect(
@@ -86,4 +86,21 @@ class Messenger:
         else:
             raise ValueError("User not found.")
 
-    #def kardex_transaction(self, type,)
+    def kardex_transaction(self, trans_type, quantity):
+        print ("Checking function... (delete later)")
+
+        cursor = self.DB.cursor(buffered=True)
+
+        now = datetime.now()
+        formatted_date = now.strftime('%Y-%m-%d %H:%M:%S')
+        query = ("INSERT INTO kardex "
+                "VALUES(%s,%s,%s,%s,%s,%s)")
+        
+
+        data = (1,1,1,100,formatted_date,3)
+
+
+        cursor.execute(query,data)
+
+        print("done...")
+        return 1
