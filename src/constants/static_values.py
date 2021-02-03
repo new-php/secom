@@ -3,7 +3,7 @@ import os
 #  view_name: (width, height)
 WIND_SIZE = {
     'LIWind': (400, 225),
-    'SUWind': (800, 500),
+    'SUWind': (500, 500),
     'PHWind': (800, 500),
     'WHWind': (800, 500),
     'OHWind': (800, 500)
