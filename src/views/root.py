@@ -15,8 +15,10 @@ class Root(tk.Tk):
         super().__init__(*args,**kwargs)
         #try: 
         # General app configurations.
+        self.withdraw()
         self.title("SECOM")
         self.iconphoto(True, tk.PhotoImage(file=sv.APP_MINI_LOGO))
+        self.set_wind_param(0, 0)
 
         # Container setup.
         self.container = ttk.Frame(self)
@@ -38,6 +40,7 @@ class Root(tk.Tk):
         
 
         self.refresh_window("LIWind")
+        self.deiconify()
             
         # except:
         #     messagebox.showerror(
@@ -66,7 +69,7 @@ class Root(tk.Tk):
 
     def refresh_window(self, view_name, delete=None):
         """
-        INPUT: one or two strings.
+        INPUT: one - two strings.
         OUTPUT: None.
 
         Description: Changes window's size acording to `view_name` specification
@@ -75,6 +78,8 @@ class Root(tk.Tk):
                      screen, updates view and may delte view if given a second
                      input.
         """
+
+        self.withdraw()
         self.set_wind_param(
             sv.WIND_SIZE[view_name][0],
             sv.WIND_SIZE[view_name][1]
@@ -83,6 +88,7 @@ class Root(tk.Tk):
 
         if delete is not None:
             self._delete_view(delete)
+        self.deiconify()
         
 
     def show_view(self, view_name):
