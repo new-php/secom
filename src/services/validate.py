@@ -13,7 +13,7 @@ def eight_chars(pswd):
     else:
         return False
 
-def contains_char(ety_txt, constraints):
+def contains_char(ety_txt, *args):
     """
     INPUT:
         - entry --------> string.
@@ -27,7 +27,7 @@ def contains_char(ety_txt, constraints):
     """
 
     inpset = set([letter for letter in ety_txt])
-    valid_chars = char_sets.custome_set(constraints)
+    valid_chars = char_sets.custome_set(*args)
 
     if not inpset - valid_chars:
         return True

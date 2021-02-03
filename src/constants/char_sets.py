@@ -26,19 +26,18 @@ catalogue = {
     'space': {' '}
 }
 
-def custome_set(requirements):
+def custome_set(*args):
     """
     IMPUT:
-        - list.
+        - string(s) found as keys in catalogue.
     OUTPUT:
         - set
     DESCRIPTION: Creates a set with the requirements needed from base sets.
     """
     
     custome = set()
-    requirements = [x for x in requirements.split(' ')]
 
-    for item in requirements:
+    for item in args:
         custome |= catalogue[item]
 
     return custome
