@@ -4,7 +4,6 @@ from tkinter.font import Font
 from tkinter import ttk
 from constants import static_values as sv
 from services import validate
-from tools.su_entry import SUEntry 
 from tkinter.messagebox import showerror
 
 class SignUpWind(ttk.Frame):
@@ -17,8 +16,6 @@ class SignUpWind(ttk.Frame):
 
         title_frm = ttk.Frame(self)
         title_frm.grid(row=0, column=1, pady=(0, 20))
-
-        self.peron_error_frm = ttk.Frame(self)
 
         self.person_info_frm = ttk.LabelFrame(self,
                                               text="Informacion Personal",
@@ -99,66 +96,113 @@ class SignUpWind(ttk.Frame):
                                  font=Font(family="Helvetica", size=10))
         self.acc_type_lbl.grid(row=12, column=0, pady=(15, 0), sticky=tk.W)
 
-        self.warning_lbl = tk.Label(self.warnings_frm,
-                                text="La contraseña debera satisfacer lo siguiente:\n"\
-                                     "- Minimo 8 caracteres.                           \n"\
-                                     "- Minimo 1 mayuscula.                          \n"\
-                                     "- Minimo 1 minuscula.                           \n"\
-                                     "- Minimo 1 caracter especial.                 \n"\
-                                     "- Minimo 1 digito.                                  \n"\
-                                     "- Coincidir con la contraseña confirmada.",
-                                font=Font(family="Helvetica", size=10))
-        self.warning_lbl.grid(row=0, column=0, pady=90, sticky=tk.W)
+        # self.warning_lbl = tk.Label(self.warnings_frm,
+        #                         text="La contraseña debera satisfacer lo siguiente:\n"\
+        #                              "- Minimo 8 caracteres.                           \n"\
+        #                              "- Minimo 1 mayuscula.                          \n"\
+        #                              "- Minimo 1 minuscula.                           \n"\
+        #                              "- Minimo 1 caracter especial.                 \n"\
+        #                              "- Minimo 1 digito.                                  \n"\
+        #                              "- Coincidir con la contraseña confirmada.",
+        #                         font=Font(family="Helvetica", size=10))
+        # self.warning_lbl.grid(row=0, column=0, pady=90, sticky=tk.W)
 
 
         # -----------------------------ENTRIES----------------------------------
-        self.first_name_ety = SUEntry(
-            parent=self.person_info_frm,
-            constraints=('ltrs')
+        self.first_name_ety = ttk.Entry(
+            self.person_info_frm,
+            validate='key',
+            validatecommand=(
+                self.register(validate.contains_char),
+                '%P',
+                'ltrs'
+            )
         )
         self.first_name_ety.grid(row=1,column=0, sticky=tk.W)
 
-        self.second_name_ety = SUEntry(
+        self.second_name_ety = ttk.Entry(
             self.person_info_frm,
-            constraints=('ltrs')
+            validate='key',
+            validatecommand=(
+                self.register(validate.contains_char),
+                '%P',
+                'ltrs'
+            )
         )
         self.second_name_ety.grid(row=4,column=0, sticky=tk.W)
 
-        self.f_last_name_ety = SUEntry(
+        self.f_last_name_ety = ttk.Entry(
             self.person_info_frm,
-            constraints=('ltrs')
+            validate='key',
+            validatecommand=(
+                self.register(validate.contains_char),
+                '%P',
+                'ltrs'
+            )
         )
         self.f_last_name_ety.grid(row=7,column=0, sticky=tk.W)
 
-        self.m_last_name_ety = SUEntry(
+        self.m_last_name_ety = ttk.Entry(
             self.person_info_frm,
-            constraints=('ltrs')
+            validate='key',
+            validatecommand=(
+                self.register(validate.contains_char),
+                '%P',
+                'ltrs'
+            )
         )
         self.m_last_name_ety.grid(row=10,column=0, sticky=tk.W)
 
-        self.user_ety = SUEntry(
-            parent=self.access_info_frm,
-            constraints=('ltrs', 'dgts', 'spchars')
+        self.user_ety = ttk.Entry(
+            self.access_info_frm,
+            validate='key',
+            validatecommand=(
+                self.register(validate.contains_char),
+                '%P',
+                'ltrs',
+                'dgts',
+                'spchars'
+            )
         )
         self.user_ety.grid(row=1,column=0, sticky=tk.W)
 
-        self.pswd_ety = SUEntry(
-            parent=self.access_info_frm,
-            constraints=('ltrs', 'dgts', 'spchars'),
-            char="•"
+        self.pswd_ety = ttk.Entry(
+            self.access_info_frm,
+            show='•',
+            validate='key',
+            validatecommand=(
+                self.register(validate.contains_char),
+                '%P',
+                'ltrs',
+                'dgts',
+                'spchars'
+            )
         )
         self.pswd_ety.grid(row=4,column=0, sticky=tk.W)
 
-        self.pswd_confirm_ety = SUEntry(
-            parent=self.access_info_frm,
-            constraints=('ltrs', 'dgts', 'spchars'),
-            char="•"
+        self.pswd_confirm_ety = ttk.Entry(
+            self.access_info_frm,
+            show='•',
+            validate='key',
+            validatecommand=(
+                self.register(validate.contains_char),
+                '%P',
+                'ltrs',
+                'dgts',
+                'spchars'
+            )
         )
         self.pswd_confirm_ety.grid(row=7,column=0, sticky=tk.W)
 
-        self.hint_ety = SUEntry(
-            parent=self.access_info_frm,
-            constraints=('ltrs', 'space')
+        self.hint_ety = ttk.Entry(
+            self.access_info_frm,
+            validate='key',
+            validatecommand=(
+                self.register(validate.contains_char),
+                '%P',
+                'ltrs',
+                'space'
+            )
         )
         self.hint_ety.grid(row=10,column=0, sticky=tk.W)
 
@@ -189,6 +233,9 @@ class SignUpWind(ttk.Frame):
                               command=lambda: controller.refresh_window("LIWind")
         )
         back_btn.grid(row=3, column=1, sticky=tk.NS)
+
+
+        controller.update_idletasks()
     
 
     def send_info(self, controller):
@@ -236,5 +283,16 @@ class SignUpWind(ttk.Frame):
         else:
             for widget in invalid_inp:
                 widget.config(foreground=sv.RED)
-
-            messagebox.showerror("Error", "Campos Invalidos")
+            if self.pswd_lbl in invalid_inp:
+                messagebox.showerror(
+                    "Error",
+                    "Campos Invalidos.\n\n"\
+                    "La contraseña debe de temer:\n"\
+                        "- Minimo 8 caracteres.\n"\
+                        "- Minimo 1 mayuscula.\n"\
+                        "- Minimo 1 minuscula.\n"\
+                        "- Minimo 1 caracter especial.\n"\
+                        "- Minimo 1 digito.\n"\
+                        "- Coincidir con la contraseña confirmada."
+                )
+            else: messagebox.showerror("Error", "Campos Vacios")
