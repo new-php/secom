@@ -233,9 +233,6 @@ class SignUpWind(ttk.Frame):
                               command=lambda: controller.refresh_window("LIWind")
         )
         back_btn.grid(row=3, column=1, sticky=tk.NS)
-
-
-        controller.update_idletasks()
     
 
     def send_info(self, controller):
