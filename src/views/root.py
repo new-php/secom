@@ -18,7 +18,7 @@ class Root(tk.Tk):
         self.withdraw()
         self.title("SECOM")
         self.iconphoto(True, tk.PhotoImage(file=sv.APP_MINI_LOGO))
-        self.set_wind_param(0, 0)
+        self.set_wind_param(self, 0, 0)
 
         # Container setup.
         self.container = ttk.Frame(self)
@@ -27,7 +27,7 @@ class Root(tk.Tk):
         self.container.grid_columnconfigure(0, weight=1)
         
         self.connector = Messenger()
-        self.logged_user = "Rafita01"
+        self.logged_user = None
         self.logged_user_type = None
         self.views = {}
         self.catalog = {
@@ -67,7 +67,7 @@ class Root(tk.Tk):
         self.views[view_name] = new_view
 
 
-    def refresh_window(self, view_name, delete=None):
+    def refresh_window(self, view_name, top_view=None, delete=None):
         """
         INPUT: one - two strings.
         OUTPUT: None.
@@ -80,14 +80,18 @@ class Root(tk.Tk):
         """
 
         self.withdraw()
+        controller = self if top_view is None else top_view
         self.set_wind_param(
+            controller,
             sv.WIND_SIZE[view_name][0],
             sv.WIND_SIZE[view_name][1]
         )
-        self.show_view(view_name)
 
-        if delete is not None:
-            self._delete_view(delete)
+        if top_view is None:
+            self.show_view(view_name)
+            if delete is not None:
+                self._delete_view(delete)
+
         self.deiconify()
         
 
@@ -131,25 +135,25 @@ class Root(tk.Tk):
         self.views[self._conv(view_name)].destroy()
         del self.views[self._conv(view_name)]
 
-
-    def set_wind_param(self, new_width, new_height):
+    @staticmethod
+    def set_wind_param(controller, new_width, new_height):
         """
-        INPUT: intx2
+        INPUT: Tk/popup object, intx2
         OUTPUT: None
 
-        Description: Centers the apps' window with respect to the last position 
-                     of the last view.
+        Description: Centers the apps' window or popup window with respect to
+                     the last position of the last view.
         """
 
         x = y = 0
-        self.update()
+        controller.update()
 
-        if self.winfo_width() == self.winfo_height() == 1:
-            x = self.winfo_screenwidth()/2 - new_width/2
-            y = self.winfo_screenheight()/2 - new_height/2
+        if controller.winfo_width() == controller.winfo_height() == 1:
+            x = controller.winfo_screenwidth()/2 - new_width/2
+            y = controller.winfo_screenheight()/2 - new_height/2
         else:
-            x = self.winfo_rootx() + (self.winfo_width()/2 - new_width/2)
-            y = self.winfo_rooty() + (self.winfo_height()/2 - new_height/2)
+            x = controller.winfo_rootx() + (controller.winfo_width()/2 - new_width/2)
+            y = controller.winfo_rooty() + (controller.winfo_height()/2 - new_height/2)
 
-        self.geometry("%dx%d+%d+%d" % (new_width, new_height, x, y))
+        controller.geometry("%dx%d+%d+%d" % (new_width, new_height, x, y))
 
