@@ -6,8 +6,14 @@ WIND_SIZE = {
     'SUWind': (500, 500),
     'PHWind': (800, 500),
     'WHWind': (800, 500),
-    'OHWind': (800, 500)
+    'OHWind': (800, 500),
+    'CPPopup': (350, 350)
 }
+
+
+FONT = 'Helvetica'
+TITLE_FONT_SIZE = 15
+NORMAL_FONT_SIZE = 10
 
 # App's mini logo img.
 APP_MINI_LOGO = os.path.abspath("src/assets/imgs/icon.png")
