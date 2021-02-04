@@ -23,7 +23,9 @@ catalogue = {
                 '-',
                 '_'
         },
-    'space': {' '}
+    'space': {' '},
+    'frd slash': {'/'}
+
 }
 
 def custome_set(*args):
