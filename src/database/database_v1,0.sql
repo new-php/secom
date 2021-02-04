@@ -54,11 +54,12 @@ CREATE TABLE bom(
 
 CREATE TABLE project(
     project_id INT(5) PRIMARY KEY NOT NULL AUTO_INCREMENT,
-    prj_name VARCHAR(10),
-    recipient VARCHAR(20),
+    prj_name VARCHAR(10) NOT NULL,
+    recipient VARCHAR(20) NOT NULL,
     begin_date DATE,
     finish_date DATE,
-    curr_state VARCHAR(10)
+    curr_state VARCHAR(10) NOT NULL
+    addr VARCHAR(70) NOT NULL
 );
 
 CREATE TABLE stock(
