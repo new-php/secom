@@ -46,6 +46,27 @@ class Messenger:
         self.DB.commit()
         cursor.close()
 
+    def insert_into(self, table, *args):
+        """
+        INPUT: tuple.
+        OUTPUT: nome.
+
+        DESCRIPTION: Inserts user info to user table in DB. It hashes pswd 
+                     before sending.
+        """
+        cursor = self.DB.cursor(buffered=True)
+        
+        where = 'INSERT INTO '+table+' ('+' ,'.join(args)
+        what = ' Values ('+", ".join(['%s' for i in range(len(args))])+')'
+        query = what + where
+        
+        cursor.execute(
+            query, 
+            args
+        )
+
+        self.DB.commit()
+        cursor.close()
 
 
     def check_credentials(self, user_name, ety_pswd):
