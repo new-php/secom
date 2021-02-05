@@ -46,6 +46,19 @@ class Messenger:
         self.DB.commit()
         cursor.close()
 
+    def _modify_args(f):
+        def wrapper(self, table, *args):
+            args = list(args)
+
+            if table == 'user':
+                args[1] = bcrypt.hashpw(args[1].encode('utf-8'), bcrypt.gensalt())
+            elif table == 'project':
+               pass 
+
+            args = tuple(args)
+            return f(self, table, *args)
+        return wrapper
+
     def insert_into(self, table, *args):
         """
         INPUT: tuple.
