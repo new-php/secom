@@ -59,19 +59,21 @@ class Messenger:
             return f(self, table, *args)
         return wrapper
 
+    @_modify_args
     def insert_into(self, table, *args):
         """
-        INPUT: tuple.
-        OUTPUT: nome.
-
-        DESCRIPTION: Inserts user info to user table in DB. It hashes pswd 
-                     before sending.
         """
         cursor = self.DB.cursor(buffered=True)
         
-        where = 'INSERT INTO '+table+' ('+' ,'.join(args)
-        what = ' Values ('+", ".join(['%s' for i in range(len(args))])+')'
-        query = what + where
+        query = 'INSERT INTO '+\
+            table+\
+            ' ('+\
+            ', '.join(self._describe(table))+\
+            ')'+\
+            ' VALUES ('+\
+            ', '.join(['%s' for i in range(len(args))])+\
+            ')'
+
         
         cursor.execute(
             query, 
