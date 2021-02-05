@@ -46,10 +46,13 @@ CREATE TABLE kardex(
 );
 CREATE TABLE bom(
       bom_id INT(5) NOT NULL PRIMARY KEY,
-      project_id_bom INT(5) NOT NULL FOREIGN KEY project(project_id),
-      item_id_bom INT(5) NOT NULL FOREIGN KEY item(item_id),
+      project_id_bom INT(5) NOT NULL,
+      item_id_bom INT(5) NOT NULL,
       quantity INT(5) NOT NULL,
-      user_id_bom INT(10) NOT NULL FOREIGN KEY user(user_id)
+      user_id_bom INT(10) NOT NULL, 
+      FOREIGN KEY (project_id_bom) REFERENCES project(project_id),
+      FOREIGN KEY (item_id_bom) REFERENCES item(item_id),
+      FOREIGN KEY (user_id_bom) REFERENCES user(user_id)
 );
 
 CREATE TABLE project(
@@ -58,7 +61,7 @@ CREATE TABLE project(
     recipient VARCHAR(20) NOT NULL,
     begin_date DATE,
     finish_date DATE,
-    curr_state VARCHAR(10) NOT NULL
+    curr_state VARCHAR(10) NOT NULL,
     addr VARCHAR(70) NOT NULL
 );
 
