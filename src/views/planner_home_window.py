@@ -231,7 +231,9 @@ class PlannerHomeWind(ttk.Frame):
             validatecommand=(
                 popup.register(validate.contains_char),
                 '%P',
+                'ltr',
                 'dgts',
+                'space',
             )
         )
         addr_ety.grid(row=9,column=0)
