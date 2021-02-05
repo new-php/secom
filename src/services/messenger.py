@@ -84,6 +84,16 @@ class Messenger:
         cursor.close()
 
 
+    def _describe(self, table):
+       """
+       """
+       
+       cursor = self.DB.cursor(buffered=True)
+       cursor.execute('DESCRIBE ' + table )
+
+       return (row[0] for row in cursor.fetchall()[1:])
+
+
     def check_credentials(self, user_name, ety_pswd):
         """
         INPUT: stringx2
