@@ -86,14 +86,19 @@ class Messenger:
     def check_credentials(self, user_name, ety_pswd):
         """
         INPUT: stringx2
-        OUTPUT: bool
+        OUTPUT: string
 
-        DESCRIPTION: returns True if `ety-pswd` matches with retireved pswd from
-                     DB, else returns False. 
+        DESCRIPTION: checks for matching passwords returns user type
+                     raises exeption otherwisde.
+
+        EXEPTION RAISED: handdled in log_in_window.py 'login'.
         """
         password = self.get(("pswd",), user_name)[0]
-        return bcrypt.checkpw(ety_pswd.encode('utf8'),password.encode('utf8'))
-    
+        if not bcrypt.checkpw(ety_pswd.encode('utf8'),password.encode('utf8')):
+            raise ValueError('Usuario o contraseña incorrecta.')
+        else:
+            user_type = self.get('user_teype', user_name)
+            return user_type[0]
 
 
     def get(self, values, user_name):
@@ -103,6 +108,8 @@ class Messenger:
 
         DESCRIPTION: queries all requiered values in tuple input from given
                      `user_name'.
+
+        EXEPTION RAISED: handdled in log_in_window.py 'login'.
         """
         cursor = self.DB.cursor(buffered=True)
 
@@ -119,7 +126,7 @@ class Messenger:
         if row is not None:
             return row
         else:
-            raise ValueError("User not found.")
+            raise ValueError('Usiario o contraseña incorrecta.')
 
     def kardex_transaction(self, trans_type, quantity):
         print ("Checking function... (delete later)")
