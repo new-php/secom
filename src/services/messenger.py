@@ -63,6 +63,16 @@ class Messenger:
         cursor.close()
 
 
+    def get_all_users(self):
+        cursor = self.DB.cursor(buffered=True)
+        
+        cursor.execute('SELECT user_name FROM user')
+
+        result = tuple(row[0] for row in cursor)
+        cursor.close()
+        return result 
+
+
     def _describe(self, table):
        """
        """
