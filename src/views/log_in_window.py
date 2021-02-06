@@ -113,45 +113,27 @@ class LogInWind(ttk.Frame):
         """
 
         try:
-            if controller.connector.check_credentials(self.user_ety.get(), self.pswd_ety.get()):
-                controller.logged_user = self.user_ety.get()
+            controller.logged_user = self.user_ety.get()
+            controller_logged_user_type = controller.connector.check_credentials(
+                                                self.user_ety.get(),
+                                                self.pswd_ety.get()
+                                            )
 
-                controller.logged_user_type = controller.connector.get(
-                    ("user_type","first_name"),
-                    controller.logged_user
-                    )[0]
-                """
+            def switch_window(window):
+                switcher = {
+                1: "WHWind",
+                2: "PHWind",
+                3: "OHWind"
+                }
 
-                Warehouse: 1,
-                Planner: 2 
-                Owner: 3
+                return switcher.get(window, "Error shis(must throw exception)")
 
-                """
-                print(controller.logged_user_type)
-                def switch_window(window):
-                    switcher = {
-                    1: "WHWind",
-                    2: "PHWind",
-                    3: "OHWind"
-                    }
-
-                    return switcher.get(window, "Error shis(must throw exception)")
-
-                controller.refresh_window(switch_window(controller.logged_user_type), delete="LIWind")
-
-            else:
-                messagebox.showerror(
-                    "Credenciales invalidas",
-                    "Usuario o contraseña incorrecta"
-                )
-                
-                self.user_ety.delete(0, "end")
-                self.pswd_ety.delete(0, "end")
-        except ValueError:
+            controller.refresh_window(
+                switch_window(controller.logged_user_type),
+                delete="LIWind"
+            )
+        except ValueError as err:
             self.user_ety.delete(0, "end")
             self.pswd_ety.delete(0, "end")
 
-            messagebox.showerror(
-                    "Credenciales invalidas",
-                    "El usuario no existe"
-                )
+            messagebox.showerror('Error', '{}'.format(err))

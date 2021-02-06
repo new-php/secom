@@ -241,6 +241,8 @@ class SignUpWind(ttk.Frame):
         OUTPUT: None.
 
         Description: obtains user iputs and validatres entries.
+
+        EXEPTIONS HANDLED FROM: messemger.py '_prepare_args' 
         """
         info = (
           (self.user_ety.get(), self.user_lbl),
@@ -266,18 +268,22 @@ class SignUpWind(ttk.Frame):
             invalid_inp.append(self.pswd_confirm_lbl)
 
         if not invalid_inp:
-            controller.connector.insert_into(
-                'user',
-                info[0][0],
-                info[1][0],
-                info[2][0],
-                info[3][0],
-                info[4][0],
-                info[5][0],
-                info[6][0],
-                info[7][0]
-            )
-            controller.refresh_window('LIWind', delete='SUWind')
+            try:
+                controller.connector.insert_into(
+                    'user',
+                    info[0][0],
+                    info[1][0],
+                    info[2][0],
+                    info[3][0],
+                    info[4][0],
+                    info[5][0],
+                    info[6][0],
+                    info[7][0]
+                )
+                controller.refresh_window('LIWind', delete='SUWind')
+            except ValueError as err:
+               messagebox.showerror('Error', '{}'.format(err))
+ 
         else:
             for widget in invalid_inp:
                 widget.config(foreground=sv.RED)
