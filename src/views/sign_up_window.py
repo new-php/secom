@@ -1,7 +1,6 @@
 import tkinter as tk
-from tkinter import messagebox
+from tkinter import  messagebox, ttk
 from tkinter.font import Font
-from tkinter import ttk
 from constants import static_values as sv
 from services import validate
 from tkinter.messagebox import showerror
@@ -9,233 +8,265 @@ from tkinter.messagebox import showerror
 class SignUpWind(ttk.Frame):
     def __init__(self, parent, controller): 
         super().__init__(parent)
+        person_count = 0
+        access_count = 0
+        self.invalid_inps = set()
+        self.acc_type_value = tk.StringVar()
 
+        self.wdgts = {
+            'frm':{
+                'title': ttk.Frame(self),
+                'person_info':  ttk.LabelFrame(
+                    self,
+                    text="Informacion Personal",
+                    padding="2m",
+                    relief=tk.RIDGE
+                ),
+                'access_info': ttk.LabelFrame(
+                    self,
+                    text="Informacion de cuenta",
+                    padding="2m",
+                    relief=tk.RIDGE
+                )
+            }
+        }
+        self.wdgts['lbl'] = {
+            'title': ttk.Label(
+                self.wdgts['frm']['title'],
+                text="Crear cuenta nueva",
+                font=Font(family="Helvetica", size=15)
+            ),
+            'first_name': ttk.Label(
+                self.wdgts['frm']['person_info'],
+                text="Nombre:",
+                font=Font(family="Helvetica", size=10)
+            ),
+            'second_name': ttk.Label(
+                self.wdgts['frm']['person_info'],
+                text="Segundo nombre:",
+                font=Font(family="Helvetica", size=10)
+            ),
+            'f_last_name': ttk.Label(
+                self.wdgts['frm']['person_info'],
+                text="Apellido paterno:",
+                font=Font(family="Helvetica", size=10)
+            ),
+            'm_last_name': ttk.Label(
+                self.wdgts['frm']['person_info'],
+                text="Apellido materno:",
+                font=Font(family="Helvetica", size=10)
+            ),
+            'user_name': ttk.Label(
+                self.wdgts['frm']['access_info'],
+                text="Usuario:",
+                font=Font(family="Helvetica", size=10)
+            ),
+            'pswd': ttk.Label(
+                self.wdgts['frm']['access_info'],
+                text="Contraseña:",
+                font=Font(family="Helvetica", size=10)
+            ),
+            'pswd_confirm': ttk.Label(
+                self.wdgts['frm']['access_info'],
+                text="Confirme contraseña:",
+                font=Font(family="Helvetica", size=10)
+            ),
+            'hint': ttk.Label(
+                self.wdgts['frm']['access_info'],
+                text="Palabra salvavidas:",
+                font=Font(family="Helvetica", size=10)
+            ),
+            'user_type': ttk.Label(
+                self.wdgts['frm']['access_info'],
+                text="Tipo de cuenta:",
+                font=Font(family="Helvetica", size=10)
+            )
+        }
+        self.wdgts['ety'] = {
+            'first_name': ttk.Entry(
+                self.wdgts['frm']['person_info'],
+                validate='key',
+                validatecommand=(
+                    self.register(validate.contains_char),
+                    '%P',
+                    'ltrs'
+                )
+            ),
+            'second_name': ttk.Entry(
+                self.wdgts['frm']['person_info'],
+                validate='key',
+                validatecommand=(
+                    self.register(validate.contains_char),
+                    '%P',
+                    'ltrs'
+                )
+            ),
+            'f_last_name': ttk.Entry(
+                self.wdgts['frm']['person_info'],
+                validate='key',
+                validatecommand=(
+                    self.register(validate.contains_char),
+                    '%P',
+                    'ltrs'
+                )
+            ),
+            'm_last_name': ttk.Entry(
+                self.wdgts['frm']['person_info'],
+                validate='key',
+                validatecommand=(
+                    self.register(validate.contains_char),
+                    '%P',
+                    'ltrs'
+                )
+            ),
+            'user_name': ttk.Entry(
+                self.wdgts['frm']['access_info'],
+                validate='key',
+                validatecommand=(
+                    self.register(validate.contains_char),
+                    '%P',
+                    'ltrs',
+                    'dgts',
+                    'spchars'
+                )
+            ),
+            'pswd': ttk.Entry(
+                self.wdgts['frm']['access_info'],
+                show='•',
+                validate='key',
+                validatecommand=(
+                    self.register(validate.contains_char),
+                    '%P',
+                    'ltrs',
+                    'dgts',
+                    'spchars'
+                )
+            ),
+            'pswd_confirm': ttk.Entry(
+                self.wdgts['frm']['access_info'],
+                show='•',
+                validate='key',
+                validatecommand=(
+                    self.register(validate.contains_char),
+                    '%P',
+                    'ltrs',
+                    'dgts',
+                    'spchars'
+                )
+            ),
+            'hint': ttk.Entry(
+                self.wdgts['frm']['access_info'],
+                validate='key',
+                validatecommand=(
+                    self.register(validate.contains_char),
+                    '%P',
+                    'ltrs',
+                    'space'
+                )
+            ) 
+        }
+        self.wdgts['cbx'] = {
+            'user_type': ttk.Combobox(
+                self.wdgts['frm']['access_info'],
+                foreground=sv.WHITE,
+                state="readonly",
+                textvariable=self.acc_type_value
+            )
+        }
+        self.wdgts['btn'] = {
+            'create': ttk.Button(
+                self,
+                width=20,
+                text="Crear",
+                command=lambda: self.create_user(controller)
+            ),
+            'back': ttk.Button(
+                self,
+                width=20,
+                text="Cancelar",
+                command=lambda: controller.refresh_window("LIWind")
+            )
+        }
 
-        # -------------------------------FRAMES---------------------------------
-        frame_pad = 150
-
-        title_frm = ttk.Frame(self)
-        title_frm.grid(row=0, column=1, pady=(0, 20))
-
-        self.person_info_frm = ttk.LabelFrame(self,
-                                              text="Informacion Personal",
-                                              padding="2m",
-                                              relief=tk.RIDGE)
-        self.person_info_frm.grid(row=1,
-                                 column=1,
-                                 padx=(frame_pad / 3, 0),
-                                 pady=(10, 20), 
-                                 sticky=tk.NW)
-
-        self.access_info_frm = ttk.LabelFrame(self,
-                                              text="Informacion de accesso",
-                                              padding="2m",
-                                              relief=tk.RIDGE)
-        self.access_info_frm.grid(row=1,
-                                  column=1,
-                                  padx=(0, frame_pad / 3),
-                                  pady=(10,20),
-                                  sticky=tk.NE)
-
-        self.warnings_frm = ttk.Frame(self)
-        self.warnings_frm.grid(
+        # -------------------------------Frames---------------------------------
+        self.wdgts['frm']['title'].grid(row=0, column=0, pady=(0, 20))
+        self.wdgts['frm']['person_info'].grid(
             row=1,
-            column=2,
-            sticky=tk.NS
+            column=0,
+            padx=(150 / 3, 0),
+            pady=(10, 20), 
+            sticky=tk.NW
+        )
+        self.wdgts['frm']['access_info'].grid(
+            row=1,
+            column=0,
+            padx=(0, 150 / 3),
+            pady=(10,20),
+            sticky=tk.NE
         )
 
 
         # -------------------------------LABELS---------------------------------
-        title_lbl = ttk.Label(title_frm,
-                              text="Crear cuenta nueva",
-                              font=Font(family="Helvetica", size=15))
-        title_lbl.grid(row=0, column=0, padx=frame_pad, sticky=tk.NS)
+        for name  in self.wdgts['lbl']:
+            if self.wdgts['lbl'][name].master == self.wdgts['frm']['person_info']:
+                self.wdgts['lbl'][name].grid(
+                    row=person_count,
+                    column=0,
+                    pady=(15, 0),
+                    sticky=tk.W
+                )
+                person_count += 2 
+            elif self.wdgts['lbl'][name].master == self.wdgts['frm']['access_info']:
+                self.wdgts['lbl'][name].grid(
+                    row=access_count,
+                    column=0,
+                    pady=(15, 0),
+                    sticky=tk.W
+                )
+                access_count += 2
+            else:
+                self.wdgts['lbl'][name].grid(
+                    row=0,
+                    column=0,
+                    padx=150,
+                    sticky=tk.W
+                )
 
-        self.first_name_lbl = ttk.Label(self.person_info_frm,
-                                   text="Nombre:",
-                                   font=Font(family="Helvetica", size=10))
-        self.first_name_lbl.grid(row=0, column=0, sticky=tk.W)
-
-        self.second_name_lbl = ttk.Label(self.person_info_frm,
-                                    text="Segundo nombre:",
-                                    font=Font(family="Helvetica", size=10))
-        self.second_name_lbl.grid(row=3, column=0, pady=(15, 0), sticky=tk.W)
-
-        self.f_last_name_lbl = ttk.Label(self.person_info_frm,
-                                    text="Apellido paterno:",
-                                    font=Font(family="Helvetica", size=10))
-        self.f_last_name_lbl.grid(row=6, column=0, pady=(15, 0), sticky=tk.W)
-
-        self.m_last_name_lbl = ttk.Label(self.person_info_frm,
-                                    text="Apellido materno:",
-                                    font=Font(family="Helvetica", size=10))
-        self.m_last_name_lbl.grid(row=9, column=0, pady=(15, 0), sticky=tk.W)
-
-        self.user_lbl = ttk.Label(self.access_info_frm,
-                             text="Usuario:",
-                             font=Font(family="Helvetica", size=10))
-        self.user_lbl.grid(row=0, column=0, sticky=tk.W)
-
-        self.pswd_lbl = ttk.Label(self.access_info_frm,
-                             text="Contraseña:",
-                             font=Font(family="Helvetica", size=10))
-        self.pswd_lbl.grid(row=3, column=0, pady=(15, 0), sticky=tk.W)
-
-        self.pswd_confirm_lbl = ttk.Label(self.access_info_frm,
-                                     text="Confirme contraseña:",
-                                     font=Font(family="Helvetica", size=10))
-        self.pswd_confirm_lbl.grid(row=6, column=0, pady=(15, 0), sticky=tk.W)
-
-        self.hint_lbl = ttk.Label(self.access_info_frm,
-                                text="Palabra salvavidas:",
-                                font=Font(family="Helvetica", size=10))
-        self.hint_lbl.grid(row=9, column=0, pady=(15, 0), sticky=tk.W)
-
-        self.acc_type_lbl = ttk.Label(self.access_info_frm,
-                                 text="Tipo de cuenta:",
-                                 font=Font(family="Helvetica", size=10))
-        self.acc_type_lbl.grid(row=12, column=0, pady=(15, 0), sticky=tk.W)
-
-        # self.warning_lbl = tk.Label(self.warnings_frm,
-        #                         text="La contraseña debera satisfacer lo siguiente:\n"\
-        #                              "- Minimo 8 caracteres.                           \n"\
-        #                              "- Minimo 1 mayuscula.                          \n"\
-        #                              "- Minimo 1 minuscula.                           \n"\
-        #                              "- Minimo 1 caracter especial.                 \n"\
-        #                              "- Minimo 1 digito.                                  \n"\
-        #                              "- Coincidir con la contraseña confirmada.",
-        #                         font=Font(family="Helvetica", size=10))
-        # self.warning_lbl.grid(row=0, column=0, pady=90, sticky=tk.W)
+        person_count = 1
+        access_count = 1
 
 
         # -----------------------------ENTRIES----------------------------------
-        self.first_name_ety = ttk.Entry(
-            self.person_info_frm,
-            validate='key',
-            validatecommand=(
-                self.register(validate.contains_char),
-                '%P',
-                'ltrs'
-            )
-        )
-        self.first_name_ety.grid(row=1,column=0, sticky=tk.W)
-
-        self.second_name_ety = ttk.Entry(
-            self.person_info_frm,
-            validate='key',
-            validatecommand=(
-                self.register(validate.contains_char),
-                '%P',
-                'ltrs'
-            )
-        )
-        self.second_name_ety.grid(row=4,column=0, sticky=tk.W)
-
-        self.f_last_name_ety = ttk.Entry(
-            self.person_info_frm,
-            validate='key',
-            validatecommand=(
-                self.register(validate.contains_char),
-                '%P',
-                'ltrs'
-            )
-        )
-        self.f_last_name_ety.grid(row=7,column=0, sticky=tk.W)
-
-        self.m_last_name_ety = ttk.Entry(
-            self.person_info_frm,
-            validate='key',
-            validatecommand=(
-                self.register(validate.contains_char),
-                '%P',
-                'ltrs'
-            )
-        )
-        self.m_last_name_ety.grid(row=10,column=0, sticky=tk.W)
-
-        self.user_ety = ttk.Entry(
-            self.access_info_frm,
-            validate='key',
-            validatecommand=(
-                self.register(validate.contains_char),
-                '%P',
-                'ltrs',
-                'dgts',
-                'spchars'
-            )
-        )
-        self.user_ety.grid(row=1,column=0, sticky=tk.W)
-
-        self.pswd_ety = ttk.Entry(
-            self.access_info_frm,
-            show='•',
-            validate='key',
-            validatecommand=(
-                self.register(validate.contains_char),
-                '%P',
-                'ltrs',
-                'dgts',
-                'spchars'
-            )
-        )
-        self.pswd_ety.grid(row=4,column=0, sticky=tk.W)
-
-        self.pswd_confirm_ety = ttk.Entry(
-            self.access_info_frm,
-            show='•',
-            validate='key',
-            validatecommand=(
-                self.register(validate.contains_char),
-                '%P',
-                'ltrs',
-                'dgts',
-                'spchars'
-            )
-        )
-        self.pswd_confirm_ety.grid(row=7,column=0, sticky=tk.W)
-
-        self.hint_ety = ttk.Entry(
-            self.access_info_frm,
-            validate='key',
-            validatecommand=(
-                self.register(validate.contains_char),
-                '%P',
-                'ltrs',
-                'space'
-            )
-        )
-        self.hint_ety.grid(row=10,column=0, sticky=tk.W)
+        for name  in self.wdgts['ety']:
+            if self.wdgts['ety'][name].master == self.wdgts['frm']['person_info']:
+                self.wdgts['ety'][name].grid(
+                    row=person_count,
+                    column=0,
+                    sticky=tk.W
+                )
+                person_count += 2 
+            else:
+                self.wdgts['ety'][name].grid(
+                    row=access_count,
+                    column=0,
+                    sticky=tk.W
+                )
+                access_count += 2
 
 
-        # ----------------------------COMBOBOX----------------------------------
-        self.acc_type_value = tk.StringVar()
-        acc_type_cbx = ttk.Combobox(
-            self.access_info_frm,
-            foreground=sv.WHITE,
-            state="readonly",
-            textvariable=self.acc_type_value
-        )
-        acc_type_cbx['values'] = [option for option in sv.ACC_TYPE]
-        acc_type_cbx.grid(row=13, column=0, sticky=tk.E)
-        acc_type_cbx.current(0)
+        # ------------------------------Combobox----------------------------------
+        self.wdgts['cbx']['user_type']['values'] = [option for option in sv.ACC_TYPE]
+        self.wdgts['cbx']['user_type'].grid(row=13, column=0, sticky=tk.E)
+        self.wdgts['cbx']['user_type'].current(0)
 
 
         # -----------------------------BUTTONS----------------------------------
-        create_btn = ttk.Button(self,
-                                    width=20,
-                                    text="Crear",
-                                    command=lambda: self.send_info(controller))
-        create_btn.grid(row=2, column=1, pady=(0, 10), sticky=tk.NS)
+        self.wdgts['btn']['create'].grid(row=2, column=0, pady=(0, 10), sticky=tk.NS)
+        self.wdgts['btn']['back'].grid(row=3, column=0, sticky=tk.NS)
 
-        back_btn = ttk.Button(self,
-                              width=20,
-                              text="Cancelar",
-                              command=lambda: controller.refresh_window("LIWind")
-        )
-        back_btn.grid(row=3, column=1, sticky=tk.NS)
     
 
-    def send_info(self, controller):
+    def create_user(self, controller):
         """
         INPUT: root object.
         OUTPUT: None.
@@ -244,54 +275,63 @@ class SignUpWind(ttk.Frame):
 
         EXEPTIONS HANDLED FROM: messemger.py '_prepare_args' 
         """
-        info = (
-          (self.user_ety.get(), self.user_lbl),
-          (self.pswd_ety.get(), self.pswd_lbl), 
-          (self.hint_ety.get(), self.hint_lbl),
-          (sv.ACC_TYPE[self.acc_type_value.get()], self.acc_type_lbl),
-          (self.first_name_ety.get(), self.first_name_lbl),
-          (self.second_name_ety.get(),self.second_name_lbl), 
-          (self.f_last_name_ety.get(),self.f_last_name_lbl),
-          (self.m_last_name_ety.get(), self.m_last_name_lbl)
-        )
 
-        # Resets all labels' foreground to white.
-        for widget in info:
-            widget[1].config(foreground=sv.WHITE)
-        self.pswd_confirm_lbl.config(foreground=sv.WHITE)
+        for name in self.wdgts['ety']:
+            if self.wdgts['lbl'][name] in self.invalid_inps:
+                if validate.is_filled(self.wdgts['ety'][name].get()):
+                    self.wdgts['lbl'][name].config(foreground=sv.WHITE)
+                    self.invalid_inps.discard(self.wdgts['lbl'][name])
+            else:
+                if not validate.is_filled(self.wdgts['ety'][name].get()):
+                    self.invalid_inps.add(self.wdgts['lbl'][name])
 
-        invalid_inp = validate.all_filled(info)
-        
-        if not validate.eight_chars(self.pswd_ety.get()):
-            invalid_inp.append(self.pswd_lbl)
-        if not validate.match_password(self.pswd_ety.get(), self.pswd_confirm_ety.get()):
-            invalid_inp.append(self.pswd_confirm_lbl)
+        if sv.ACC_TYPE[self.acc_type_value.get()] == 0:
+            self.invalid_inps.add(self.wdgts['lbl']['user_type'])
+        else:
+            self.invalid_inps.discard(self.wdgts['lbl']['user_type'])
+            self.wdgts['lbl']['user_type'].config(foreground=sv.WHITE)
+            
 
-        if not invalid_inp:
+        if not validate.eight_chars(self.wdgts['ety']['pswd'].get()):
+            self.invalid_inps.add(self.wdgts['lbl']['pswd'])
+        else:
+            self.invalid_inps.discard(self.wdgts['lbl']['pswd'])
+            self.wdgts['lbl']['pswd'].config(foreground=sv.WHITE)
+
+
+        if not validate.match_password(self.wdgts['ety']['pswd'].get(), self.wdgts['ety']['pswd'].get()):
+            self.invalid_inps.add(self.wdgts['lbl']['pswd_confirm'])
+        else:
+            self.invalid_inps.discard(self.wdgts['lbl']['pswd_confirm'])
+            self.wdgts['lbl']['pswd_confirm'].config(foreground=sv.WHITE)
+
+        if not self.invalid_inps:
             try:
                 controller.connector.insert_into(
                     'user',
-                    info[0][0],
-                    info[1][0],
-                    info[2][0],
-                    info[3][0],
-                    info[4][0],
-                    info[5][0],
-                    info[6][0],
-                    info[7][0]
+                    self.wdgts['ety']['user_name'].get(),
+                    self.wdgts['ety']['pswd'].get(),
+                    self.wdgts['ety']['hint'].get(),
+                    sv.ACC_TYPE[self.acc_type_value.get()],
+                    self.wdgts['ety']['first_name'].get(),
+                    self.wdgts['ety']['second_name'].get(),
+                    self.wdgts['ety']['f_last_name'].get(),
+                    self.wdgts['ety']['m_last_name'].get()
                 )
                 controller.refresh_window('LIWind', delete='SUWind')
             except ValueError as err:
-               messagebox.showerror('Error', '{}'.format(err))
+                self.wdgts['ety']['user_name'].delete(0, 'end')
+                self.wdgts['lbl']['user_name'].config(foreground=sv.RED)
+                messagebox.showerror('Error', '{}'.format(err))
  
         else:
-            for widget in invalid_inp:
+            for widget in self.invalid_inps:
                 widget.config(foreground=sv.RED)
-            if self.pswd_lbl in invalid_inp:
+            if self.wdgts['lbl']['pswd'] in self.invalid_inps:
                 messagebox.showerror(
                     "Error",
                     "Campos Invalidos.\n\n"\
-                    "La contraseña debe de temer:\n"\
+                    "La contraseña debe de tener:\n"\
                         "- Minimo 8 caracteres.\n"\
                         "- Minimo 1 mayuscula.\n"\
                         "- Minimo 1 minuscula.\n"\
@@ -299,4 +339,4 @@ class SignUpWind(ttk.Frame):
                         "- Minimo 1 digito.\n"\
                         "- Coincidir con la contraseña confirmada."
                 )
-            else: messagebox.showerror("Error", "Campos Vacios")
+            else: messagebox.showerror('Error', 'Valores invalidos')
