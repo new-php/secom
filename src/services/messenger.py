@@ -23,11 +23,13 @@ class Messenger:
         cursor = self.DB.cursor(buffered=True)
         
 
-    def _modify_args(f):
+    def _prepare_args(f):
         def wrapper(self, table, *args):
             args = list(args)
 
             if table == 'user':
+                if args[0] in self.get_all_users():
+                    raise ValueError('El Usuario ya existe, intente otro.')
                 args[1] = bcrypt.hashpw(args[1].encode('utf-8'), bcrypt.gensalt())
             elif table == 'project':
                pass 
@@ -36,7 +38,7 @@ class Messenger:
             return f(self, table, *args)
         return wrapper
 
-    @_modify_args
+    @_prepare_args
     def insert_into(self, table, *args):
         """
         """
