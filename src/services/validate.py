@@ -34,11 +34,11 @@ def contains_char(ety_txt, *args):
     else:
         return False
 
-def all_filled(info):
+def is_filled(input):
+    """
+    """
 
-    invalid = []
+    input = set(input) - char_sets.catalogue['space']
 
-    for item in info:
-        if not item[0]: invalid.append(item[1])
-
-    return invalid
+    if input:
+        return True
