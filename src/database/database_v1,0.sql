@@ -45,7 +45,7 @@ CREATE TABLE kardex(
 
 );
 CREATE TABLE bom(
-      bom_id INT(5) NOT NULL PRIMARY KEY,
+      bom_id INT(5) NOT NULL PRIMARY KEY AUTO_INCREMENT,
       project_id_bom INT(5) NOT NULL,
       item_id_bom INT(5) NOT NULL,
       quantity INT(5) NOT NULL,
