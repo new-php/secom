@@ -12,17 +12,6 @@ class Messenger:
             database = os.environ.get('DB')
         )
 
-    def create_user(self, info):
-        """
-        INPUT: tuple.
-        OUTPUT: nome.
-
-        DESCRIPTION: Inserts user info to user table in DB. It hashes pswd 
-                     before sending.
-        """
-        cursor = self.DB.cursor(buffered=True)
-        
-
     def _prepare_args(f):
         def wrapper(self, table, *args):
             args = list(args)
