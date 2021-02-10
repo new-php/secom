@@ -22,7 +22,6 @@ class Messenger:
                 args[1] = bcrypt.hashpw(args[1].encode('utf-8'), bcrypt.gensalt())
             elif table == 'project':
                pass 
-
             args = tuple(args)
             return f(self, table, *args)
         return wrapper
@@ -82,7 +81,7 @@ class Messenger:
 
         EXEPTION RAISED: handdled in log_in_window.py 'login'.
         """
-        password = self.get(("pswd",), user_name)[0]
+        password = self.get(user_name, 'pswd')
         if not bcrypt.checkpw(ety_pswd.encode('utf8'),password.encode('utf8')):
             raise ValueError('Usuario o contraseña incorrecta.')
         else:
@@ -90,7 +89,7 @@ class Messenger:
             return user_type[0]
 
 
-    def get(self, values, user_name):
+    def get(self, user_name, *args):
         """
         INPUT: tuple
         OUTPUT: tuple or EXEPTION VALUE ERROR
@@ -102,18 +101,21 @@ class Messenger:
         """
         cursor = self.DB.cursor(buffered=True)
 
-        query = "SELECT " + ", ".join(values) + " FROM user WHERE user_name=%s"
+        query = "SELECT " + ", ".join(args) + " FROM user WHERE user_name=%s"
 
         cursor.execute(
             query,
             (user_name, )
         )
 
-        row = cursor.fetchone()
+        results = cursor.fetchall()
         cursor.close()
 
-        if row is not None:
-            return row
+        if results:
+            if len(args) == 1:
+                return (result[0] for result in results)
+            else:
+                return results
         else:
             raise ValueError('Usiario o contraseña incorrecta.')
 
