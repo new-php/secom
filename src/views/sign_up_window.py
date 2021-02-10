@@ -43,7 +43,7 @@ class SignUpWind(ttk.Frame):
             ),
             'second_name': ttk.Label(
                 self.wdgts['frm']['person_info'],
-                text="Segundo nombre:",
+                text="Segundo nombre (opcional):",
                 font=Font(family="Helvetica", size=10)
             ),
             'f_last_name': ttk.Label(
@@ -276,8 +276,9 @@ class SignUpWind(ttk.Frame):
         EXEPTIONS HANDLED FROM: messemger.py '_prepare_args' 
         """
 
-        for name in self.wdgts['ety']:
-            if self.wdgts['lbl'][name] in self.invalid_inps:
+        for name in self.wdgts['ety'].keys():
+            if name == 'second_name': continue
+            elif self.wdgts['lbl'][name] in self.invalid_inps:
                 if validate.is_filled(self.wdgts['ety'][name].get()):
                     self.wdgts['lbl'][name].config(foreground=sv.WHITE)
                     self.invalid_inps.discard(self.wdgts['lbl'][name])
