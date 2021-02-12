@@ -114,7 +114,7 @@ class LogInWind(ttk.Frame):
 
         try:
             controller.logged_user = self.user_ety.get()
-            controller_logged_user_type = controller.connector.check_credentials(
+            controller.logged_user_type = controller.connector.check_credentials(
                                                 self.user_ety.get(),
                                                 self.pswd_ety.get()
                                             )
