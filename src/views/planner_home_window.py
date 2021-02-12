@@ -1,6 +1,7 @@
 import tkinter as tk
+from tkinter.constants import NSEW
 import tkinter.font as tkf
-from tkinter import ttk
+from tkinter import Widget, ttk
 from constants import static_values as sv
 from services import validate
 
@@ -31,8 +32,11 @@ class PlannerHomeWind(ttk.Frame):
         )
 
         user_name = controller.connector.get(
-            ("first_name","second_name","f_last_name","m_last_name"),
-            controller.logged_user
+            controller.logged_user,
+            "first_name",
+            "second_name",
+            "f_last_name",
+            "m_last_name"
         )
         
             
@@ -126,149 +130,138 @@ class PlannerHomeWind(ttk.Frame):
         popup.title("SECOM")
         controller.refresh_window('CPPopup', top_view=popup)
 
-        #--------------------------------Frames---------------------------------
-        title_frm = ttk.Frame(popup, width=20, height=20)
-        title_frm.pack(side='top', expand=True)
-        # title_frm.grid(row=0,column=0)
+        wdgts = {
+            'frm': {
+                'title': ttk.Frame(popup),
+                'info': ttk.Frame(popup)
+            }
+        }
+        wdgts['lbl'] = {
+            'title':ttk.Label(
+                wdgts['frm']['title'],
+                text='Crear Proyecto nuevo',
+                font=tkf.Font(family=sv.FONT, size=sv.TITLE_FONT_SIZE)
+            ),
+            'prj_name': ttk.Label(
+                wdgts['frm']['info'],
+                text='Nombre:',
+                font=tkf.Font(family=sv.FONT, size=sv.NORMAL_FONT_SIZE)
+            ),
+   
+            'recipient': ttk.Label(
+                wdgts['frm']['info'],
+                text='Cliente:',
+                font=tkf.Font(family=sv.FONT, size=sv.NORMAL_FONT_SIZE)
+            ),
+            'start_date':ttk.Label(
+                wdgts['frm']['info'],
+                text='Fecha inicio (Opcional):',
+                font=tkf.Font(family=sv.FONT, size=sv.NORMAL_FONT_SIZE)
+            ),
+            'end_date':ttk.Label(
+                wdgts['frm']['info'],
+                text='Fecha cierre (Opcinal):',
+                font=tkf.Font(family=sv.FONT, size=sv.NORMAL_FONT_SIZE)
+            ),
+            'addr':ttk.Label(
+                wdgts['frm']['info'],
+                text='Direccion:',
+                font=tkf.Font(family=sv.FONT, size=sv.NORMAL_FONT_SIZE)
+            ), 
+        }
+        wdgts['ety'] = {
+            'prj_name':ttk.Entry(
+                wdgts['frm']['info'],
+                validate='key',
+                validatecommand=(
+                    popup.register(validate.contains_char),
+                    '%P',
+                    'ltrs',
+                    'space'
+                )
+            ), 
+            'recipient':ttk.Entry(
+                wdgts['frm']['info'],
+                validate='key',
+                validatecommand=(
+                    popup.register(validate.contains_char),
+                    '%P',
+                    'ltrs',
+                    'space'
+                )
+            ),
+            'start_date':ttk.Entry(
+                wdgts['frm']['info'],
+                validate='key',
+                validatecommand=(
+                    popup.register(validate.contains_char),
+                    '%P',
+                    'dgts',
+                )
+            ), 
+            'end_date':ttk.Entry(
+                wdgts['frm']['info'],
+                validate='key',
+                validatecommand=(
+                    popup.register(validate.contains_char),
+                    '%P',
+                    'dgts',
+                    'frd slash'
+                )
+            ),
+            'addr':ttk.Entry(
+                wdgts['frm']['info'],
+                validate='key',
+                validatecommand=(
+                    popup.register(validate.contains_char),
+                    '%P',
+                    'ltr',
+                    'dgts',
+                    'space',
+                )
+            ) 
+        }
+        wdgts['btn'] = {
+            'create':ttk.Button(
+                wdgts['frm']['info'],
+                text='Crear',
+                width=10,
+                command=lambda: controller.connector.insert_into(
+                    'project',
+                    wdgts['ety']['prj_name'].get(),
+                    wdgts['ety']['recipient'].get(),
+                    wdgts['ety']['start_date'].get(),
+                    wdgts['ety']['end_date'].get(),
+                    wdgts['ety']['addr'].get()
 
-        info_frm = ttk.Frame(popup)
-        info_frm.pack(side='top', expand=True)
+                )
+            )
+        }
+
+        #--------------------------------Frames---------------------------------
+        wdgts['frm']['title'].grid(row=0, column=0, padx=(12,0), pady=(15,20))
+        wdgts['frm']['info'].grid(row=1, column=0, padx=(15, 0))
 
         #--------------------------------Lables---------------------------------
-        title_lbl = ttk.Label(
-            title_frm,
-            text='Crear proyecto nuevo',
-            font=tkf.Font(family=sv.FONT, size=sv.TITLE_FONT_SIZE)
-        )
-        title_lbl.grid(row=0,column=0, sticky=tk.N)
-        
-        prj_name_lbl = ttk.Label(
-            info_frm,
-            text='Nombre:',
-            font=tkf.Font(family=sv.FONT, size=sv.NORMAL_FONT_SIZE)
-        )
-        prj_name_lbl.grid(row=0, column=0, sticky=tk.W)
+        placer = 0
+        for widget in wdgts['lbl'].values():
+            if widget.master == wdgts['frm']['info']:
+                widget.grid(row=placer, column=0, sticky=tk.W)
+                placer += 2
+            else:
+               widget.grid(row=0,column=0, sticky=tk.NSEW)
 
-        recipient_lbl = ttk.Label(
-            info_frm,
-            text='Cliente:',
-            font=tkf.Font(family=sv.FONT, size=sv.NORMAL_FONT_SIZE)
-        )
-        recipient_lbl.grid(row=2, column=0, sticky=tk.W)
-
-        start_date_lbl = ttk.Label(
-            info_frm,
-            text='Fecha inicio:',
-            font=tkf.Font(family=sv.FONT, size=sv.NORMAL_FONT_SIZE)
-        )
-        start_date_lbl.grid(row=4, column=0, sticky=tk.W)
-
-        end_date_lbl = ttk.Label(
-            info_frm,
-            text='Fecha cierre:',
-            font=tkf.Font(family=sv.FONT, size=sv.NORMAL_FONT_SIZE)
-        )
-        end_date_lbl.grid(row=6, column=0, sticky=tk.W)
-
-        addr_lbl = ttk.Label(
-            info_frm,
-            text='Direccion:',
-            font=tkf.Font(family=sv.FONT, size=sv.NORMAL_FONT_SIZE)
-        )
-        addr_lbl.grid(row=8, column=0, sticky=tk.W)
-
+     
         #-----------------------------Entry-------------------------------------
-        prj_name_ety = ttk.Entry(
-            info_frm,
-            validate='key',
-            validatecommand=(
-                popup.register(validate.contains_char),
-                '%P',
-                'ltrs',
-                'space'
-            )
-        )
-        prj_name_ety.grid(row=1, column=0, pady=(0, 13))
-
-        recipient_ety = ttk.Entry(
-            info_frm,
-            validate='key',
-            validatecommand=(
-                popup.register(validate.contains_char),
-                '%P',
-                'ltrs',
-                'space'
-            )
-        )
-        recipient_ety.grid(row=3, column=0, pady=(0, 13))
-
-        start_date_ety = ttk.Entry(
-            info_frm,
-            validate='key',
-            validatecommand=(
-                popup.register(validate.contains_char),
-                '%P',
-                'dgts',
-            )
-        )
-        start_date_ety.grid(row=5, column=0, pady=(0, 13))
-
-        end_date_ety = ttk.Entry(
-            info_frm,
-            validate='key',
-            validatecommand=(
-                popup.register(validate.contains_char),
-                '%P',
-                'dgts',
-                'frd slash'
-            )
-        )
-        end_date_ety.grid(row=7, column=0, pady=(0, 13))
+        placer = 1
+        popup.update_idletasks()
+        for name, widget in wdgts['ety'].items():
+            widget.grid(row=placer, column=0, pady=(0, 13))
+            placer += 2
+            
         
-        addr_ety = ttk.Entry(
-            info_frm,
-            validate='key',
-            validatecommand=(
-                popup.register(validate.contains_char),
-                '%P',
-                'ltr',
-                'dgts',
-                'space',
-            )
-        )
-        addr_ety.grid(row=9,column=0)
-
         #-------------------------------------Button----------------------------
-        state = tk.StringVar()
-        state_cbx = ttk.Combobox(
-            info_frm,
-            foreground=sv.WHITE,
-            state="readonly",
-            textvariable=state
-        )
-        state_cbx['values'] = [
-            'Seleccione una opcion',
-            'Planeacion',
-            'Construccion'
-        ]
-        state_cbx.grid(row=10, column=0, sticky=tk.E, pady=(9, 0))
-        state_cbx.current(0)
-
-        #-------------------------------------Button----------------------------
-        create_btn = ttk.Button(info_frm,
-            text='Crear',
-            command=lambda: controller.connector.insert_into(
-                'project',
-                prj_name_ety.get(),
-                recipient_ety.get(),
-                start_date_ety.get(),
-                end_date_ety.get(),
-                state.get(),
-                addr_ety.get()
-
-            )
-        )
-        create_btn.grid(row=11,column=0, pady=(20, 0))
+        wdgts['btn']['create'].grid(row=placer,column=0, sticky=tk.NSEW)
 
 
         popup.deiconify()
