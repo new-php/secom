@@ -1,15 +1,16 @@
 import os
 import bcrypt
 import mysql.connector as mysql
-
 from datetime import datetime
+
+
 class Messenger:
     def __init__(self):
         self.DB = mysql.connect(
-            host = os.environ.get('DB_HOST'),
-            user = os.environ.get('DB_USER'),
-            passwd = os.environ.get('DB_PSWD'),
-            database = os.environ.get('DB')
+            host=os.environ.get('DB_HOST'),
+            user=os.environ.get('DB_USER'),
+            passwd=os.environ.get('DB_PSWD'),
+            database=os.environ.get('DB')
         )
 
     def _prepare_args(f):
