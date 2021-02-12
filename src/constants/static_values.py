@@ -1,4 +1,4 @@
-import os
+from pathlib import Path
 
 #  view_name: (width, height)
 WIND_SIZE = {
@@ -16,7 +16,7 @@ TITLE_FONT_SIZE = 15
 NORMAL_FONT_SIZE = 10
 
 # App's mini logo img.
-APP_MINI_LOGO = os.path.abspath("src/assets/imgs/icon.png")
+APP_MINI_LOGO = Path.cwd() / Path('src/assets/imgs/icon.png')
 
 #Apps's font color
 WHITE = "#000000"
