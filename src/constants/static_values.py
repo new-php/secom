@@ -7,7 +7,7 @@ WIND_SIZE = {
     'PHWind': (800, 500),
     'WHWind': (800, 500),
     'OHWind': (800, 500),
-    'CPPopup': (350, 350)
+    'CPPopup': (225, 375)
 }
 
 
