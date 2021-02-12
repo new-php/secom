@@ -85,8 +85,7 @@ class Messenger:
         if not bcrypt.checkpw(ety_pswd.encode('utf8'),password.encode('utf8')):
             raise ValueError('Usuario o contraseña incorrecta.')
         else:
-            user_type = self.get('user_teype', user_name)
-            return user_type[0]
+            return self.get(user_name, 'user_type')
 
 
     def get(self, user_name, *args):
@@ -113,9 +112,11 @@ class Messenger:
 
         if results:
             if len(args) == 1:
-                return (result[0] for result in results)
+                if len(results) == 1: return results[0][0]
+                else: return tuple(result[0] for result in results)
             else:
-                return results
+                if len(results) == 1: return results[0]
+                else: return tuple(result for result in results)
         else:
             raise ValueError('Usiario o contraseña incorrecta.')
 
