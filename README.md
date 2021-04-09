@@ -66,9 +66,9 @@ For the database we are using [MySQL Server](https://www.digitalocean.com/commun
 1. Please go to [__main.py__](src/__main__.py) and change this portion of the code.
 ```python
 
-root.views[root._conv("LIWind")].user_ety.insert(0, "josh-hdz")
-    root.views[root._conv("LIWind")].pswd_ety.insert(0, os.environ.get("DB_PSWD"))
-    root.views[root._conv("LIWind")].logIn_btn.invoke()
+  root.views[root._conv("LIWind")].user_ety.insert(0, "josh-hdz")
+  root.views[root._conv("LIWind")].pswd_ety.insert(0, os.environ.get("DB_PSWD"))
+  root.views[root._conv("LIWind")].logIn_btn.invoke()
 
 ```
 Please note that this will work if you utilized the same password for the MySQL server user, and the new user inside the database, if not you can pass the password as a string.
