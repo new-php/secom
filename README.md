@@ -53,7 +53,7 @@ A list of commonly used resources that I find helpful are listed in the acknowle
 ## Getting Started
 The project is being develop in [Ubuntu 20.04.2.0](https://ubuntu.com/download/desktop).
 
-For the database we are using [MySQL Server](https://www.digitalocean.com/community/tutorials/how-to-install-mysql-on-ubuntu-20-04). In order to properly set up the users please reffer to [requirements.txt](requirements.txt)
+For the database we are using [MySQL Server](https://www.digitalocean.com/community/tutorials/how-to-install-mysql-on-ubuntu-20-04) . In order to properly set up the users please reffer to [requirements.txt](requirements.txt)
 
 ### Prerequisites
 
@@ -93,6 +93,10 @@ Distributed under the GPL-3.0 License. See `LICENSE` for more information.
 Rafael Jimenez - [@01RafaelJimenez](https://https://twitter.com/01RafaelJimenez) - rafaeljimenez_01@hotmail.com
 
 Project Link: [https://github.com/josh-hdz/secom](https://github.com/josh-hdz/secom)
+
+## Reffer 
+
+[MySQL Server Installation Guide](https://docs.vultr.com/how-to-install-mysql-on-ubuntu-24-04) 
 
 ## Acknowledgements
 * [README template](https://github.com/othneildrew/Best-README-Template)
